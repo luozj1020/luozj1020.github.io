@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="引言 无 [MRCTF2020]Easy_RSA 加密代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465import sympyfrom gmpy2 import gcd, invertf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUUCTF 每日打卡 2021-7-15">
+<meta property="og:url" content="https://luozj1020.github.io/uncategorized/2021/07/15/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-15">
+<meta property="og:site_name" content="Σ2333! の 博客">
+<meta property="og:description" content="引言 无 [MRCTF2020]Easy_RSA 加密代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465import sympyfrom gmpy2 import gcd, invertf">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210715085823295.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210715170341760.png">
+<meta property="article:published_time" content="2021-07-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-12T07:53:50.004Z">
+<meta property="article:author" content="Σ2333!">
+<meta property="article:tag" content="Crypto">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210715085823295.png">
+
+<link rel="canonical" href="https://luozj1020.github.io/uncategorized/2021/07/15/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-15">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>BUUCTF 每日打卡 2021-7-15 | Σ2333! の 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Σ2333! の 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/07/15/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-15">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          BUUCTF 每日打卡 2021-7-15
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-15 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-15T00:00:00+08:00">2021-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-12 15:53:50" itemprop="dateModified" datetime="2021-08-12T15:53:50+08:00">2021-08-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="引言">引言</h1>
+<p>无</p>
+<h2 id="mrctf2020easy_rsa">[MRCTF2020]Easy_RSA</h2>
+<p>加密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> gcd, invert</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, isPrime, getRandomNBitInteger, bytes_to_long, long_to_bytes</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> zlib <span class="keyword">import</span> *</span><br><span class="line">flag = <span class="string">b&quot;MRCTF&#123;XXXX&#125;&quot;</span></span><br><span class="line">base = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_prime</span>(<span class="params">N</span>):</span></span><br><span class="line">    A = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        A = getPrime(N)</span><br><span class="line">        <span class="keyword">if</span> A % <span class="number">8</span> == <span class="number">5</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> A</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_p</span>():</span></span><br><span class="line">    p = getPrime(<span class="number">1024</span>)</span><br><span class="line">    q = getPrime(<span class="number">1024</span>)</span><br><span class="line">    <span class="keyword">assert</span> (p &lt; q)</span><br><span class="line">    n = p * q</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;P_n = &quot;</span>, n)</span><br><span class="line">    F_n = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;P_F_n = &quot;</span>, F_n)</span><br><span class="line">    factor2 = <span class="number">2021</span> * p + <span class="number">2020</span> * q</span><br><span class="line">    <span class="keyword">if</span> factor2 &lt; <span class="number">0</span>:</span><br><span class="line">        factor2 = (-<span class="number">1</span>) * factor2</span><br><span class="line">    <span class="keyword">return</span> sympy.nextprime(factor2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_q</span>():</span></span><br><span class="line">    p = getPrime(<span class="number">1024</span>)</span><br><span class="line">    q = getPrime(<span class="number">1024</span>)</span><br><span class="line">    <span class="keyword">assert</span> (p &lt; q)</span><br><span class="line">    n = p * q</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Q_n = &quot;</span>, n)</span><br><span class="line">    e = getRandomNBitInteger(<span class="number">53</span>)</span><br><span class="line">    F_n = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> gcd(e, F_n) != <span class="number">1</span>:</span><br><span class="line">        e = getRandomNBitInteger(<span class="number">53</span>)</span><br><span class="line">    d = invert(e, F_n)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Q_E_D = &quot;</span>, e * d)</span><br><span class="line">    factor2 = <span class="number">2021</span> * p - <span class="number">2020</span> * q</span><br><span class="line">    <span class="keyword">if</span> factor2 &lt; <span class="number">0</span>:</span><br><span class="line">        factor2 = (-<span class="number">1</span>) * factor2</span><br><span class="line">    <span class="keyword">return</span> sympy.nextprime(factor2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    _E = base</span><br><span class="line">    _P = gen_p()</span><br><span class="line">    _Q = gen_q()</span><br><span class="line">    <span class="keyword">assert</span> (gcd(_E, (_P - <span class="number">1</span>) * (_Q - <span class="number">1</span>)) == <span class="number">1</span>)</span><br><span class="line">    _M = bytes_to_long(flag)</span><br><span class="line">    _C = <span class="built_in">pow</span>(_M, _E, _P * _Q)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Ciphertext = &quot;</span>, _C)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">P_n =  14057332139537395701238463644827948204030576528558543283405966933509944444681257521108769303999679955371474546213196051386802936343092965202519504111238572269823072199039812208100301939365080328518578704076769147484922508482686658959347725753762078590928561862163337382463252361958145933210306431342748775024336556028267742021320891681762543660468484018686865891073110757394154024833552558863671537491089957038648328973790692356014778420333896705595252711514117478072828880198506187667924020260600124717243067420876363980538994101929437978668709128652587073901337310278665778299513763593234951137512120572797739181693</span></span><br><span class="line"><span class="string">P_F_n =  14057332139537395701238463644827948204030576528558543283405966933509944444681257521108769303999679955371474546213196051386802936343092965202519504111238572269823072199039812208100301939365080328518578704076769147484922508482686658959347725753762078590928561862163337382463252361958145933210306431342748775024099427363967321110127562039879018616082926935567951378185280882426903064598376668106616694623540074057210432790309571018778281723710994930151635857933293394780142192586806292968028305922173313521186946635709194350912242693822450297748434301924950358561859804256788098033426537956252964976682327991427626735740</span></span><br><span class="line"><span class="string">Q_n =  20714298338160449749545360743688018842877274054540852096459485283936802341271363766157976112525034004319938054034934880860956966585051684483662535780621673316774842614701726445870630109196016676725183412879870463432277629916669130494040403733295593655306104176367902352484367520262917943100467697540593925707162162616635533550262718808746254599456286578409187895171015796991910123804529825519519278388910483133813330902530160448972926096083990208243274548561238253002789474920730760001104048093295680593033327818821255300893423412192265814418546134015557579236219461780344469127987669565138930308525189944897421753947</span></span><br><span class="line"><span class="string">Q_E_D =  100772079222298134586116156850742817855408127716962891929259868746672572602333918958075582671752493618259518286336122772703330183037221105058298653490794337885098499073583821832532798309513538383175233429533467348390389323225198805294950484802068148590902907221150968539067980432831310376368202773212266320112670699737501054831646286585142281419237572222713975646843555024731855688573834108711874406149540078253774349708158063055754932812675786123700768288048445326199880983717504538825498103789304873682191053050366806825802602658674268440844577955499368404019114913934477160428428662847012289516655310680119638600315228284298935201</span></span><br><span class="line"><span class="string">Ciphertext =  40855937355228438525361161524441274634175356845950884889338630813182607485910094677909779126550263304194796000904384775495000943424070396334435810126536165332565417336797036611773382728344687175253081047586602838685027428292621557914514629024324794275772522013126464926990620140406412999485728750385876868115091735425577555027394033416643032644774339644654011686716639760512353355719065795222201167219831780961308225780478482467294410828543488412258764446494815238766185728454416691898859462532083437213793104823759147317613637881419787581920745151430394526712790608442960106537539121880514269830696341737507717448946962021</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>事实上，这种题目吓唬人的成分很大，只要仔细看就能解出来 比如给的第一个函数```gen_prime````完全没有用到 后面的P_n和Q_n也可以爆破出来，然后照着他的加密方法解出P和Q，P_F_n和Q_E_D完全没有用到 最后就是常规的RSA了 解密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"></span><br><span class="line">P_n =  <span class="number">14057332139537395701238463644827948204030576528558543283405966933509944444681257521108769303999679955371474546213196051386802936343092965202519504111238572269823072199039812208100301939365080328518578704076769147484922508482686658959347725753762078590928561862163337382463252361958145933210306431342748775024336556028267742021320891681762543660468484018686865891073110757394154024833552558863671537491089957038648328973790692356014778420333896705595252711514117478072828880198506187667924020260600124717243067420876363980538994101929437978668709128652587073901337310278665778299513763593234951137512120572797739181693</span></span><br><span class="line">P_F_n =  <span class="number">14057332139537395701238463644827948204030576528558543283405966933509944444681257521108769303999679955371474546213196051386802936343092965202519504111238572269823072199039812208100301939365080328518578704076769147484922508482686658959347725753762078590928561862163337382463252361958145933210306431342748775024099427363967321110127562039879018616082926935567951378185280882426903064598376668106616694623540074057210432790309571018778281723710994930151635857933293394780142192586806292968028305922173313521186946635709194350912242693822450297748434301924950358561859804256788098033426537956252964976682327991427626735740</span></span><br><span class="line">Q_n =  <span class="number">20714298338160449749545360743688018842877274054540852096459485283936802341271363766157976112525034004319938054034934880860956966585051684483662535780621673316774842614701726445870630109196016676725183412879870463432277629916669130494040403733295593655306104176367902352484367520262917943100467697540593925707162162616635533550262718808746254599456286578409187895171015796991910123804529825519519278388910483133813330902530160448972926096083990208243274548561238253002789474920730760001104048093295680593033327818821255300893423412192265814418546134015557579236219461780344469127987669565138930308525189944897421753947</span></span><br><span class="line">Q_E_D =  <span class="number">100772079222298134586116156850742817855408127716962891929259868746672572602333918958075582671752493618259518286336122772703330183037221105058298653490794337885098499073583821832532798309513538383175233429533467348390389323225198805294950484802068148590902907221150968539067980432831310376368202773212266320112670699737501054831646286585142281419237572222713975646843555024731855688573834108711874406149540078253774349708158063055754932812675786123700768288048445326199880983717504538825498103789304873682191053050366806825802602658674268440844577955499368404019114913934477160428428662847012289516655310680119638600315228284298935201</span></span><br><span class="line">Ciphertext =  <span class="number">40855937355228438525361161524441274634175356845950884889338630813182607485910094677909779126550263304194796000904384775495000943424070396334435810126536165332565417336797036611773382728344687175253081047586602838685027428292621557914514629024324794275772522013126464926990620140406412999485728750385876868115091735425577555027394033416643032644774339644654011686716639760512353355719065795222201167219831780961308225780478482467294410828543488412258764446494815238766185728454416691898859462532083437213793104823759147317613637881419787581920745151430394526712790608442960106537539121880514269830696341737507717448946962021</span></span><br><span class="line">_E = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># P</span></span><br><span class="line">P_p = <span class="number">118153578345562250550767057731385782963063734586321112579869747650001448473633860305142281504862521928246520876300707405515141444727550839066835195905927281903880307860942630322499106164191736174201506457157272220802515607939618476716593888428832962374494147723577980992661629254713116923690067827155668889571</span></span><br><span class="line">P_q = <span class="number">118975085954858660642562584152139261422493348532593400307960127317249511761542030451912561362687361053191375307180413931721355251895350936376781657674896801388806379750757264377396608174235075021854614328009897408824235800167369204203680938298803752964983358298299699273425596382268869237139724754214443556383</span></span><br><span class="line">P = sympy.nextprime(<span class="number">2021</span> * P_p + <span class="number">2020</span> * P_q)</span><br><span class="line"><span class="built_in">print</span>(P)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Q</span></span><br><span class="line">Q_p = <span class="number">120538849514661970159855851547577637711900368732462953774738483480759950867244867240401273864984981385806453735655967797329769252143125966966236767391995563418243748302685348336642872306042286401427581501609713577329945760930395130411743322595026287853073310150103535873078436896035943385067893062698858976291</span></span><br><span class="line">Q_q = <span class="number">171847486694659608706336923173786708071603689972942289760669690002615525263534483261477699540482615520223300780778172120221008417518590133753701145591943840552802072474293556608389677806415392384924913911677288126066245025731416399656855625839288752326267741979436855441260177305707529456715625062080892327017</span></span><br><span class="line">Q = <span class="number">2021</span> * Q_p - <span class="number">2020</span> * Q_q</span><br><span class="line"><span class="keyword">if</span> Q &lt; <span class="number">0</span>:</span><br><span class="line">    Q = (-<span class="number">1</span>) * Q</span><br><span class="line">Q = sympy.nextprime(Q)</span><br><span class="line"><span class="built_in">print</span>(Q)</span><br><span class="line"></span><br><span class="line"><span class="comment"># flag</span></span><br><span class="line">D = inverse(_E, (P-<span class="number">1</span>)*(Q-<span class="number">1</span>))</span><br><span class="line">M = <span class="built_in">pow</span>(Ciphertext, D, P*Q)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(M))</span><br></pre></td></tr></table></figure> 结果为： <img src="https://img-blog.csdnimg.cn/20210715085823295.png" alt="在这里插入图片描述" /></p>
+<h2 id="actf新生赛2020crypto-aes">[ACTF新生赛2020]crypto-aes</h2>
+<p>加密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Cryptodome.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> flag <span class="keyword">import</span> FLAG</span><br><span class="line"><span class="keyword">from</span> Cryptodome.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    key=os.urandom(<span class="number">2</span>)*<span class="number">16</span></span><br><span class="line">    iv=os.urandom(<span class="number">16</span>)</span><br><span class="line">    <span class="built_in">print</span>(bytes_to_long(key)^bytes_to_long(iv))</span><br><span class="line">    aes=AES.new(key,AES.MODE_CBC,iv)</span><br><span class="line">    enc_flag = aes.encrypt(FLAG)</span><br><span class="line">    <span class="built_in">print</span>(enc_flag)</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>AES基本没有了解过，以前尝试看了加密函数的[官方文档]，没怎么看明白(https://pycryptodome.readthedocs.io/en/latest/src/cipher/aes.html) 只能找<a target="_blank" rel="noopener" href="https://blog.csdn.net/MikeCoke/article/details/113790052">wp</a> 如果只是解题的话，只需要利用 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aes = AES.new(key,AES.MODE_CBC,iv)</span><br><span class="line">flag = aes.decrypt(enc_flag)</span><br></pre></td></tr></table></figure> 两句代码即可，关键是解出<strong>key</strong>（密钥）和<strong>iv</strong>（初始化向量） 可以看到key是由8个重复的随机生成的2bytes,16bits的字符串组成32bytes,256bits字符串，iv则是随机生成16bytes,128bits的字符串 已知key与iv做异或运算得到的结果，所以key的前16bytes字符是不变的，由此可以推断出key 再用key后16bytes与异或的结果进行异或运算可以得到iv 解密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"></span><br><span class="line">xor = <span class="number">91144196586662942563895769614300232343026691029427747065707381728622849079757</span></span><br><span class="line">enc_flag = <span class="string">b&#x27;\x8c-\xcd\xde\xa7\xe9\x7f.b\x8aKs\xf1\xba\xc75\xc4d\x13\x07\xac\xa4&amp;\xd6\x91\xfe\xf3\x14\x10|\xf8p&#x27;</span></span><br><span class="line"></span><br><span class="line">key = long_to_bytes(xor)[:<span class="number">16</span>] * <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(key)</span><br><span class="line">iv = bytes_to_long(long_to_bytes(xor)[<span class="number">16</span>:]) ^ bytes_to_long(key[<span class="number">16</span>:])</span><br><span class="line">iv = long_to_bytes(iv)</span><br><span class="line">aes = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">flag = aes.decrypt(enc_flag)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>结果为： <img src="https://img-blog.csdnimg.cn/20210715170341760.png" alt="在这里插入图片描述" /></p>
+<h2 id="结语">结语：</h2>
+<p>希望继续坚持</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Crypto/" rel="tag"># Crypto</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/uncategorized/2021/07/14/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-14" rel="prev" title="BUUCTF 每日打卡 2021-7-14">
+      <i class="fa fa-chevron-left"></i> BUUCTF 每日打卡 2021-7-14
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/uncategorized/2021/07/16/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-16" rel="next" title="BUUCTF 每日打卡 2021-7-16">
+      BUUCTF 每日打卡 2021-7-16 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mrctf2020easy_rsa"><span class="nav-number">1.1.</span> <span class="nav-text">[MRCTF2020]Easy_RSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#actf%E6%96%B0%E7%94%9F%E8%B5%9B2020crypto-aes"><span class="nav-number">1.2.</span> <span class="nav-text">[ACTF新生赛2020]crypto-aes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">1.3.</span> <span class="nav-text">结语：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Σ2333!</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Σ2333!</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

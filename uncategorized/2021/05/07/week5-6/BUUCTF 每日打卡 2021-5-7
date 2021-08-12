@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="BUUCTF 每日打卡 2021-5-7 引言 无 大数计算 题目描述： flag等于 wctf2020{Part1-Part2-Part3-Part4} 每一Part都为数的十六进制形式（不需要0x)，并用 &#39;-&#39; 连接 Part1 &#x3D; \(2020*2019*2018* \cdots *3*2*1\) 的前8位 Part2 &#x3D; \(520^{1314} + 2333^{666}\) 的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUUCTF 每日打卡 2021-5-7">
+<meta property="og:url" content="https://luozj1020.github.io/uncategorized/2021/05/07/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-7">
+<meta property="og:site_name" content="Σ2333! の 博客">
+<meta property="og:description" content="BUUCTF 每日打卡 2021-5-7 引言 无 大数计算 题目描述： flag等于 wctf2020{Part1-Part2-Part3-Part4} 每一Part都为数的十六进制形式（不需要0x)，并用 &#39;-&#39; 连接 Part1 &#x3D; \(2020*2019*2018* \cdots *3*2*1\) 的前8位 Part2 &#x3D; \(520^{1314} + 2333^{666}\) 的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210507232309432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210508000255327.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210507233058802.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210507234242652.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210507234359224.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-05-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-12T07:49:04.226Z">
+<meta property="article:author" content="Σ2333!">
+<meta property="article:tag" content="Crypto">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210507232309432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="https://luozj1020.github.io/uncategorized/2021/05/07/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-7">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>BUUCTF 每日打卡 2021-5-7 | Σ2333! の 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Σ2333! の 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/05/07/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-7">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          BUUCTF 每日打卡 2021-5-7
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-07 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-07T00:00:00+08:00">2021-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-12 15:49:04" itemprop="dateModified" datetime="2021-08-12T15:49:04+08:00">2021-08-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="buuctf-每日打卡-2021-5-7">BUUCTF 每日打卡 2021-5-7</h2>
+<h2 id="引言">引言</h2>
+<p>无</p>
+<h2 id="大数计算">大数计算</h2>
+<p>题目描述： flag等于 wctf2020{Part1-Part2-Part3-Part4} 每一Part都为数的十六进制形式（不需要0x)，并用 '-' 连接 Part1 = <span class="math inline">\(2020*2019*2018* \cdots *3*2*1\)</span> 的前8位 Part2 = <span class="math inline">\(520^{1314} + 2333^{666}\)</span> 的前8位 Part3 = 宇宙终极问题的答案 <span class="math inline">\(x,y,z\)</span> 绝对值和的前8位 Part4 = 见图片附件，计算结果乘上<span class="math inline">\(1314\)</span></p>
+<h3 id="part1">Part1</h3>
+<p>编写一个简单的代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">result = <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2020</span>):</span><br><span class="line">    result *= (i+<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure> 结果为： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">386096951826724872377527755309254829575652833764136996704568320001962744375418996245016343070140495922821200614629613676056064037951380768693631095293969806083283419391122768593135371533669789505644746708636245286071667761717496505605794126236016354348784410240335472055757629538266448781423997420044753128592681490931155652500393981945786030349664533711594345568989302186320705026331591010701401806321162676014168267730443127229747356930582741007966787455099581158386524638372751639313267766129679555735375331455412649323831848690561911358863665291691253184884758093169216097558804246779418405854622335480512182276766264945125914275956103428084284556933827302002697216249895052496440541172520541257873419634034161103824199316296993063661010122247477806751684315159325496718242301326410047304634788457407629483612153384782033983257542806498117448100169850242485622135551834378243035590642352839055096183047501262709727667023809372071930180723811416036636750921242111077253225291490924545632327925057149716099795229733989622278323677405784299876565959582090676790727740307049077225508605566490968403536385735238912741726753153654163800192588170739101544001978507890178193666229850683801023093469605890012191345770905436000032556827322145416135640856057548854287333531160062595436210299154833029310707445362782649537335586073636441409352069691324058033881627521130303343921325446543099236423768017622330952822024309856222944411670467670029292434583401736238439303991700945727580238299750982559170548833139100553910689597287121942263594164151082680213395221663587816012606720015052645832622621471333102685422392447559330215438244237647008830170109515277728376740158127469507982306996887556451828368694363732003992198093879746125762368988032934128856143997941342867059780561839990632437177907064694382432079447096605996943877612866685823347086095028180222170710715928986388757360066746071573539728102642573049976996579847448174187164026466837941823296708220196587010386827277994485087677372620093957914089258169972214872563807439573846201771190457487767436383507920863265001158985530332683629614342467843804937221206800149726658420435494370022064907930073825842356140820286864504429150801511854514365890388184309207375633689423525046829286070427382305637485912596973375367419760345739950217980127302509287481854594278265427658981413690677647108075218848723615631183228998263867303745241836596694419145869217246024705077412378592333080136866437588005631900741990955327512376380828834010898865112109122200117679929527578871952101638590795253704401058529870302842722801768976320289167271902599225625767622305121280203492060037659871687735744553956446891872856397638184308752827275833141465241377237087280607247672227911921476510099466427100947464296939925307947903326972670620615266725024373992589830067802295068263706563543372266200657231075725406225813916087447037257516901879820294473007469699120258797394881069240769625444137446394025363698666039205630857709229029682411964627222481342313835400760000248298282014684789191216782161001313299389221096618273488723978734883910176473532912398103689047801184926163882078889516242948227926207222798398599415190198383379958023224921700008504785581886491831617089767423337158587605657695370924035915232465034278959481229277255278641922703818140279236081674495149412290836894544282115179683616118844191583046672479060000997496671880332878428953950612778358032083448023516233258828937364836898528863330898553728662430714476112310836556548819026772896916666672491022632933230082044594787660656479369609508622352899543941383995692550547567969679794689990261140429300073943357022253659335410345587776835600085239314982274092032142617241600285547606153599286848476863161163541783080974843391064827635422937416295803320652151693691769908939733927283127338535832997562295235291634892349205745118756949780889187123971284330764415768476973033998802916258114465575907763749305205635060986278491975514474464672254458806857234410272869494209351555904987662052843555593641077334735000243185871626166435489995567743531839402525319028777252590673740070657146817606781166399960411132861682002655514447098043836381875601009788125213646389121448684764478666800367960493084953255241805961090727464679546615218982157594620688546771982908471364789755878887707044374010944486692997646137003523014144478339200998768863760703237203498326237220307578035692438887844741169784356786186401985299971489879829923194004083856969480041497397289465262863214647978593940815429794201584815761969377077597754446250785589118819688309472535988847810731264852902520018791994847255177619133199103397784696304617128344478292442325121108591633318029061667864784808515527387560252024100796176430107903015131441779467272344895619105502295519265018507118428238756968370367729287885962903983789250413811180716741127223957387264111710541149510905192956624428207083391894030881029258437087456354854256388583861141432235437699695203894352189291895609764592583127247584093330090479305172063745326415499877435366649909958866611266850377258481988425964258871356114398124542854504460141256012894066714195604604296809443585918770552117029738264919661512180130075143844966812954224436082616963714987190523714733696955227936508156266340713059106114761487944040893851195897985233581632996731726844059926287692271399731200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span></span><br></pre></td></tr></table></figure> Part1：38609695 转十六进制：24D231F</p>
+<h3 id="part2">Part2</h3>
+<p>直接用 python 算：<img src="https://img-blog.csdnimg.cn/20210507232309432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 结果为： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">67358675073930576996073993722567461850164722807074564948878417317473402927052829127082792032180094796252395096433983198952274168335392450509538309593385666431514980590592716015855911289321506036686643999492477513757215924758776455044536037020140456863773999261918973328815695045710068615401644013371977309012103898412096306361548001024977583422217671458264501188363086490125698404411163875599250631472344791340890807258094473727320110195601853152755087240330894053335818131077110273175715028846928201286446627946414753140891422257217210657051018005119011231825729783206822743971574711110393874816976266354981853740848193017816398023462606903346766612687790408415070020255296249418676249807212441079026250983961692920652966680193496784706192692613628105543621116002202680144634223494461659625064734199269350540205779713480943543889927915919259683768965037082643370773459533965219810073840472443356812334913011267861631024583721439843313283632252393379630383299598523037929812133138807072044576906149490490113840653244256197362973674055842990181720796496141363505718393822270218527760700369994972831534842781472514105407807279417668179333578100464787815389196826955497201910672296944059409606029603730111157226386643599020499425611604798218989413785508164561159754542908177698601111851024642335136611527906723782867198103433350776510482418582828560882474001127337861205717439932975849518063393530401772837736924736914846285298676339811297353234924091794918188257309391813418599493372303068163108621417737278803530572213749972358034814384186787621021593911334049398408117962215128441151972529070470429717565266547734379348873150272523271822724131161260146953117253978239691913721988312421114234651848572209530437943447365774218261113652983590167268527243129712467973675150813885739222841289549709569689560918679552000804353102265587269536197104995365208113361238214793349376601709287320691962025569441318004962409752672175447871755400848907951316397028636550476284126600721896236978828578849024817047688627396567760215637844575781201340411713410901387415097150001810731644704906580463682092951091073376627966232966312329119203820184242415159480596553046863575499835934379905722318707119304564096837225570386337451111503621022869027771621941235105328508169429847297696160848087696110478698810948121137387936577551170478133221632051268190997414006106830275793171130669067945012054593847771690058584752626174521036167711725373472145872472987785584869677825221641781524433380680668092633822451335545271833203427482749996978964078435417941459565163307999239089382722108845684107513974453105597828187596947603390837292678451072673709372346741758978218449321284455510126397518967502185664874536990177693703924032798926123849737513057251304979953532246771553748100752530930394182885368167026727688409697271253702259642032797882327918994179815400383367337203215938064919399556687943521993823720750997305976057751840104981535895783291939176032118935838607493242555676289868798140683411268035331709077028634328818544056041101480762484035614265528718720132396302035616727694893643384384202696363883821952117653841426152212136741932330060968422184519178149199302895488289650118600183818496708016481413704242955462575482947926185049572277249034187278692428277207506362256097428904426717710977347411241809884859683037796946927621459794307572757322054131305574740424632144992602305052743261521941792148633841874961055208272462900770503933839068194426250247291864679430728943202539192872303333804358392481348403129810207376835075575297015491422237138339359562906817960418892175230875862569</span></span><br></pre></td></tr></table></figure> Part2：67358675 转十六进制：403CFD3</p>
+<h3 id="part3">Part3</h3>
+<p>宇宙终极问题：求 <span class="math inline">\(x,y,z\)</span> 满足方程 <span class="math inline">\(x^{3} + y^{3} + z^{3} = 42\)</span> （别看知乎，里面答案都是错的，不过提供了 42 和 丢番图方程两个线索） 参考文章：<a target="_blank" rel="noopener" href="https://www.theregister.com/2019/09/07/three_cubes_problem/">https://www.theregister.com/2019/09/07/three_cubes_problem/</a> 可知 <span class="math display">\[
+\begin{cases}
+x = -80538738812075974\\
+y =  80435758145817515\\
+z =  12602123297335631\\
+\end{cases}
+\]</span> 分别取绝对值相加： <img src="https://img-blog.csdnimg.cn/20210508000255327.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<p>结果为：173576620255229120 Part3：17357662 转十六进制：108DB5E</p>
+<h3 id="part4">Part4</h3>
+<p>先计算下面的定积分： <img src="https://img-blog.csdnimg.cn/20210507233058802.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 当然可以手算： <span class="math display">\[
+\mathop{ \int }\nolimits_0^222x \text{d} x + 36 = x^{2} |^{22}_{0} + 36 = 520
+\]</span> 或者可以用 SageMath： <img src="https://img-blog.csdnimg.cn/20210507234242652.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 计算结果： <img src="https://img-blog.csdnimg.cn/20210507234359224.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> Part4：683280 转十六进制：A6D10</p>
+<p>最终得到 flag：wctf2020{24d231f-403cfd3-108db5e-a6d10}</p>
+<h2 id="结语">结语</h2>
+<p>希望继续坚持</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Crypto/" rel="tag"># Crypto</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/uncategorized/2021/05/06/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-6" rel="prev" title="BUUCTF 每日打卡 2021-5-6">
+      <i class="fa fa-chevron-left"></i> BUUCTF 每日打卡 2021-5-6
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/uncategorized/2021/05/08/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-8" rel="next" title="BUUCTF 每日打卡 2021-5-8">
+      BUUCTF 每日打卡 2021-5-8 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#buuctf-%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1-2021-5-7"><span class="nav-number">1.</span> <span class="nav-text">BUUCTF 每日打卡 2021-5-7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%95%B0%E8%AE%A1%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">大数计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#part1"><span class="nav-number">3.1.</span> <span class="nav-text">Part1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#part2"><span class="nav-number">3.2.</span> <span class="nav-text">Part2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#part3"><span class="nav-number">3.3.</span> <span class="nav-text">Part3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#part4"><span class="nav-number">3.4.</span> <span class="nav-text">Part4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Σ2333!</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Σ2333!</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
