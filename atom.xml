@@ -6,7 +6,7 @@
   <link href="https://luozj1020.github.io/atom.xml" rel="self"/>
   
   <link href="https://luozj1020.github.io/"/>
-  <updated>2021-08-12T08:46:08.104Z</updated>
+  <updated>2021-08-12T14:22:06.396Z</updated>
   <id>https://luozj1020.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>BUUCTF 每日打卡 2021-8-11</title>
+    <link href="https://luozj1020.github.io/uncategorized/2021/08/11/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-11"/>
+    <id>https://luozj1020.github.io/uncategorized/2021/08/11/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-11</id>
+    <published>2021-08-10T16:00:00.000Z</published>
+    <updated>2021-08-12T14:22:06.396Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;引言&quot;&gt;引言&lt;/h1&gt;
+&lt;p&gt;这两天把博客里里外外翻新了一遍，拖更了，抱歉&lt;/p&gt;
+&lt;h2 id=&quot;xnuca2018baby_crypto&quot;&gt;[XNUCA2018]baby_crypto&lt;/h2&gt;
+&lt;p&gt;题目给了个加密的伪代码文件： The 26</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Crypto" scheme="https://luozj1020.github.io/tags/Crypto/"/>
+    
+  </entry>
   
   <entry>
     <title>BUUCTF 每日打卡 2021-8-9</title>
@@ -506,32 +532,6 @@
 &lt;h2 id=&quot;mrctf2020easy_rsa&quot;&gt;[MRCTF2020]Easy_RSA&lt;/h2&gt;
 &lt;p&gt;加密代码如下：&lt;/p&gt;
 &lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Crypto" scheme="https://luozj1020.github.io/tags/Crypto/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BUUCTF 每日打卡 2021-7-14</title>
-    <link href="https://luozj1020.github.io/uncategorized/2021/07/14/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-14"/>
-    <id>https://luozj1020.github.io/uncategorized/2021/07/14/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-14</id>
-    <published>2021-07-13T16:00:00.000Z</published>
-    <updated>2021-08-12T08:46:08.096Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;buuctf-每日打卡-2021-7-14&quot;&gt;BUUCTF 每日打卡 2021-7-14&lt;/h1&gt;
-&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
-&lt;p&gt;鸽了快两个月，假期继续刷BUU，可以的话继续cryptohack&lt;/p&gt;
-&lt;h2</summary>
         
       
     
