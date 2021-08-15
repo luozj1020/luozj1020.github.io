@@ -12,12 +12,14 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto:300,300italic,400,400italic,700,700italic|Source Sans Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livers","storage":false,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="引言 无 [羊城杯 2020]RRRRRRRSA 加密代码如下： 12345678910111213141516171819202122232425262728293031323334353637import sympyfrom Crypto.Util.number import *flag &#x3D; &amp;#x27;GWHT&amp;#123;************&amp;#125;&amp;#x27;flag1 &#x3D;">
@@ -92,6 +94,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+<!-- 加入APlayer音乐播放器 -->
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
   <div class="container use-motion">
     <div class="headband"></div>
 
@@ -116,6 +125,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -130,16 +140,48 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -191,6 +233,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -208,9 +257,9 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;GWHT&#123;************&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line">flag1 = flag[:<span class="number">19</span>].encode()</span><br><span class="line">flag2 = flag[<span class="number">19</span>:].encode()</span><br><span class="line"><span class="keyword">assert</span>(<span class="built_in">len</span>(flag) == <span class="number">38</span>)</span><br><span class="line"></span><br><span class="line">P1 = getPrime(<span class="number">1038</span>)</span><br><span class="line">P2 = sympy.nextprime(P1)</span><br><span class="line"><span class="keyword">assert</span>(P2 - P1 &lt; <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">Q1 = getPrime(<span class="number">512</span>)</span><br><span class="line">Q2 = sympy.nextprime(Q1)</span><br><span class="line"></span><br><span class="line">N1 = P1 * P1 * Q1</span><br><span class="line">N2 = P2 * P2 * Q2</span><br><span class="line"></span><br><span class="line">E1 = getPrime(<span class="number">1024</span>)</span><br><span class="line">E2 = sympy.nextprime(E1)</span><br><span class="line"></span><br><span class="line">m1 = bytes_to_long(flag1)</span><br><span class="line">m2 = bytes_to_long(flag2)</span><br><span class="line"></span><br><span class="line">c1 = <span class="built_in">pow</span>(m1, E1, N1)</span><br><span class="line">c2 = <span class="built_in">pow</span>(m2, E2, N2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">output = <span class="built_in">open</span>(<span class="string">&#x27;secret&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">output.write(<span class="string">&#x27;N1=&#x27;</span> + <span class="built_in">str</span>(N1) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">output.write(<span class="string">&#x27;c1=&#x27;</span> + <span class="built_in">str</span>(c1) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">output.write(<span class="string">&#x27;E1=&#x27;</span> + <span class="built_in">str</span>(E1) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">output.write(<span class="string">&#x27;N2=&#x27;</span> + <span class="built_in">str</span>(N2) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">output.write(<span class="string">&#x27;c2=&#x27;</span> + <span class="built_in">str</span>(c2) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">output.write(<span class="string">&#x27;E2=&#x27;</span> + <span class="built_in">str</span>(E2) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">output.close()</span><br></pre></td></tr></table></figure>
 <p>secret如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">N1=<span class="number">60143104944034567859993561862949071559877219267755259679749062284763163484947626697494729046430386559610613113754453726683312513915610558734802079868190554644983911078936369464590301246394586190666760362763580192139772729890492729488892169933099057105842090125200369295070365451134781912223048179092058016446222199742919885472867511334714233086339832790286482634562102936600597781342756061479024744312357407750731307860842457299116947352106025529309727703385914891200109853084742321655388368371397596144557614128458065859276522963419738435137978069417053712567764148183279165963454266011754149684758060746773409666706463583389316772088889398359242197165140562147489286818190852679930372669254697353483887004105934649944725189954685412228899457155711301864163839538810653626724347</span></span><br><span class="line">c1=<span class="number">55094296873556883585060020895253176070835143350249581136609315815308788255684072804968957510292559743192424646169207794748893753882418256401223641287546922358162629295622258913168323493447075410872354874300793298956869374606043622559405978242734950156459436487837698668489891733875650048466360950142617732135781244969524095348835624828008115829566644654403962285001724209210887446203934276651265377137788183939798543755386888532680013170540716736656670269251318800501517579803401154996881233025210176293554542024052540093890387437964747460765498713092018160196637928204190194154199389276666685436565665236397481709703644555328705818892269499380797044554054118656321389474821224725533693520856047736578402581854165941599254178019515615183102894716647680969742744705218868455450832</span></span><br><span class="line">E1=<span class="number">125932919717342481428108392434488550259190856475011752106073050593074410065655587870702051419898088541590032209854048032649625269856337901048406066968337289491951404384300466543616578679539808215698754491076340386697518948419895268049696498272031094236309803803729823608854215226233796069683774155739820423103</span></span><br><span class="line">N2=<span class="number">60143104944034567859993561862949071559877219267755259679749062284763163484947626697494729046430386559610613113754453726683312513915610558734802079868195633647431732875392121458684331843306730889424418620069322578265236351407591029338519809538995249896905137642342435659572917714183543305243715664380787797562011006398730320980994747939791561885622949912698246701769321430325902912003041678774440704056597862093530981040696872522868921139041247362592257285423948870944137019745161211585845927019259709501237550818918272189606436413992759328318871765171844153527424347985462767028135376552302463861324408178183842139330244906606776359050482977256728910278687996106152971028878653123533559760167711270265171441623056873903669918694259043580017081671349232051870716493557434517579121</span></span><br><span class="line">c2=<span class="number">39328446140156257571484184713861319722905864197556720730852773059147902283123252767651430278357950872626778348596897711320942449693270603776870301102881405303651558719085454281142395652056217241751656631812580544180434349840236919765433122389116860827593711593732385562328255759509355298662361508611531972386995239908513273236239858854586845849686865360780290350287139092143587037396801704351692736985955152935601987758859759421886670907735120137698039900161327397951758852875291442188850946273771733011504922325622240838288097946309825051094566685479503461938502373520983684296658971700922069426788236476575236189040102848418547634290214175167767431475003216056701094275899211419979340802711684989710130215926526387138538819531199810841475218142606691152928236362534181622201347</span></span><br><span class="line">E2=<span class="number">125932919717342481428108392434488550259190856475011752106073050593074410065655587870702051419898088541590032209854048032649625269856337901048406066968337289491951404384300466543616578679539808215698754491076340386697518948419895268049696498272031094236309803803729823608854215226233796069683774155739820425393</span></span><br></pre></td></tr></table></figure>
-<p>刚拿到题目时注意到： <img src="https://img-blog.csdnimg.cn/d794e02fd7dd43549f49f1b5a91f8908.png" alt="在这里插入图片描述" /> 想着能不能利用这个条件把<code>P1,P2</code>爆破出来，后来发现数字太大不好爆破 又看这个<code>E1,E2</code>很大，能不能用wiener attack（你要忍一下），结果网上找到脚本解不出来 然后就想干脆直接爆破<code>N1, N2</code>吧，就试着<code>factordb</code>了一下，结果： <img src="https://img-blog.csdnimg.cn/ab8d76f8c8c5448485d42461e48ddeaa.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 笑死 花里胡哨，一拳打死 然后就是RSA解密，和平常不同的是，<code>N</code>由三个素数相乘，怎么计算φ 可以参考这篇<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56548135">欧拉函数的计算式</a> <img src="https://img-blog.csdnimg.cn/79e7371a275a4aad9a096897e3d9325f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 解密代码如下：</p>
+<p>刚拿到题目时注意到： <img data-src="https://img-blog.csdnimg.cn/d794e02fd7dd43549f49f1b5a91f8908.png" alt="在这里插入图片描述" /> 想着能不能利用这个条件把<code>P1,P2</code>爆破出来，后来发现数字太大不好爆破 又看这个<code>E1,E2</code>很大，能不能用wiener attack（你要忍一下），结果网上找到脚本解不出来 然后就想干脆直接爆破<code>N1, N2</code>吧，就试着<code>factordb</code>了一下，结果： <img data-src="https://img-blog.csdnimg.cn/ab8d76f8c8c5448485d42461e48ddeaa.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 笑死 花里胡哨，一拳打死 然后就是RSA解密，和平常不同的是，<code>N</code>由三个素数相乘，怎么计算φ 可以参考这篇<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56548135">欧拉函数的计算式</a> <img data-src="https://img-blog.csdnimg.cn/79e7371a275a4aad9a096897e3d9325f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 解密代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">N1 = <span class="number">60143104944034567859993561862949071559877219267755259679749062284763163484947626697494729046430386559610613113754453726683312513915610558734802079868190554644983911078936369464590301246394586190666760362763580192139772729890492729488892169933099057105842090125200369295070365451134781912223048179092058016446222199742919885472867511334714233086339832790286482634562102936600597781342756061479024744312357407750731307860842457299116947352106025529309727703385914891200109853084742321655388368371397596144557614128458065859276522963419738435137978069417053712567764148183279165963454266011754149684758060746773409666706463583389316772088889398359242197165140562147489286818190852679930372669254697353483887004105934649944725189954685412228899457155711301864163839538810653626724347</span></span><br><span class="line">c1 = <span class="number">55094296873556883585060020895253176070835143350249581136609315815308788255684072804968957510292559743192424646169207794748893753882418256401223641287546922358162629295622258913168323493447075410872354874300793298956869374606043622559405978242734950156459436487837698668489891733875650048466360950142617732135781244969524095348835624828008115829566644654403962285001724209210887446203934276651265377137788183939798543755386888532680013170540716736656670269251318800501517579803401154996881233025210176293554542024052540093890387437964747460765498713092018160196637928204190194154199389276666685436565665236397481709703644555328705818892269499380797044554054118656321389474821224725533693520856047736578402581854165941599254178019515615183102894716647680969742744705218868455450832</span></span><br><span class="line">E1 = <span class="number">125932919717342481428108392434488550259190856475011752106073050593074410065655587870702051419898088541590032209854048032649625269856337901048406066968337289491951404384300466543616578679539808215698754491076340386697518948419895268049696498272031094236309803803729823608854215226233796069683774155739820423103</span></span><br><span class="line">N2 = <span class="number">60143104944034567859993561862949071559877219267755259679749062284763163484947626697494729046430386559610613113754453726683312513915610558734802079868195633647431732875392121458684331843306730889424418620069322578265236351407591029338519809538995249896905137642342435659572917714183543305243715664380787797562011006398730320980994747939791561885622949912698246701769321430325902912003041678774440704056597862093530981040696872522868921139041247362592257285423948870944137019745161211585845927019259709501237550818918272189606436413992759328318871765171844153527424347985462767028135376552302463861324408178183842139330244906606776359050482977256728910278687996106152971028878653123533559760167711270265171441623056873903669918694259043580017081671349232051870716493557434517579121</span></span><br><span class="line">c2 = <span class="number">39328446140156257571484184713861319722905864197556720730852773059147902283123252767651430278357950872626778348596897711320942449693270603776870301102881405303651558719085454281142395652056217241751656631812580544180434349840236919765433122389116860827593711593732385562328255759509355298662361508611531972386995239908513273236239858854586845849686865360780290350287139092143587037396801704351692736985955152935601987758859759421886670907735120137698039900161327397951758852875291442188850946273771733011504922325622240838288097946309825051094566685479503461938502373520983684296658971700922069426788236476575236189040102848418547634290214175167767431475003216056701094275899211419979340802711684989710130215926526387138538819531199810841475218142606691152928236362534181622201347</span></span><br><span class="line">E2 = <span class="number">125932919717342481428108392434488550259190856475011752106073050593074410065655587870702051419898088541590032209854048032649625269856337901048406066968337289491951404384300466543616578679539808215698754491076340386697518948419895268049696498272031094236309803803729823608854215226233796069683774155739820425393</span></span><br><span class="line">P1 = <span class="number">2274225198252001349705635635570523977229824105257244100474886998299874359980121470818908135119780772090534507154122446275044273088642034569778714650980895003300783785404556303992237495059194352539844239687490397036174178433587393753764414486675415691276936408808667228951877003555601842900641222777857711016758899</span></span><br><span class="line">Q1 = <span class="number">11628371843051760370952910026406764366191062991235308941262037248377376991693250742343307155422036713746576338866595433599862614339347536916226536644210947</span></span><br><span class="line">P2 = sympy.nextprime(P1)</span><br><span class="line">Q2 = sympy.nextprime(Q1)</span><br><span class="line"></span><br><span class="line">phi1 = P1 * (P1 - <span class="number">1</span>) * (Q1 - <span class="number">1</span>)</span><br><span class="line">phi2 = P2 * (P2 - <span class="number">1</span>) * (Q2 - <span class="number">1</span>)</span><br><span class="line">d1 = inverse(E1, phi1)</span><br><span class="line">d2 = inverse(E2, phi2)</span><br><span class="line">m1 = <span class="built_in">pow</span>(c1, d1, N1)</span><br><span class="line">m2 = <span class="built_in">pow</span>(c2, d2, N2)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m1) + long_to_bytes(m2))</span><br></pre></td></tr></table></figure>
-<p>结果为： <img src="https://img-blog.csdnimg.cn/73af610698204b3d9150b6f7724b0a10.png" alt="在这里插入图片描述" /> 如果真的是这么解的话那就太草了，就去找了找<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44110537/article/details/108560055">大佬的解法</a>，采用了<strong>连分数,低解密指数攻击原理</strong> RSA中有一个很著名的攻击方法，低解密指数攻击，其中的代表就是<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21858074">wiener attack</a> 其中就用到了连分数，具体原理网上都有，这里不再赘述 唯一令我疑惑的是，为什么可以用连分数，并且保证有解（这在很多介绍维纳攻击法的文章中是没有提到或者一笔带过的），我找到了一篇<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/cs/0402052.pdf">介绍wiener attack的论文</a>，有这样一段话： <img src="https://img-blog.csdnimg.cn/436a97630beb4afa8c07ddd841ecb5c8.png" alt="在这里插入图片描述" /> 然后我去搜了关于连分数的勒让德理论，找到了<a target="_blank" rel="noopener" href="http://personal.psu.edu/rcv4/677C02.pdf">另一篇论文</a>，给出了证明： <img src="https://img-blog.csdnimg.cn/d90a26be9d40448d8499a52812f7dd70.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 关于维纳攻击法的完整推导，我打算出一期完整的博客 关于本题，由于 <span class="math display">\[
+<p>结果为： <img data-src="https://img-blog.csdnimg.cn/73af610698204b3d9150b6f7724b0a10.png" alt="在这里插入图片描述" /> 如果真的是这么解的话那就太草了，就去找了找<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44110537/article/details/108560055">大佬的解法</a>，采用了<strong>连分数,低解密指数攻击原理</strong> RSA中有一个很著名的攻击方法，低解密指数攻击，其中的代表就是<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21858074">wiener attack</a> 其中就用到了连分数，具体原理网上都有，这里不再赘述 唯一令我疑惑的是，为什么可以用连分数，并且保证有解（这在很多介绍维纳攻击法的文章中是没有提到或者一笔带过的），我找到了一篇<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/cs/0402052.pdf">介绍wiener attack的论文</a>，有这样一段话： <img data-src="https://img-blog.csdnimg.cn/436a97630beb4afa8c07ddd841ecb5c8.png" alt="在这里插入图片描述" /> 然后我去搜了关于连分数的勒让德理论，找到了<a target="_blank" rel="noopener" href="http://personal.psu.edu/rcv4/677C02.pdf">另一篇论文</a>，给出了证明： <img data-src="https://img-blog.csdnimg.cn/d90a26be9d40448d8499a52812f7dd70.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 关于维纳攻击法的完整推导，我打算出一期完整的博客 关于本题，由于 <span class="math display">\[
 \dfrac{N1}{N2} = \left(\dfrac{P1}{P2}\right)^{2}\left(\dfrac{Q1}{Q2}\right)
 \]</span> 又因为有<code>P2 = sympy.nextprime(P1)</code>，<code>Q2 = sympy.nextprime(Q1)</code>且<span class="math inline">\(P2-P1&lt;1000\)</span> 所以有<span class="math inline">\(\dfrac{Q1}{Q2} &lt; \dfrac{N1}{N2}\)</span>且<span class="math inline">\(\dfrac{P1}{P2} \approx 1\)</span>，<span class="math inline">\(\dfrac{Q1}{Q2} \to 1\)</span> 但是不能确定是否满足条件： <span class="math display">\[
 \left| \dfrac{N1}{N2}-\dfrac{Q1}{Q2}\right| = \left[ \left(\dfrac{P1}{P2} - 1\right)^{2}\right] \left(\dfrac{Q1}{Q2}\right)&lt;\dfrac{1}{2(Q2)^{2}}
@@ -225,6 +274,23 @@
     
     
     
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Σ2333!
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luozj1020.github.io/uncategorized/2021/08/13/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-13" title="BUUCTF 每日打卡 2021-8-13">https://luozj1020.github.io/uncategorized/2021/08/13/vacation_week4-5/BUUCTF 每日打卡 2021-8-13</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
         
 
   <div class="followme">
@@ -244,10 +310,13 @@
     </div>
   </div>
 
+      
+      <div> <div> <div style="text-align:center;color:#bfbfbf;font-size:16px;"> <span>-------- 本文结束 </span> <i class="fa fa-paw"></i> <span> 感谢阅读 --------</span> </div> </div>
+ </div>
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Crypto/" rel="tag"># Crypto</a>
+              <a href="/tags/Crypto/" rel="tag"><i class="fa fa-tags"></i> Crypto</a>
           </div>
 
         
@@ -374,6 +443,26 @@
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -387,7 +476,10 @@
   </div>
 
   
+  
+  <script color='255,250,250' opacity='0.7' zIndex='-1' count='80' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -407,6 +499,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -479,8 +575,77 @@
 
   
 
+
+  
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    //只在桌面版网页启用特效
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('#header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+          $('#sidebar').wobbleWindow({
+            radius: 50,
+            movementLeft: false,
+            movementTop: false,
+            movementBottom: false,
+            position: 'fixed',
+            debug: false,
+          });
+        
+
+        
+          $('#footer').wobbleWindow({
+            radius: 50,
+            movementBottom: false,
+            movementLeft: false,
+            movementRight: false,
+            offsetX: ,
+            position: 'absolute',
+            debug: false,
+          });
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
 <script src="/live2d-widget/autoload.js"></script>
+
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>

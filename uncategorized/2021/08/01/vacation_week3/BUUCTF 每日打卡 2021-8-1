@@ -12,12 +12,14 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto:300,300italic,400,400italic,700,700italic|Source Sans Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livers","storage":false,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="引言 无 [2021i春秋云上巅峰赛]MediclImage 题面：  加密代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576from PIL">
@@ -90,6 +92,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+<!-- 加入APlayer音乐播放器 -->
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
   <div class="container use-motion">
     <div class="headband"></div>
 
@@ -114,6 +123,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -128,16 +138,48 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -195,6 +237,13 @@
               </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -208,9 +257,9 @@
         <h1 id="引言">引言</h1>
 <p>无</p>
 <h2 id="i春秋云上巅峰赛mediclimage">[2021i春秋云上巅峰赛]MediclImage</h2>
-<p>题面： <img src="https://img-blog.csdnimg.cn/c2d9b802cecf42bcbf2337c75596ffd7.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 加密代码如下：</p>
+<p>题面： <img data-src="https://img-blog.csdnimg.cn/c2d9b802cecf42bcbf2337c75596ffd7.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 加密代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> decimal <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line">getcontext().prec = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="comment"># It is based on logistic map in chaotic systems</span></span><br><span class="line">    <span class="comment"># The parameter r takes the largest legal value</span></span><br><span class="line">    <span class="keyword">assert</span>(x&gt;=<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">assert</span>(x&lt;=<span class="number">1</span>)</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="comment"># same as f1</span></span><br><span class="line">    ...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f3</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="comment"># same as f1</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encryptImage</span>(<span class="params">path</span>):</span></span><br><span class="line">    im = Image.<span class="built_in">open</span>(path)</span><br><span class="line">    size = im.size</span><br><span class="line">    pic  = np.array(im) </span><br><span class="line">    im.close()</span><br><span class="line">    r1 = Decimal(<span class="string">&#x27;0.478706063089473894123&#x27;</span>)</span><br><span class="line">    r2 = Decimal(<span class="string">&#x27;0.613494245341234672318&#x27;</span>)</span><br><span class="line">    r3 = Decimal(<span class="string">&#x27;0.946365754637812381837&#x27;</span>)</span><br><span class="line">    w,h = size</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>):</span><br><span class="line">        r1 = f1(r1)</span><br><span class="line">        r2 = f2(r2)</span><br><span class="line">        r3 = f3(r3)</span><br><span class="line">    const = <span class="number">10</span>**<span class="number">14</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">            x1 = <span class="built_in">int</span>(<span class="built_in">round</span>(const*r1))%w</span><br><span class="line">            y1 = <span class="built_in">int</span>(<span class="built_in">round</span>(const*r2))%h</span><br><span class="line">            r1 = f1(r1)</span><br><span class="line">            r2 = f2(r2)</span><br><span class="line">            tmp = pic[y,x]</span><br><span class="line">            pic[y,x] = pic[y1,x1]</span><br><span class="line">            pic[y1,x1] = tmp</span><br><span class="line">    p0 = random.randint(<span class="number">100</span>,<span class="number">104</span>)</span><br><span class="line">    c0 = random.randint(<span class="number">200</span>,<span class="number">204</span>)</span><br><span class="line">    config = (p0,c0)</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">            k = <span class="built_in">int</span>(<span class="built_in">round</span>(const*r3))%<span class="number">256</span></span><br><span class="line">            k = <span class="built_in">bin</span>(k)[<span class="number">2</span>:].ljust(<span class="number">8</span>,<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">            k = <span class="built_in">int</span>(k[p0%<span class="number">8</span>:]+k[:p0%<span class="number">8</span>],<span class="number">2</span>)</span><br><span class="line">            r3 = f3(r3)</span><br><span class="line"></span><br><span class="line">            p0 = pic[y,x]</span><br><span class="line">            c0 = k^((k+p0)%<span class="number">256</span>)^c0</span><br><span class="line">            pic[y,x] = c0</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> pic,size,config</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outputImage</span>(<span class="params">path,pic,size</span>):</span></span><br><span class="line">    im = Image.new(<span class="string">&#x27;P&#x27;</span>, size,<span class="string">&#x27;white&#x27;</span>)</span><br><span class="line">    pixels = im.load()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">1</span>]):</span><br><span class="line">            pixels[i,j] = (<span class="built_in">int</span>(pic[j][i]))</span><br><span class="line"></span><br><span class="line">    im.save(path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decryptImage</span>(<span class="params">pic,size,config</span>):</span></span><br><span class="line">    .....</span><br><span class="line">    </span><br><span class="line">enc_img = <span class="string">&#x27;flag.bmp&#x27;</span></span><br><span class="line">out_im = <span class="string">&#x27;flag_enc.bmp&#x27;</span></span><br><span class="line"></span><br><span class="line">pic,size,_ = encryptImage(enc_img)</span><br><span class="line">outputImage(out_im,pic,size)</span><br></pre></td></tr></table></figure>
-<p>看起来很复杂，而且函数<code>f1(x)</code>，<code>f2(x)</code>和<code>f3(x)</code>是未知的（虽然三个函数是一样的，不妨都记为f(x)） 根据注释内容搜了一下<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Logistic_map">Logistic map（单峰映象）</a>： <img src="https://img-blog.csdnimg.cn/bf0f06a9b7484d96b2f62e42b7e8c3fc.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 又搜了一下<a target="_blank" rel="noopener" href="http://www.cxyzjd.com/article/zsheng_/105904595">针对医学影像的加密系统</a>，里面也提到了一个Logistic映射 基本上可以确定f(x)=rx(1-x)，关键是确定这个r wiki里面也提到了r不同情况下x的变化趋势： <img src="https://img-blog.csdnimg.cn/27b80a2438954aecbc914465c5d56c99.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 注释中说是在混沌系统中，可以排除r小于3的情况 比较常见也是最初研究的是r=4的情况，那姑且认为r=4 再看加密函数<code>encryptImage(path)</code>，分成两段看 先看第一段：</p>
+<p>看起来很复杂，而且函数<code>f1(x)</code>，<code>f2(x)</code>和<code>f3(x)</code>是未知的（虽然三个函数是一样的，不妨都记为f(x)） 根据注释内容搜了一下<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Logistic_map">Logistic map（单峰映象）</a>： <img data-src="https://img-blog.csdnimg.cn/bf0f06a9b7484d96b2f62e42b7e8c3fc.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 又搜了一下<a target="_blank" rel="noopener" href="http://www.cxyzjd.com/article/zsheng_/105904595">针对医学影像的加密系统</a>，里面也提到了一个Logistic映射 基本上可以确定f(x)=rx(1-x)，关键是确定这个r wiki里面也提到了r不同情况下x的变化趋势： <img data-src="https://img-blog.csdnimg.cn/27b80a2438954aecbc914465c5d56c99.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 注释中说是在混沌系统中，可以排除r小于3的情况 比较常见也是最初研究的是r=4的情况，那姑且认为r=4 再看加密函数<code>encryptImage(path)</code>，分成两段看 先看第一段：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">im = Image.<span class="built_in">open</span>(path)</span><br><span class="line">size = im.size</span><br><span class="line">pic  = np.array(im) </span><br><span class="line">im.close()</span><br><span class="line">r1 = Decimal(<span class="string">&#x27;0.478706063089473894123&#x27;</span>)</span><br><span class="line">r2 = Decimal(<span class="string">&#x27;0.613494245341234672318&#x27;</span>)</span><br><span class="line">r3 = Decimal(<span class="string">&#x27;0.946365754637812381837&#x27;</span>)</span><br><span class="line">w,h = size</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>):</span><br><span class="line">    r1 = f1(r1)</span><br><span class="line">    r2 = f2(r2)</span><br><span class="line">    r3 = f3(r3)</span><br><span class="line">const = <span class="number">10</span>**<span class="number">14</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">        x1 = <span class="built_in">int</span>(<span class="built_in">round</span>(const*r1))%w</span><br><span class="line">        y1 = <span class="built_in">int</span>(<span class="built_in">round</span>(const*r2))%h</span><br><span class="line">        r1 = f1(r1)</span><br><span class="line">        r2 = f2(r2)</span><br><span class="line">        tmp = pic[y,x]</span><br><span class="line">        pic[y,x] = pic[y1,x1]</span><br><span class="line">        pic[y1,x1] = tmp</span><br></pre></td></tr></table></figure>
 <p>先导入图片，这没什么好说的 然后r1，r2，r3经过200次f(x)后和常量const生成新的坐标，对原来的图片像素进行移位 要解密的话，只要存储原来坐标的列表或者矩阵，然后换回来就行 再看第二段：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">p0 = random.randint(<span class="number">100</span>,<span class="number">104</span>)</span><br><span class="line">c0 = random.randint(<span class="number">200</span>,<span class="number">204</span>)</span><br><span class="line">config = (p0,c0)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">        k = <span class="built_in">int</span>(<span class="built_in">round</span>(const*r3))%<span class="number">256</span></span><br><span class="line">        k = <span class="built_in">bin</span>(k)[<span class="number">2</span>:].ljust(<span class="number">8</span>,<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">        k = <span class="built_in">int</span>(k[p0%<span class="number">8</span>:]+k[:p0%<span class="number">8</span>],<span class="number">2</span>)</span><br><span class="line">        r3 = f3(r3)</span><br><span class="line"></span><br><span class="line">        p0 = pic[y,x]</span><br><span class="line">        c0 = k^((k+p0)%<span class="number">256</span>)^c0</span><br><span class="line">        pic[y,x] = c0</span><br></pre></td></tr></table></figure>
@@ -222,7 +271,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">k_p -= k</span><br><span class="line"><span class="keyword">if</span> k_p &lt; <span class="number">0</span>:</span><br><span class="line">	k_p += <span class="number">256</span></span><br></pre></td></tr></table></figure>
 <p>得到的k_p就是原来的像素值 分析完毕，完整的加密代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> decimal <span class="keyword">import</span> *</span><br><span class="line">getcontext().prec = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="comment"># It is based on logistic map in chaotic systems</span></span><br><span class="line">    <span class="comment"># The parameter r takes the largest legal value</span></span><br><span class="line">    <span class="keyword">assert</span> (x &gt;= <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">assert</span> (x &lt;= <span class="number">1</span>)</span><br><span class="line">    r = <span class="number">4</span></span><br><span class="line">    x = r * x * (<span class="number">1</span> - x)</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">im = Image.<span class="built_in">open</span>(<span class="string">&#x27;flag_enc.bmp&#x27;</span>)</span><br><span class="line">pixels = im.load()</span><br><span class="line">size = im.size</span><br><span class="line">w, h = size</span><br><span class="line"><span class="built_in">print</span>(size)</span><br><span class="line"><span class="comment"># print(np.array(im))</span></span><br><span class="line">pic = np.zeros((h, w))</span><br><span class="line">const = <span class="number">10</span> ** <span class="number">14</span></span><br><span class="line">r1 = Decimal(<span class="string">&#x27;0.478706063089473894123&#x27;</span>)</span><br><span class="line">r2 = Decimal(<span class="string">&#x27;0.613494245341234672318&#x27;</span>)</span><br><span class="line">r3 = Decimal(<span class="string">&#x27;0.946365754637812381837&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">0</span>]):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">1</span>]):</span><br><span class="line">        pic[j][i] = pixels[i, j]</span><br><span class="line"><span class="built_in">print</span>(pic)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>):</span><br><span class="line">    r1 = f(r1)</span><br><span class="line">    r2 = f(r2)</span><br><span class="line">    r3 = f(r3)</span><br><span class="line">p0 = <span class="built_in">range</span>(<span class="number">100</span>, <span class="number">105</span>)</span><br><span class="line">c0 = <span class="built_in">range</span>(<span class="number">200</span>, <span class="number">205</span>)</span><br><span class="line">config = []</span><br><span class="line"><span class="comment"># 列出(p0, c0)的所有情况</span></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> p0:</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> c0:</span><br><span class="line">        config.append((p, c))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 记录原先的坐标x1, y1</span></span><br><span class="line">list_x1 = np.zeros((h, w))</span><br><span class="line">list_y1 = np.zeros((h, w))</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">        x1 = <span class="built_in">int</span>(<span class="built_in">round</span>(const * r1)) % w</span><br><span class="line">        y1 = <span class="built_in">int</span>(<span class="built_in">round</span>(const * r2)) % h</span><br><span class="line">        list_x1[y][x] = x1</span><br><span class="line">        list_y1[y][x] = y1</span><br><span class="line">        r1 = f(r1)</span><br><span class="line">        r2 = f(r2)</span><br><span class="line"></span><br><span class="line">list_k = []</span><br><span class="line"><span class="keyword">for</span> conf <span class="keyword">in</span> config:</span><br><span class="line">    arrk = np.zeros((h, w))</span><br><span class="line">    k = <span class="number">0</span></span><br><span class="line">    p0 = conf[<span class="number">0</span>]</span><br><span class="line">    c0 = conf[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">            k = <span class="built_in">int</span>(<span class="built_in">round</span>(const * r3)) % <span class="number">256</span></span><br><span class="line">            k = <span class="built_in">bin</span>(k)[<span class="number">2</span>:].ljust(<span class="number">8</span>, <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">            k = <span class="built_in">int</span>(k[p0 % <span class="number">8</span>:] + k[:p0 % <span class="number">8</span>], <span class="number">2</span>)</span><br><span class="line">            r3 = f(r3)</span><br><span class="line">            p0 = <span class="built_in">int</span>(pic[y, x])</span><br><span class="line">            arrk[y][x] = k</span><br><span class="line">    list_k.append(arrk)</span><br><span class="line"><span class="built_in">print</span>(list_k)</span><br><span class="line"></span><br><span class="line">list_p = []</span><br><span class="line"><span class="keyword">for</span> conf <span class="keyword">in</span> config:</span><br><span class="line">    x1 = <span class="number">0</span></span><br><span class="line">    y1 = <span class="number">0</span></span><br><span class="line">    picture = pic.copy()</span><br><span class="line">    arrk = list_k[config.index(conf)]</span><br><span class="line">    p0 = conf[<span class="number">0</span>]</span><br><span class="line">    c0 = conf[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(w-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(h-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            k = <span class="built_in">int</span>(arrk[y][x])</span><br><span class="line">            p0 = pic[y][x]</span><br><span class="line">            <span class="keyword">if</span> (y-<span class="number">1</span>) &gt;= <span class="number">0</span>:</span><br><span class="line">                c0 = <span class="built_in">int</span>(pic[y-<span class="number">1</span>][x])</span><br><span class="line">            <span class="keyword">elif</span> (y - <span class="number">1</span>) &lt; <span class="number">0</span> <span class="keyword">and</span> (x-<span class="number">1</span>) &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                c0 = <span class="built_in">int</span>(pic[h-<span class="number">1</span>][x-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">            k_p = k ^ (<span class="built_in">int</span>(pic[y][x])) ^ c0</span><br><span class="line">            k_p -= k</span><br><span class="line">            <span class="keyword">if</span> k_p &lt; <span class="number">0</span>:</span><br><span class="line">                k_p += <span class="number">256</span></span><br><span class="line">            picture[y][x] = k_p</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(w - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(h - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            x1 = <span class="built_in">int</span>(list_x1[y][x])</span><br><span class="line">            y1 = <span class="built_in">int</span>(list_y1[y][x])</span><br><span class="line">            tmp = picture[y1][x1]</span><br><span class="line">            picture[y1][x1] = picture[y][x]</span><br><span class="line">            picture[y][x] = tmp</span><br><span class="line">    list_p.append(picture)</span><br><span class="line">    <span class="built_in">print</span>(picture)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(list_p)):</span><br><span class="line">    im = Image.new(<span class="string">&#x27;P&#x27;</span>, size, <span class="string">&#x27;white&#x27;</span>)</span><br><span class="line">    pixels = im.load()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">1</span>]):</span><br><span class="line">            pixels[i, j] = (<span class="built_in">int</span>(list_p[k][j][i]))</span><br><span class="line">    im.save(<span class="string">&#x27;p&#x27;</span> + <span class="built_in">str</span>(k) + <span class="string">&#x27;.bmp&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>最后得到25张图片，出了第一张图片，都能看到flag 挑了一张比较清晰的： <img src="https://img-blog.csdnimg.cn/6bf6b68ee2b84e5cae6127d74a127386.bmp" alt="在这里插入图片描述" /> 看不清的话可以和别的比对着看</p>
+<p>最后得到25张图片，出了第一张图片，都能看到flag 挑了一张比较清晰的： <img data-src="https://img-blog.csdnimg.cn/6bf6b68ee2b84e5cae6127d74a127386.bmp" alt="在这里插入图片描述" /> 看不清的话可以和别的比对着看</p>
 <h2 id="结语">结语</h2>
 <p>还有一道crtrsa比赛的时候没有做出来，后来在badm0nkey前辈的指导下解出来了，留着明天讲 感谢Phoenix大佬帮我指出错误 希望继续坚持</p>
 
@@ -231,6 +280,23 @@
     
     
     
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Σ2333!
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luozj1020.github.io/uncategorized/2021/08/01/vacation_week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-1" title="BUUCTF 每日打卡 2021-8-1">https://luozj1020.github.io/uncategorized/2021/08/01/vacation_week3/BUUCTF 每日打卡 2021-8-1</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
         
 
   <div class="followme">
@@ -250,10 +316,13 @@
     </div>
   </div>
 
+      
+      <div> <div> <div style="text-align:center;color:#bfbfbf;font-size:16px;"> <span>-------- 本文结束 </span> <i class="fa fa-paw"></i> <span> 感谢阅读 --------</span> </div> </div>
+ </div>
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Crypto/" rel="tag"># Crypto</a>
+              <a href="/tags/Crypto/" rel="tag"><i class="fa fa-tags"></i> Crypto</a>
           </div>
 
         
@@ -383,6 +452,26 @@
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -396,7 +485,10 @@
   </div>
 
   
+  
+  <script color='255,250,250' opacity='0.7' zIndex='-1' count='80' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -416,6 +508,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -488,8 +584,77 @@
 
   
 
+
+  
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    //只在桌面版网页启用特效
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('#header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+          $('#sidebar').wobbleWindow({
+            radius: 50,
+            movementLeft: false,
+            movementTop: false,
+            movementBottom: false,
+            position: 'fixed',
+            debug: false,
+          });
+        
+
+        
+          $('#footer').wobbleWindow({
+            radius: 50,
+            movementBottom: false,
+            movementLeft: false,
+            movementRight: false,
+            offsetX: ,
+            position: 'absolute',
+            debug: false,
+          });
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
 <script src="/live2d-widget/autoload.js"></script>
+
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>

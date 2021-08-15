@@ -12,12 +12,14 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto:300,300italic,400,400italic,700,700italic|Source Sans Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livers","storage":false,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="引言 上午学了4个小时车，只能下午来更了（ [NPUCTF2020]认清形势，建立信心 加密代码如下： 12345678910111213141516171819202122from Crypto.Util.number import *from gmpy2 import *from secret import flagp &#x3D; getPrime(25)e &#x3D; # Hiddenq &#x3D; get">
@@ -92,6 +94,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+<!-- 加入APlayer音乐播放器 -->
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
   <div class="container use-motion">
     <div class="headband"></div>
 
@@ -116,6 +125,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -130,16 +140,48 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -197,6 +239,13 @@
               </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -216,13 +265,13 @@
 2^e\times2^e\times2^e \space mod \space n = 2^e\times4^e \space mod \space n  = 8^e \space mod \space n 
 \]</span> 由此我们可以计算<code>c2*c2*c2-c8</code>和<code>c2*c4-c8</code>得到<span class="math inline">\(n\)</span>的倍数，对两数取最小公倍数再分解质因数，得到符合条件的大质数即为p和q 代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line">c = <span class="number">169169912654178</span></span><br><span class="line">c2 = <span class="number">128509160179202</span></span><br><span class="line">c4 = <span class="number">518818742414340</span></span><br><span class="line">c8 = <span class="number">358553002064450</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(gmpy2.gcd(c2*c4-c8, c2*c2*c2-c8))</span><br><span class="line"><span class="comment"># 1054494004042394</span></span><br></pre></td></tr></table></figure>
-<p>分解质因数： <img src="https://img-blog.csdnimg.cn/20210719173225219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 但是这题隐藏了e，所以不能直接RSA解密，还需要求e 这是一个离散对数问题，可以参考我<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/116573356?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162668720416780274174350%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=162668720416780274174350&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-1-116573356.pc_v2_rank_blog_default&amp;utm_term=%E7%A6%BB%E6%95%A3&amp;spm=1018.2226.3001.4450">2021-5-9的博客</a> 完整解密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"></span><br><span class="line">c = <span class="number">169169912654178</span></span><br><span class="line">c2 = <span class="number">128509160179202</span></span><br><span class="line">c4 = <span class="number">518818742414340</span></span><br><span class="line">c8 = <span class="number">358553002064450</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(gmpy2.gcd(c2*c4-c8, c2*c2*c2-c8))</span><br><span class="line">p = <span class="number">18195301</span></span><br><span class="line">q = <span class="number">28977097</span></span><br><span class="line">e = sympy.discrete_log(p*q, c2, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(e)</span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, p*q)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure> 结果为： <img src="https://img-blog.csdnimg.cn/20210719173444760.png" alt="在这里插入图片描述" /></p>
+<p>分解质因数： <img data-src="https://img-blog.csdnimg.cn/20210719173225219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 但是这题隐藏了e，所以不能直接RSA解密，还需要求e 这是一个离散对数问题，可以参考我<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/116573356?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162668720416780274174350%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=162668720416780274174350&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-1-116573356.pc_v2_rank_blog_default&amp;utm_term=%E7%A6%BB%E6%95%A3&amp;spm=1018.2226.3001.4450">2021-5-9的博客</a> 完整解密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"></span><br><span class="line">c = <span class="number">169169912654178</span></span><br><span class="line">c2 = <span class="number">128509160179202</span></span><br><span class="line">c4 = <span class="number">518818742414340</span></span><br><span class="line">c8 = <span class="number">358553002064450</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(gmpy2.gcd(c2*c4-c8, c2*c2*c2-c8))</span><br><span class="line">p = <span class="number">18195301</span></span><br><span class="line">q = <span class="number">28977097</span></span><br><span class="line">e = sympy.discrete_log(p*q, c2, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(e)</span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, p*q)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure> 结果为： <img data-src="https://img-blog.csdnimg.cn/20210719173444760.png" alt="在这里插入图片描述" /></p>
 <h2 id="bjdctf2020伏羲六十四卦">[BJDCTF2020]伏羲六十四卦</h2>
 <p>题目给了一段文本： 这是什么，怎么看起来像是再算64卦！！！</p>
 <p>密文:升随临损巽睽颐萃小过讼艮颐小过震蛊屯未济中孚艮困恒晋升损蛊萃蛊未济巽解艮贲未济观豫损蛊晋噬嗑晋旅解大畜困未济随蒙升解睽未济井困未济旅萃未济震蒙未济师涣归妹大有</p>
 <p>嗯？为什么还有个b呢? b=7</p>
 <p>flag：请按照格式BJD{}</p>
-<p>还给了一段意义不明的加密代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -- coding:UTF-8 --</span></span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrpyt5</span>():</span></span><br><span class="line">    enc=<span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> flag:</span><br><span class="line">        enc+=<span class="built_in">chr</span>((a*(<span class="built_in">ord</span>(i)-<span class="number">97</span>)+b)%<span class="number">26</span>+<span class="number">97</span>)</span><br><span class="line">    <span class="keyword">return</span>(enc)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrypt4</span>():</span></span><br><span class="line">    temp=<span class="string">&#x27;&#x27;</span></span><br><span class="line">    offset=<span class="number">5</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(enc)):</span><br><span class="line">        temp+=<span class="built_in">chr</span>(<span class="built_in">ord</span>(enc[i])-offset-i)</span><br><span class="line">    <span class="keyword">return</span>(temp)</span><br></pre></td></tr></table></figure> 我还特地取搜了一下<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%AD%E5%8D%81%E5%9B%9B%E5%8D%A6">伏羲六十四卦</a>，发现密文的内容就是六十四卦的内容 没思路，只好找<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44110537/article/details/107494966">wp</a> 原来是要把六十四卦按顺序转化成6位二进制数，再8位一组转化成文本 结果如下： <img src="https://img-blog.csdnimg.cn/20210719174358694.png" alt="在这里插入图片描述" /> 容易联想到是base64加密，尝试解密，结果为： <img src="https://img-blog.csdnimg.cn/202107191744409.png" alt="在这里插入图片描述" /> 好丑，是不是解错了？ 这时就要用题目给的加密代码了 观察可得，明文先经过了encrpyt5，然后经过了encrypt4 那就先"decrypt4" 结果为： <img src="https://img-blog.csdnimg.cn/20210719174745401.png" alt="在这里插入图片描述" /> 看起来接近答案了 但是看encrpyt5，发现题目给了b，但是没给a，就很难受 wp采用爆破的方法，就借(chao)鉴(xi)了一下 完整解密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decrypt4</span>(<span class="params">c</span>):</span></span><br><span class="line">    temp = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    offset = <span class="number">5</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">        temp += <span class="built_in">chr</span>(<span class="built_in">ord</span>(c[i])+offset+i)</span><br><span class="line">    <span class="built_in">print</span>(temp)</span><br><span class="line">    <span class="keyword">return</span> temp</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrpyt5</span>(<span class="params">c</span>):</span></span><br><span class="line">    b = <span class="number">7</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">200</span>):</span><br><span class="line">        temp = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> c:</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>):</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">ord</span>(i) - <span class="number">97</span> + <span class="number">26</span> * k - b) % a == <span class="number">0</span>:</span><br><span class="line">                    temp += <span class="built_in">chr</span>((<span class="built_in">ord</span>(i) - <span class="number">97</span> - <span class="number">7</span> + <span class="number">26</span> * k) // a + <span class="number">97</span>)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(c) == <span class="built_in">len</span>(temp) <span class="keyword">and</span> <span class="string">&#x27;flag&#x27;</span> <span class="keyword">in</span> temp:</span><br><span class="line">            <span class="built_in">print</span>(temp)</span><br><span class="line"></span><br><span class="line">s = <span class="string">&#x27;升随临损巽睽颐萃小过讼艮颐小过震蛊屯未济中孚艮困恒晋升损蛊萃蛊未济巽解艮贲未济观豫损蛊晋噬嗑晋旅解大畜困未济随蒙升解睽未济井困未济旅萃未济震蒙未济师涣归妹大有&#x27;</span></span><br><span class="line">table = &#123;<span class="string">&#x27;坤&#x27;</span>: <span class="string">&#x27;000000&#x27;</span>, <span class="string">&#x27;剥&#x27;</span>: <span class="string">&#x27;000001&#x27;</span>, <span class="string">&#x27;比&#x27;</span>: <span class="string">&#x27;000010&#x27;</span>, <span class="string">&#x27;观&#x27;</span>: <span class="string">&#x27;000011&#x27;</span>, <span class="string">&#x27;豫&#x27;</span>: <span class="string">&#x27;000100&#x27;</span>, <span class="string">&#x27;晋&#x27;</span>: <span class="string">&#x27;000101&#x27;</span>, <span class="string">&#x27;萃&#x27;</span>: <span class="string">&#x27;000110&#x27;</span>, <span class="string">&#x27;否&#x27;</span>: <span class="string">&#x27;000111&#x27;</span>, <span class="string">&#x27;谦&#x27;</span>: <span class="string">&#x27;001000&#x27;</span>, <span class="string">&#x27;艮&#x27;</span>: <span class="string">&#x27;001001&#x27;</span>, <span class="string">&#x27;蹇&#x27;</span>: <span class="string">&#x27;001010&#x27;</span>, <span class="string">&#x27;渐&#x27;</span>: <span class="string">&#x27;001011&#x27;</span>, <span class="string">&#x27;小过&#x27;</span>: <span class="string">&#x27;001100&#x27;</span>, <span class="string">&#x27;旅&#x27;</span>: <span class="string">&#x27;001101&#x27;</span>, <span class="string">&#x27;咸&#x27;</span>: <span class="string">&#x27;001110&#x27;</span>, <span class="string">&#x27;遁&#x27;</span>: <span class="string">&#x27;001111&#x27;</span>, <span class="string">&#x27;师&#x27;</span>: <span class="string">&#x27;010000&#x27;</span>, <span class="string">&#x27;蒙&#x27;</span>: <span class="string">&#x27;010001&#x27;</span>, <span class="string">&#x27;坎&#x27;</span>: <span class="string">&#x27;010010&#x27;</span>, <span class="string">&#x27;涣&#x27;</span>: <span class="string">&#x27;010011&#x27;</span>, <span class="string">&#x27;解&#x27;</span>: <span class="string">&#x27;010100&#x27;</span>, <span class="string">&#x27;未济&#x27;</span>: <span class="string">&#x27;010101&#x27;</span>, <span class="string">&#x27;困&#x27;</span>: <span class="string">&#x27;010110&#x27;</span>, <span class="string">&#x27;讼&#x27;</span>: <span class="string">&#x27;010111&#x27;</span>, <span class="string">&#x27;升&#x27;</span>: <span class="string">&#x27;011000&#x27;</span>, <span class="string">&#x27;蛊&#x27;</span>: <span class="string">&#x27;011001&#x27;</span>, <span class="string">&#x27;井&#x27;</span>: <span class="string">&#x27;011010&#x27;</span>, <span class="string">&#x27;巽&#x27;</span>: <span class="string">&#x27;011011&#x27;</span>, <span class="string">&#x27;恒&#x27;</span>: <span class="string">&#x27;011100&#x27;</span>, <span class="string">&#x27;鼎&#x27;</span>: <span class="string">&#x27;011101&#x27;</span>, <span class="string">&#x27;大过&#x27;</span>: <span class="string">&#x27;011110&#x27;</span>, <span class="string">&#x27;姤&#x27;</span>: <span class="string">&#x27;011111&#x27;</span>, <span class="string">&#x27;复&#x27;</span>: <span class="string">&#x27;100000&#x27;</span>, <span class="string">&#x27;颐&#x27;</span>: <span class="string">&#x27;100001&#x27;</span>, <span class="string">&#x27;屯&#x27;</span>: <span class="string">&#x27;100010&#x27;</span>, <span class="string">&#x27;益&#x27;</span>: <span class="string">&#x27;100011&#x27;</span>, <span class="string">&#x27;震&#x27;</span>: <span class="string">&#x27;100100&#x27;</span>, <span class="string">&#x27;噬嗑&#x27;</span>: <span class="string">&#x27;100101&#x27;</span>, <span class="string">&#x27;随&#x27;</span>: <span class="string">&#x27;100110&#x27;</span>, <span class="string">&#x27;无妄&#x27;</span>: <span class="string">&#x27;100111&#x27;</span>, <span class="string">&#x27;明夷&#x27;</span>: <span class="string">&#x27;101000&#x27;</span>, <span class="string">&#x27;贲&#x27;</span>: <span class="string">&#x27;101001&#x27;</span>, <span class="string">&#x27;既济&#x27;</span>: <span class="string">&#x27;101010&#x27;</span>, <span class="string">&#x27;家人&#x27;</span>: <span class="string">&#x27;101011&#x27;</span>, <span class="string">&#x27;丰&#x27;</span>: <span class="string">&#x27;101100&#x27;</span>, <span class="string">&#x27;离&#x27;</span>: <span class="string">&#x27;101101&#x27;</span>, <span class="string">&#x27;革&#x27;</span>: <span class="string">&#x27;101110&#x27;</span>, <span class="string">&#x27;同人&#x27;</span>: <span class="string">&#x27;101111&#x27;</span>, <span class="string">&#x27;临&#x27;</span>: <span class="string">&#x27;110000&#x27;</span>, <span class="string">&#x27;损&#x27;</span>: <span class="string">&#x27;110001&#x27;</span>, <span class="string">&#x27;节&#x27;</span>: <span class="string">&#x27;110010&#x27;</span>, <span class="string">&#x27;中孚&#x27;</span>: <span class="string">&#x27;110011&#x27;</span>, <span class="string">&#x27;归妹&#x27;</span>: <span class="string">&#x27;110100&#x27;</span>, <span class="string">&#x27;睽&#x27;</span>: <span class="string">&#x27;110101&#x27;</span>, <span class="string">&#x27;兑&#x27;</span>: <span class="string">&#x27;110110&#x27;</span>, <span class="string">&#x27;履&#x27;</span>: <span class="string">&#x27;110111&#x27;</span>, <span class="string">&#x27;泰&#x27;</span>: <span class="string">&#x27;111000&#x27;</span>, <span class="string">&#x27;大畜&#x27;</span>: <span class="string">&#x27;111001&#x27;</span>, <span class="string">&#x27;需&#x27;</span>: <span class="string">&#x27;111010&#x27;</span>, <span class="string">&#x27;小畜&#x27;</span>: <span class="string">&#x27;111011&#x27;</span>, <span class="string">&#x27;大壮&#x27;</span>: <span class="string">&#x27;111100&#x27;</span>, <span class="string">&#x27;大有&#x27;</span>: <span class="string">&#x27;111101&#x27;</span>, <span class="string">&#x27;夬&#x27;</span>: <span class="string">&#x27;111110&#x27;</span>, <span class="string">&#x27;乾&#x27;</span>: <span class="string">&#x27;111111&#x27;</span>&#125;</span><br><span class="line">b = <span class="string">&#x27;&#x27;</span></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="built_in">len</span>(s):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        b += table[s[i]]</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">except</span> KeyError:</span><br><span class="line">        b += table[s[i]+s[i+<span class="number">1</span>]]</span><br><span class="line">        i += <span class="number">2</span></span><br><span class="line"></span><br><span class="line">x = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(b), <span class="number">8</span>):</span><br><span class="line">    x += <span class="built_in">chr</span>(<span class="built_in">int</span>(b[i:i+<span class="number">8</span>], <span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(x)</span><br><span class="line">x = base64.b64decode(x).decode()</span><br><span class="line"><span class="built_in">print</span>(x)</span><br><span class="line">x = decrypt4(x)</span><br><span class="line">encrpyt5(x)</span><br></pre></td></tr></table></figure> 结果为：<img src="https://img-blog.csdnimg.cn/20210719174959920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> BJD congratulation son getting the flag？？？（wtm） 套上flag{}即可</p>
+<p>还给了一段意义不明的加密代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -- coding:UTF-8 --</span></span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrpyt5</span>():</span></span><br><span class="line">    enc=<span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> flag:</span><br><span class="line">        enc+=<span class="built_in">chr</span>((a*(<span class="built_in">ord</span>(i)-<span class="number">97</span>)+b)%<span class="number">26</span>+<span class="number">97</span>)</span><br><span class="line">    <span class="keyword">return</span>(enc)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrypt4</span>():</span></span><br><span class="line">    temp=<span class="string">&#x27;&#x27;</span></span><br><span class="line">    offset=<span class="number">5</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(enc)):</span><br><span class="line">        temp+=<span class="built_in">chr</span>(<span class="built_in">ord</span>(enc[i])-offset-i)</span><br><span class="line">    <span class="keyword">return</span>(temp)</span><br></pre></td></tr></table></figure> 我还特地取搜了一下<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%AD%E5%8D%81%E5%9B%9B%E5%8D%A6">伏羲六十四卦</a>，发现密文的内容就是六十四卦的内容 没思路，只好找<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44110537/article/details/107494966">wp</a> 原来是要把六十四卦按顺序转化成6位二进制数，再8位一组转化成文本 结果如下： <img data-src="https://img-blog.csdnimg.cn/20210719174358694.png" alt="在这里插入图片描述" /> 容易联想到是base64加密，尝试解密，结果为： <img data-src="https://img-blog.csdnimg.cn/202107191744409.png" alt="在这里插入图片描述" /> 好丑，是不是解错了？ 这时就要用题目给的加密代码了 观察可得，明文先经过了encrpyt5，然后经过了encrypt4 那就先"decrypt4" 结果为： <img data-src="https://img-blog.csdnimg.cn/20210719174745401.png" alt="在这里插入图片描述" /> 看起来接近答案了 但是看encrpyt5，发现题目给了b，但是没给a，就很难受 wp采用爆破的方法，就借(chao)鉴(xi)了一下 完整解密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decrypt4</span>(<span class="params">c</span>):</span></span><br><span class="line">    temp = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    offset = <span class="number">5</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">        temp += <span class="built_in">chr</span>(<span class="built_in">ord</span>(c[i])+offset+i)</span><br><span class="line">    <span class="built_in">print</span>(temp)</span><br><span class="line">    <span class="keyword">return</span> temp</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrpyt5</span>(<span class="params">c</span>):</span></span><br><span class="line">    b = <span class="number">7</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">200</span>):</span><br><span class="line">        temp = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> c:</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>):</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">ord</span>(i) - <span class="number">97</span> + <span class="number">26</span> * k - b) % a == <span class="number">0</span>:</span><br><span class="line">                    temp += <span class="built_in">chr</span>((<span class="built_in">ord</span>(i) - <span class="number">97</span> - <span class="number">7</span> + <span class="number">26</span> * k) // a + <span class="number">97</span>)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(c) == <span class="built_in">len</span>(temp) <span class="keyword">and</span> <span class="string">&#x27;flag&#x27;</span> <span class="keyword">in</span> temp:</span><br><span class="line">            <span class="built_in">print</span>(temp)</span><br><span class="line"></span><br><span class="line">s = <span class="string">&#x27;升随临损巽睽颐萃小过讼艮颐小过震蛊屯未济中孚艮困恒晋升损蛊萃蛊未济巽解艮贲未济观豫损蛊晋噬嗑晋旅解大畜困未济随蒙升解睽未济井困未济旅萃未济震蒙未济师涣归妹大有&#x27;</span></span><br><span class="line">table = &#123;<span class="string">&#x27;坤&#x27;</span>: <span class="string">&#x27;000000&#x27;</span>, <span class="string">&#x27;剥&#x27;</span>: <span class="string">&#x27;000001&#x27;</span>, <span class="string">&#x27;比&#x27;</span>: <span class="string">&#x27;000010&#x27;</span>, <span class="string">&#x27;观&#x27;</span>: <span class="string">&#x27;000011&#x27;</span>, <span class="string">&#x27;豫&#x27;</span>: <span class="string">&#x27;000100&#x27;</span>, <span class="string">&#x27;晋&#x27;</span>: <span class="string">&#x27;000101&#x27;</span>, <span class="string">&#x27;萃&#x27;</span>: <span class="string">&#x27;000110&#x27;</span>, <span class="string">&#x27;否&#x27;</span>: <span class="string">&#x27;000111&#x27;</span>, <span class="string">&#x27;谦&#x27;</span>: <span class="string">&#x27;001000&#x27;</span>, <span class="string">&#x27;艮&#x27;</span>: <span class="string">&#x27;001001&#x27;</span>, <span class="string">&#x27;蹇&#x27;</span>: <span class="string">&#x27;001010&#x27;</span>, <span class="string">&#x27;渐&#x27;</span>: <span class="string">&#x27;001011&#x27;</span>, <span class="string">&#x27;小过&#x27;</span>: <span class="string">&#x27;001100&#x27;</span>, <span class="string">&#x27;旅&#x27;</span>: <span class="string">&#x27;001101&#x27;</span>, <span class="string">&#x27;咸&#x27;</span>: <span class="string">&#x27;001110&#x27;</span>, <span class="string">&#x27;遁&#x27;</span>: <span class="string">&#x27;001111&#x27;</span>, <span class="string">&#x27;师&#x27;</span>: <span class="string">&#x27;010000&#x27;</span>, <span class="string">&#x27;蒙&#x27;</span>: <span class="string">&#x27;010001&#x27;</span>, <span class="string">&#x27;坎&#x27;</span>: <span class="string">&#x27;010010&#x27;</span>, <span class="string">&#x27;涣&#x27;</span>: <span class="string">&#x27;010011&#x27;</span>, <span class="string">&#x27;解&#x27;</span>: <span class="string">&#x27;010100&#x27;</span>, <span class="string">&#x27;未济&#x27;</span>: <span class="string">&#x27;010101&#x27;</span>, <span class="string">&#x27;困&#x27;</span>: <span class="string">&#x27;010110&#x27;</span>, <span class="string">&#x27;讼&#x27;</span>: <span class="string">&#x27;010111&#x27;</span>, <span class="string">&#x27;升&#x27;</span>: <span class="string">&#x27;011000&#x27;</span>, <span class="string">&#x27;蛊&#x27;</span>: <span class="string">&#x27;011001&#x27;</span>, <span class="string">&#x27;井&#x27;</span>: <span class="string">&#x27;011010&#x27;</span>, <span class="string">&#x27;巽&#x27;</span>: <span class="string">&#x27;011011&#x27;</span>, <span class="string">&#x27;恒&#x27;</span>: <span class="string">&#x27;011100&#x27;</span>, <span class="string">&#x27;鼎&#x27;</span>: <span class="string">&#x27;011101&#x27;</span>, <span class="string">&#x27;大过&#x27;</span>: <span class="string">&#x27;011110&#x27;</span>, <span class="string">&#x27;姤&#x27;</span>: <span class="string">&#x27;011111&#x27;</span>, <span class="string">&#x27;复&#x27;</span>: <span class="string">&#x27;100000&#x27;</span>, <span class="string">&#x27;颐&#x27;</span>: <span class="string">&#x27;100001&#x27;</span>, <span class="string">&#x27;屯&#x27;</span>: <span class="string">&#x27;100010&#x27;</span>, <span class="string">&#x27;益&#x27;</span>: <span class="string">&#x27;100011&#x27;</span>, <span class="string">&#x27;震&#x27;</span>: <span class="string">&#x27;100100&#x27;</span>, <span class="string">&#x27;噬嗑&#x27;</span>: <span class="string">&#x27;100101&#x27;</span>, <span class="string">&#x27;随&#x27;</span>: <span class="string">&#x27;100110&#x27;</span>, <span class="string">&#x27;无妄&#x27;</span>: <span class="string">&#x27;100111&#x27;</span>, <span class="string">&#x27;明夷&#x27;</span>: <span class="string">&#x27;101000&#x27;</span>, <span class="string">&#x27;贲&#x27;</span>: <span class="string">&#x27;101001&#x27;</span>, <span class="string">&#x27;既济&#x27;</span>: <span class="string">&#x27;101010&#x27;</span>, <span class="string">&#x27;家人&#x27;</span>: <span class="string">&#x27;101011&#x27;</span>, <span class="string">&#x27;丰&#x27;</span>: <span class="string">&#x27;101100&#x27;</span>, <span class="string">&#x27;离&#x27;</span>: <span class="string">&#x27;101101&#x27;</span>, <span class="string">&#x27;革&#x27;</span>: <span class="string">&#x27;101110&#x27;</span>, <span class="string">&#x27;同人&#x27;</span>: <span class="string">&#x27;101111&#x27;</span>, <span class="string">&#x27;临&#x27;</span>: <span class="string">&#x27;110000&#x27;</span>, <span class="string">&#x27;损&#x27;</span>: <span class="string">&#x27;110001&#x27;</span>, <span class="string">&#x27;节&#x27;</span>: <span class="string">&#x27;110010&#x27;</span>, <span class="string">&#x27;中孚&#x27;</span>: <span class="string">&#x27;110011&#x27;</span>, <span class="string">&#x27;归妹&#x27;</span>: <span class="string">&#x27;110100&#x27;</span>, <span class="string">&#x27;睽&#x27;</span>: <span class="string">&#x27;110101&#x27;</span>, <span class="string">&#x27;兑&#x27;</span>: <span class="string">&#x27;110110&#x27;</span>, <span class="string">&#x27;履&#x27;</span>: <span class="string">&#x27;110111&#x27;</span>, <span class="string">&#x27;泰&#x27;</span>: <span class="string">&#x27;111000&#x27;</span>, <span class="string">&#x27;大畜&#x27;</span>: <span class="string">&#x27;111001&#x27;</span>, <span class="string">&#x27;需&#x27;</span>: <span class="string">&#x27;111010&#x27;</span>, <span class="string">&#x27;小畜&#x27;</span>: <span class="string">&#x27;111011&#x27;</span>, <span class="string">&#x27;大壮&#x27;</span>: <span class="string">&#x27;111100&#x27;</span>, <span class="string">&#x27;大有&#x27;</span>: <span class="string">&#x27;111101&#x27;</span>, <span class="string">&#x27;夬&#x27;</span>: <span class="string">&#x27;111110&#x27;</span>, <span class="string">&#x27;乾&#x27;</span>: <span class="string">&#x27;111111&#x27;</span>&#125;</span><br><span class="line">b = <span class="string">&#x27;&#x27;</span></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="built_in">len</span>(s):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        b += table[s[i]]</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">except</span> KeyError:</span><br><span class="line">        b += table[s[i]+s[i+<span class="number">1</span>]]</span><br><span class="line">        i += <span class="number">2</span></span><br><span class="line"></span><br><span class="line">x = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(b), <span class="number">8</span>):</span><br><span class="line">    x += <span class="built_in">chr</span>(<span class="built_in">int</span>(b[i:i+<span class="number">8</span>], <span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(x)</span><br><span class="line">x = base64.b64decode(x).decode()</span><br><span class="line"><span class="built_in">print</span>(x)</span><br><span class="line">x = decrypt4(x)</span><br><span class="line">encrpyt5(x)</span><br></pre></td></tr></table></figure> 结果为：<img data-src="https://img-blog.csdnimg.cn/20210719174959920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> BJD congratulation son getting the flag？？？（wtm） 套上flag{}即可</p>
 <h2 id="结语">结语</h2>
 <p>希望继续坚持</p>
 
@@ -231,6 +280,23 @@
     
     
     
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Σ2333!
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luozj1020.github.io/uncategorized/2021/07/19/vacation_week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-19" title="BUUCTF 每日打卡 2021-7-19">https://luozj1020.github.io/uncategorized/2021/07/19/vacation_week2/BUUCTF 每日打卡 2021-7-19</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
         
 
   <div class="followme">
@@ -250,10 +316,13 @@
     </div>
   </div>
 
+      
+      <div> <div> <div style="text-align:center;color:#bfbfbf;font-size:16px;"> <span>-------- 本文结束 </span> <i class="fa fa-paw"></i> <span> 感谢阅读 --------</span> </div> </div>
+ </div>
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Crypto/" rel="tag"># Crypto</a>
+              <a href="/tags/Crypto/" rel="tag"><i class="fa fa-tags"></i> Crypto</a>
           </div>
 
         
@@ -383,6 +452,26 @@
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -396,7 +485,10 @@
   </div>
 
   
+  
+  <script color='255,250,250' opacity='0.7' zIndex='-1' count='80' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -416,6 +508,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -488,8 +584,77 @@
 
   
 
+
+  
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    //只在桌面版网页启用特效
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('#header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+          $('#sidebar').wobbleWindow({
+            radius: 50,
+            movementLeft: false,
+            movementTop: false,
+            movementBottom: false,
+            position: 'fixed',
+            debug: false,
+          });
+        
+
+        
+          $('#footer').wobbleWindow({
+            radius: 50,
+            movementBottom: false,
+            movementLeft: false,
+            movementRight: false,
+            offsetX: ,
+            position: 'absolute',
+            debug: false,
+          });
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
 <script src="/live2d-widget/autoload.js"></script>
+
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>

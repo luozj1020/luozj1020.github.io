@@ -12,12 +12,14 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto:300,300italic,400,400italic,700,700italic|Source Sans Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livers","storage":false,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="引言 无 [INSHack2019]Yet Another RSA Challenge - Part 1 加密代码如下： 123456789import subprocessp &#x3D; subprocess.check_output(&amp;#x27;openssl prime -generate -bits 2048 -hex&amp;#x27;)q &#x3D; subprocess.check_output(&amp;">
@@ -98,6 +100,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+<!-- 加入APlayer音乐播放器 -->
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
   <div class="container use-motion">
     <div class="headband"></div>
 
@@ -122,6 +131,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -136,16 +146,48 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -203,6 +245,13 @@
               </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -220,7 +269,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line">p = subprocess.check_output(<span class="string">&#x27;openssl prime -generate -bits 2048 -hex&#x27;</span>)</span><br><span class="line">q = subprocess.check_output(<span class="string">&#x27;openssl prime -generate -bits 2048 -hex&#x27;</span>)</span><br><span class="line">flag = <span class="built_in">int</span>(<span class="string">&#x27;INSA&#123;REDACTED&#125;&#x27;</span>.encode(<span class="string">&#x27;hex&#x27;</span>), <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">N = <span class="built_in">int</span>(p,<span class="number">16</span>) * <span class="built_in">int</span>(q,<span class="number">16</span>)</span><br><span class="line"><span class="built_in">print</span> N</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;0x&#x27;</span>+p.replace(<span class="string">&#x27;9F&#x27;</span>,<span class="string">&#x27;FC&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(flag,<span class="number">65537</span>,N)</span><br></pre></td></tr></table></figure>
 <p>其实就是随机生成p,q，然后常规RSA加密，就是输出的时候对p进行了一些小的改动 解题时不能确定原来的p是否也含有“FC”，所以不能直接替换回去，要遍历所有情况，符合条件的p应当整除N 写了一个简陋的递归程序来解密：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">N = <span class="number">719579745653303119025873098043848913976880838286635817351790189702008424828505522253331968992725441130409959387942238566082746772468987336980704680915524591881919460709921709513741059003955050088052599067720107149755856317364317707629467090624585752920523062378696431510814381603360130752588995217840721808871896469275562085215852034302374902524921137398710508865248881286824902780186249148613287250056380811479959269915786545911048030947364841177976623684660771594747297272818410589981294227084173316280447729440036251406684111603371364957690353449585185893322538541593242187738587675489180722498945337715511212885934126635221601469699184812336984707723198731876940991485904637481371763302337637617744175461566445514603405016576604569057507997291470369704260553992902776099599438704680775883984720946337235834374667842758010444010254965664863296455406931885650448386682827401907759661117637294838753325610213809162253020362015045242003388829769019579522792182295457962911430276020610658073659629786668639126004851910536565721128484604554703970965744790413684836096724064390486888113608024265771815004188203124405817878645103282802994701531113849607969243815078720289912255827700390198089699808626116357304202660642601149742427766381</span></span><br><span class="line">p = <span class="string">&#x27;0xDCC5A0BD3A1FC0BEB0DA1C2E8CF6B474481B7C12849B76E03C4C946724DB577D2825D6AA193DB559BC9DBABE1DDE8B5E7805E48749EF002F622F7CDBD7853B200E2A027E87E331AFCFD066ED9900F1E5F5E5196A451A6F9E329EB889D773F08E5FBF45AACB818FD186DD74626180294DCC31805A88D1B71DE5BFEF3ED01F12678D906A833A78EDCE9BDAF22BBE45C0BFB7A82AFE42C1C3B8581C83BF43DFE31BFD81527E507686956458905CC9A660604552A060109DC81D01F229A264AB67C6D7168721AB36DE769CEAFB97F238050193EC942078DDF5329A387F46253A4411A9C8BB71F9AEB11AC9623E41C14FCD2739D76E69283E57DDB11FC531B4611EE3&#x27;</span></span><br><span class="line">c = <span class="number">596380963583874022971492302071822444225514552231574984926542429117396590795270181084030717066220888052607057994262255729890598322976783889090993129161030148064314476199052180347747135088933481343974996843632511300255010825580875930722684714290535684951679115573751200980708359500292172387447570080875531002842462002727646367063816531958020271149645805755077133231395881833164790825731218786554806777097126212126561056170733032553159740167058242065879953688453169613384659653035659118823444582576657499974059388261153064772228570460351169216103620379299362366574826080703907036316546232196313193923841110510170689800892941998845140534954264505413254429240789223724066502818922164419890197058252325607667959185100118251170368909192832882776642565026481260424714348087206462283972676596101498123547647078981435969530082351104111747783346230914935599764345176602456069568419879060577771404946743580809330315332836749661503035076868102720709045692483171306425207758972682717326821412843569770615848397477633761506670219845039890098105484693890695897858251238713238301401843678654564558196040100908796513657968507381392735855990706254646471937809011610992016368630851454275478216664521360246605400986428230407975530880206404171034278692756</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">join_p</span>(<span class="params">tmp, s, l</span>):</span></span><br><span class="line">    s += tmp[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> s[-<span class="number">2</span>:] == <span class="string">&#x27;E3&#x27;</span>:</span><br><span class="line">        l.append(s)</span><br><span class="line">        <span class="comment"># print(s)</span></span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> [<span class="string">&#x27;FC&#x27;</span>, <span class="string">&#x27;9F&#x27;</span>]:</span><br><span class="line">        <span class="keyword">if</span> s[-<span class="number">2</span>:] == <span class="string">&#x27;FC&#x27;</span>:</span><br><span class="line">            s = s[:-<span class="number">2</span>]</span><br><span class="line">        s += c</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(tmp) &gt; <span class="number">1</span>:</span><br><span class="line">            join_p(tmp[<span class="number">1</span>:], s, l)</span><br><span class="line">    <span class="keyword">return</span> l</span><br><span class="line"></span><br><span class="line">tmp = p.split(<span class="string">&#x27;FC&#x27;</span>)</span><br><span class="line">list_p = join_p(tmp, <span class="string">&#x27;&#x27;</span>, [])</span><br><span class="line"><span class="keyword">for</span> _p <span class="keyword">in</span> list_p:</span><br><span class="line">    <span class="keyword">if</span> N % <span class="built_in">int</span>(_p, <span class="number">16</span>) == <span class="number">0</span>:</span><br><span class="line">        p = <span class="built_in">int</span>(_p, <span class="number">16</span>)</span><br><span class="line">        <span class="built_in">print</span>(p)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">q = N//p</span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, N)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
-<p>结果为： <img src="https://img-blog.csdnimg.cn/20210717214230100.png" alt="在这里插入图片描述" /></p>
+<p>结果为： <img data-src="https://img-blog.csdnimg.cn/20210717214230100.png" alt="在这里插入图片描述" /></p>
 <h2 id="afctf2018花开藏宝地">[AFCTF2018]花开藏宝地</h2>
 <p>题干描述如下： 第80804238007977405688648566160504278593148666302626415149704905628622876270862865768337953835725801963142685182510812938072115996355782396318303927020705623120652014080032809421180400984242061592520733710243483947230962631945045134540159517488288781666622635328316972979183761952842010806304748313326215619695085380586052550443025074501971925005072999275628549710915357400946408857号藏宝图</p>
 <p>我把我的宝藏都藏在了那里！ 那个神秘的地方！ 于是我把藏宝图分成了5份，交给五位贤者让他们帮我妥善保管，并且只要搜集3份就可以获得宝藏的地址。</p>
@@ -230,10 +279,10 @@
 <p>第四位贤者找了个破锁锁上了宝箱，狡黠地笑着：“谁知道它是坏的呢？”</p>
 <p>第五位贤者给藏宝图裹上了隐身衣，放入了一个匣子里</p>
 <p>据说，只有拥有【智慧】与【力量】就可以获得宝藏了呢！~ 你是这样的勇者吗？</p>
-<p>题目给了五个压缩包，只要搞出三个就行 前三个都可以爆破密码 爆破工具链接详见我<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/116139873?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162653002016780357231951%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=162653002016780357231951&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-3-116139873.pc_v2_rank_blog_default&amp;utm_term=%E5%8E%8B%E7%BC%A9%E5%8C%85%E5%AF%86%E7%A0%81&amp;spm=1018.2226.3001.4450">2021-4-25的博客</a> 第一个提示是生日，应当为8位数字密码 爆破结果如下： <img src="https://img-blog.csdnimg.cn/20210717214846148.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第二个提示是小写名字 爆破结果如下： <img src="https://img-blog.csdnimg.cn/20210717215005131.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第三个提示是大写咒语 爆破结果如下： <img src="https://img-blog.csdnimg.cn/20210717215153129.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第四个是伪加密，参考我<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/115875059?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162653022716780269884646%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=162653022716780269884646&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-1-115875059.pc_v2_rank_blog_default&amp;utm_term=%E4%BC%AA%E5%8A%A0%E5%AF%86&amp;spm=1018.2226.3001.4450">2021-4-19的博客</a> 只要把如下图所示位置改成偶数即可 <img src="https://img-blog.csdnimg.cn/20210717215930465.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第5个根据<a target="_blank" rel="noopener" href="https://csuwangj.github.io/afctf2018-crypto-officialwriteup/">官方wp</a>是NTFS隐写 但是我解压rar文件之后拿ntfsstreamseditor怎么扫都扫不出流文件，我以为是ntfsstreamseditor的问题，然后换了个工具叫AlternateStreamView，也扫不出来 后来又找了一些资料，发现解压工具用的都是WinRAR，而我用的是BandZip 改用WinRAR解压后，就能扫出来了 AlternateStreamView界面如下： <img src="https://img-blog.csdnimg.cn/20210717224350633.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 之后点导出然后确定即可 <img src="https://img-blog.csdnimg.cn/2021071722445797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 附上ntfsstreamseditor的<a target="_blank" rel="noopener" href="https://pan.baidu.com/share/link?shareid=111913189&amp;uk=741348754&amp;_at_=1626514741168">下载地址</a>和AlternateStreamView的<a target="_blank" rel="noopener" href="http://www.nirsoft.net/utils/alternate_data_streams.html">下载地址</a>以及WinRAR的<a target="_blank" rel="noopener" href="https://www.win-rar.com/download.html?&amp;L=0">下载地址</a></p>
-<p>得到的文件都是一对(x,m)，不知道是干什么的 看了<a target="_blank" rel="noopener" href="https://shawroot.hatenablog.com/entry/2019/12/26/AFCTF2018/BUUCTF-Crypto:%E8%8A%B1%E5%BC%80%E8%97%8F%E5%AE%9D%E5%9C%B0">一个大佬的wp</a>之后知道是<a target="_blank" rel="noopener" href="https://webencrypt.org/secretsharing/">门限方案</a> 而题目提示“花开(bloom)”暗指Asmuth-Bloom门限方案 <img src="https://img-blog.csdnimg.cn/20210717225140913.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 首先是传统艺能sagemath中国剩余定理(CRT)： <img src="https://img-blog.csdnimg.cn/20210717225440444.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 5对(x,m)全用上结果是一样的： <img src="https://img-blog.csdnimg.cn/20210717225534515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 然后p即为第几号藏宝图 <img src="https://img-blog.csdnimg.cn/2021071723072279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 如上图所示，由于<span class="math inline">\(y&lt;p\)</span>，所以只需将<span class="math inline">\(y&#39;(CRT的结果)-Ap\)</span>模<span class="math inline">\(p\)</span>即可得到<span class="math inline">\(S\)</span>（密文）了 代码如下：</p>
+<p>题目给了五个压缩包，只要搞出三个就行 前三个都可以爆破密码 爆破工具链接详见我<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/116139873?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162653002016780357231951%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=162653002016780357231951&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-3-116139873.pc_v2_rank_blog_default&amp;utm_term=%E5%8E%8B%E7%BC%A9%E5%8C%85%E5%AF%86%E7%A0%81&amp;spm=1018.2226.3001.4450">2021-4-25的博客</a> 第一个提示是生日，应当为8位数字密码 爆破结果如下： <img data-src="https://img-blog.csdnimg.cn/20210717214846148.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第二个提示是小写名字 爆破结果如下： <img data-src="https://img-blog.csdnimg.cn/20210717215005131.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第三个提示是大写咒语 爆破结果如下： <img data-src="https://img-blog.csdnimg.cn/20210717215153129.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第四个是伪加密，参考我<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/115875059?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162653022716780269884646%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=162653022716780269884646&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-1-115875059.pc_v2_rank_blog_default&amp;utm_term=%E4%BC%AA%E5%8A%A0%E5%AF%86&amp;spm=1018.2226.3001.4450">2021-4-19的博客</a> 只要把如下图所示位置改成偶数即可 <img data-src="https://img-blog.csdnimg.cn/20210717215930465.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第5个根据<a target="_blank" rel="noopener" href="https://csuwangj.github.io/afctf2018-crypto-officialwriteup/">官方wp</a>是NTFS隐写 但是我解压rar文件之后拿ntfsstreamseditor怎么扫都扫不出流文件，我以为是ntfsstreamseditor的问题，然后换了个工具叫AlternateStreamView，也扫不出来 后来又找了一些资料，发现解压工具用的都是WinRAR，而我用的是BandZip 改用WinRAR解压后，就能扫出来了 AlternateStreamView界面如下： <img data-src="https://img-blog.csdnimg.cn/20210717224350633.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 之后点导出然后确定即可 <img data-src="https://img-blog.csdnimg.cn/2021071722445797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 附上ntfsstreamseditor的<a target="_blank" rel="noopener" href="https://pan.baidu.com/share/link?shareid=111913189&amp;uk=741348754&amp;_at_=1626514741168">下载地址</a>和AlternateStreamView的<a target="_blank" rel="noopener" href="http://www.nirsoft.net/utils/alternate_data_streams.html">下载地址</a>以及WinRAR的<a target="_blank" rel="noopener" href="https://www.win-rar.com/download.html?&amp;L=0">下载地址</a></p>
+<p>得到的文件都是一对(x,m)，不知道是干什么的 看了<a target="_blank" rel="noopener" href="https://shawroot.hatenablog.com/entry/2019/12/26/AFCTF2018/BUUCTF-Crypto:%E8%8A%B1%E5%BC%80%E8%97%8F%E5%AE%9D%E5%9C%B0">一个大佬的wp</a>之后知道是<a target="_blank" rel="noopener" href="https://webencrypt.org/secretsharing/">门限方案</a> 而题目提示“花开(bloom)”暗指Asmuth-Bloom门限方案 <img data-src="https://img-blog.csdnimg.cn/20210717225140913.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 首先是传统艺能sagemath中国剩余定理(CRT)： <img data-src="https://img-blog.csdnimg.cn/20210717225440444.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 5对(x,m)全用上结果是一样的： <img data-src="https://img-blog.csdnimg.cn/20210717225534515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 然后p即为第几号藏宝图 <img data-src="https://img-blog.csdnimg.cn/2021071723072279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 如上图所示，由于<span class="math inline">\(y&lt;p\)</span>，所以只需将<span class="math inline">\(y&#39;(CRT的结果)-Ap\)</span>模<span class="math inline">\(p\)</span>即可得到<span class="math inline">\(S\)</span>（密文）了 代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">x1 = <span class="number">305345133911395218573790903508296238659147802274031796643017539011648802808763162902335644195648525375518941848430114497150082025133000033835083076541927530829557051524161069423494451667848236452337271862085346869364976989047180532167560796470067549915390773271207901537847213882479997325575278672917648417868759077150999044891099206133296336190476413164240995177077671480352739572539631359</span></span><br><span class="line">m1 = <span class="number">347051559622463144539669950096658163425646411435797691973701513725701575100810446175849424000000075855070430240507732735393411493866540572679626172742301366146501862670272443070970511943485865887494229487420503750457974262802053722093905126235340380261828593508455621667309946361705530667957484731929151875527489478449361198648310684702574627199321092927111137398333029697068474762820813413</span></span><br><span class="line">x2 = <span class="number">152012681270682340051690627924586232702552460810030322267827401771304907469802591861912921281833890613186317787813611372838066924894691892444503039545946728621696590087591246339208248647926966446848123290344911662916758039134817404720512465817867255277476717353439505243247568126193361558042940352204093381260402400739429050280526212446967632582771424597203000629197487733610187359662268583</span></span><br><span class="line">m2 = <span class="number">347051559622463144539669950096658163425646411435797691973701513725701575100810446175849424000000075855070430240507732735393411493866540572679626172742301366146501862670272443070970511943485865887494229487420503750457974262802053722093905126235340380261828593508455621667309946361705530667957484731929151875527489478449361198648310684702574627199321092927111137398333029697068474762820818553</span></span><br><span class="line">x3 = <span class="number">40952412095267791829743119118333311932687870987919948671780408726886151430242690997238831410249436653299224291445012397813221016909468630372862610415470277301591535416193017906909638241212666990959976187895288689640250810487806568164431359887246760313154046201720715301307811951233077581047872827004824833876458687145628724339714212107812941785880896399800008924818580623979723496070665230</span></span><br><span class="line">m3 = <span class="number">347051559622463144539669950096658163425646411435797691973701513725701575100810446175849424000000075855070430240507732735393411493866540572679626172742301366146501862670272443070970511943485865887494229487420503750457974262802053722093905126235340380261828593508455621667309946361705530667957484731929151875527489478449361198648310684702574627199321092927111137398333029697068474762820819351</span></span><br><span class="line">x4 = <span class="number">100459779913520540098065407420629954816677926423356769524759072632219106155849450125185205557491138357760494272691949199099803239098119602186117878931534968435982565071570831032814288620974807498206233914826253433847572703407678712965098320122549759579566316372220959610814573945698083909575005303253205653244238542300266460559790606278310650849881421791081944960157781855164700773081375247</span></span><br><span class="line">m4 = <span class="number">347051559622463144539669950096658163425646411435797691973701513725701575100810446175849424000000075855070430240507732735393411493866540572679626172742301366146501862670272443070970511943485865887494229487420503750457974262802053722093905126235340380261828593508455621667309946361705530667957484731929151875527489478449361198648310684702574627199321092927111137398333029697068474762820820091</span></span><br><span class="line">x5 = <span class="number">230502064382947282343660159791611936696520807970361139469603458689311286041516767875903549263861950740778705012699983268093626403307298415066249636346303539570207577050391796770068203937723627361951969413683246596072925692670365490970847825269581004483964261491917680759091791653759514213188778401968676433284753781006738293752440186858616315727565803777032119737689210471541053061940547213</span></span><br><span class="line">m5 = <span class="number">347051559622463144539669950096658163425646411435797691973701513725701575100810446175849424000000075855070430240507732735393411493866540572679626172742301366146501862670272443070970511943485865887494229487420503750457974262802053722093905126235340380261828593508455621667309946361705530667957484731929151875527489478449361198648310684702574627199321092927111137398333029697068474762820822249</span></span><br><span class="line">x = [x1, x2, x3]</span><br><span class="line">m = [m1, m2, m3]</span><br><span class="line"></span><br><span class="line">p = <span class="number">80804238007977405688648566160504278593148666302626415149704905628622876270862865768337953835725801963142685182510812938072115996355782396318303927020705623120652014080032809421180400984242061592520733710243483947230962631945045134540159517488288781666622635328316972979183761952842010806304748313326215619695085380586052550443025074501971925005072999275628549710915357400946408857</span></span><br><span class="line">_m = <span class="number">30876976368086692285558250036880406604917636310753345643851443311621560437660524037995161241308442036379469552063806443002181224753860983594447977830810170201541624128881271226685934621113368082630765925118134834325144756352463621990490982075331418652446742943160748740071265060573720998451298794523954529649159404329795707381755731242527536198482385928070127829060902084889604193497570570666454987614622192127799628914721314092255874223423836747903381309023217090349405981222877770048197886205341954349001378037043986104483577949386469631664327951317484659223470641035291599627126044129328116138456709005193822302098284284434695284085356908092040649892546733042792734012082009931947240120686605195896740999916349434920823829741045025395035620492258352790658333703219086923204432403214249952956353508095035923172933873864816804322018707765332798796032165097476986184856220405455000518836225976464413270841989241690755609748164301706451818506613253021035612120841991720836023832195539291404838851109196963155279844798918459609655314345181964484399235640350608446994546531900893730936604087604005537829207389277430878456169931854713629162410944416019365035094299249030737</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(_m % p))</span><br></pre></td></tr></table></figure>
-<p>结果为： <img src="https://img-blog.csdnimg.cn/20210717230947544.png" alt="在这里插入图片描述" /></p>
+<p>结果为： <img data-src="https://img-blog.csdnimg.cn/20210717230947544.png" alt="在这里插入图片描述" /></p>
 <h2 id="结语">结语</h2>
 <p>希望继续坚持</p>
 
@@ -242,6 +291,23 @@
     
     
     
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Σ2333!
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luozj1020.github.io/uncategorized/2021/07/17/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-17" title="BUUCTF 每日打卡 2021-7-17">https://luozj1020.github.io/uncategorized/2021/07/17/vacation_week1/BUUCTF 每日打卡 2021-7-17</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
         
 
   <div class="followme">
@@ -261,10 +327,13 @@
     </div>
   </div>
 
+      
+      <div> <div> <div style="text-align:center;color:#bfbfbf;font-size:16px;"> <span>-------- 本文结束 </span> <i class="fa fa-paw"></i> <span> 感谢阅读 --------</span> </div> </div>
+ </div>
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Crypto/" rel="tag"># Crypto</a>
+              <a href="/tags/Crypto/" rel="tag"><i class="fa fa-tags"></i> Crypto</a>
           </div>
 
         
@@ -394,6 +463,26 @@
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -407,7 +496,10 @@
   </div>
 
   
+  
+  <script color='255,250,250' opacity='0.7' zIndex='-1' count='80' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -427,6 +519,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -499,8 +595,77 @@
 
   
 
+
+  
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    //只在桌面版网页启用特效
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('#header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+          $('#sidebar').wobbleWindow({
+            radius: 50,
+            movementLeft: false,
+            movementTop: false,
+            movementBottom: false,
+            position: 'fixed',
+            debug: false,
+          });
+        
+
+        
+          $('#footer').wobbleWindow({
+            radius: 50,
+            movementBottom: false,
+            movementLeft: false,
+            movementRight: false,
+            offsetX: ,
+            position: 'absolute',
+            debug: false,
+          });
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
 <script src="/live2d-widget/autoload.js"></script>
+
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>

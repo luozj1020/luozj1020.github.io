@@ -12,12 +12,14 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto:300,300italic,400,400italic,700,700italic|Source Sans Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livers","storage":false,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta property="og:type" content="website">
@@ -80,6 +82,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+<!-- 加入APlayer音乐播放器 -->
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
   <div class="container use-motion">
     <div class="headband"></div>
 
@@ -104,6 +113,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -118,16 +128,48 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -199,14 +241,20 @@
 <h2 id="引言">引言</h2>
 <p>今天把数分作业肝完了，明天肝完高代，假期就过去了 MG正义到了（堆积+1）</p>
 <h2 id="rsa3">RSA3</h2>
-<p>看到 c1, c2, e1, e2, n 就猜到是共模攻击 见 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/">CTF Wiki Crypto 部分 非对称加密 RSA 模数相关攻击</a> <img src="https://img-blog.csdnimg.cn/20210404191609511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<p>看到 c1, c2, e1, e2, n 就猜到是共模攻击 见 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/">CTF Wiki Crypto 部分 非对称加密 RSA 模数相关攻击</a> <img data-src="https://img-blog.csdnimg.cn/20210404191609511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line">c1 = <span class="number">22322035275663237041646893770451933509324701913484303338076210603542612758956262869640822486470121149424485571361007421293675516338822195280313794991136048140918842471219840263536338886250492682739436410013436651161720725855484866690084788721349555662019879081501113222996123305533009325964377798892703161521852805956811219563883312896330156298621674684353919547558127920925706842808914762199011054955816534977675267395009575347820387073483928425066536361482774892370969520740304287456555508933372782327506569010772537497541764311429052216291198932092617792645253901478910801592878203564861118912045464959832566051361</span></span><br><span class="line">n = <span class="number">22708078815885011462462049064339185898712439277226831073457888403129378547350292420267016551819052430779004755846649044001024141485283286483130702616057274698473611149508798869706347501931583117632710700787228016480127677393649929530416598686027354216422565934459015161927613607902831542857977859612596282353679327773303727004407262197231586324599181983572622404590354084541788062262164510140605868122410388090174420147752408554129789760902300898046273909007852818474030770699647647363015102118956737673941354217692696044969695308506436573142565573487583507037356944848039864382339216266670673567488871508925311154801</span></span><br><span class="line">e1 = <span class="number">11187289</span></span><br><span class="line">c2 = <span class="number">18702010045187015556548691642394982835669262147230212731309938675226458555210425972429418449273410535387985931036711854265623905066805665751803269106880746769003478900791099590239513925449748814075904017471585572848473556490565450062664706449128415834787961947266259789785962922238701134079720414228414066193071495304612341052987455615930023536823801499269773357186087452747500840640419365011554421183037505653461286732740983702740822671148045619497667184586123657285604061875653909567822328914065337797733444640351518775487649819978262363617265797982843179630888729407238496650987720428708217115257989007867331698397</span></span><br><span class="line">e2 = <span class="number">9647291</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(GCD(e1, e2)) <span class="comment"># 1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exgcd</span>(<span class="params">a, b</span>):</span> <span class="comment"># 扩展欧几里得算法，求ua+vb=gcd(a,b)中的u,v</span></span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span>:</span><br><span class="line">		u, v = <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">		<span class="keyword">return</span> (u, v)</span><br><span class="line">	<span class="keyword">if</span> a &lt; b:</span><br><span class="line">		a, b = b, a</span><br><span class="line">	u, v = exgcd(b, a%b)</span><br><span class="line">	u, v = v, u - a // b * v</span><br><span class="line">	<span class="keyword">return</span> (u, v)</span><br><span class="line"></span><br><span class="line">u, v = exgcd(e1, e2)</span><br><span class="line"><span class="built_in">print</span>(u, v)</span><br><span class="line">m = gmpy2.powmod(c1, u, n) * gmpy2.powmod(c2, v, n) % n</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
 <p>得到 flag : flag{49d91077a1abcb14f1a9d546c80be9ef}</p>
 <h2 id="世上无难事">世上无难事</h2>
-<p>题目给了一串字符： VIZZB IFIUOJBWO NVXAP OBC XZZ UKHVN IFIUOJBWO HB XVIXW XAW VXFI X QIXN VBD KQ IFIUOJBWO WBKAH NBWXO VBD XJBCN NKG QLKEIU DI XUI VIUI DKNV QNCWIANQ XN DXPIMKIZW VKHV QEVBBZ KA XUZKAHNBA FKUHKAKX XAW DI VXFI HBN QNCWIANQ NCAKAH KA MUBG XZZ XEUBQQ XGIUKEX MUBG PKAWIUHXUNIA NVUBCHV 12NV HUXWI XAW DI XUI SCQN QB HZXW NVXN XZZ EBCZW SBKA CQ NBWXO XAW DI DXAN NB NVXAP DXPIMKIZW MBU JIKAH QCEV XA BCNQNXAWKAH VBQN HKFI OBCUQIZFIQ X JKH UBCAW BM XLLZXCQI XAW NVI PIO KQ 640I11012805M211J0XJ24MM02X1IW09 不知道是什么，猜想为替换密码，尝试爆破：<a target="_blank" rel="noopener" href="https://quipqiup.com/">https://quipqiup.com/</a> 得到结果： <img src="https://img-blog.csdnimg.cn/2021040419230693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> flag 为 640E11012805F211B0AB24FF02A1ED09 再将大写字母替换成小写字母： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">key = <span class="string">&#x27;640E11012805F211B0AB24FF02A1ED09&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(key)):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>) &lt;= <span class="built_in">ord</span>(key[i]) &lt;= <span class="built_in">ord</span>(<span class="string">&#x27;Z&#x27;</span>):</span><br><span class="line">        flag += <span class="built_in">chr</span>(<span class="built_in">ord</span>(key[i]) - <span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>) + <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += key[i]</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure></p>
+<p>题目给了一串字符： VIZZB IFIUOJBWO NVXAP OBC XZZ UKHVN IFIUOJBWO HB XVIXW XAW VXFI X QIXN VBD KQ IFIUOJBWO WBKAH NBWXO VBD XJBCN NKG QLKEIU DI XUI VIUI DKNV QNCWIANQ XN DXPIMKIZW VKHV QEVBBZ KA XUZKAHNBA FKUHKAKX XAW DI VXFI HBN QNCWIANQ NCAKAH KA MUBG XZZ XEUBQQ XGIUKEX MUBG PKAWIUHXUNIA NVUBCHV 12NV HUXWI XAW DI XUI SCQN QB HZXW NVXN XZZ EBCZW SBKA CQ NBWXO XAW DI DXAN NB NVXAP DXPIMKIZW MBU JIKAH QCEV XA BCNQNXAWKAH VBQN HKFI OBCUQIZFIQ X JKH UBCAW BM XLLZXCQI XAW NVI PIO KQ 640I11012805M211J0XJ24MM02X1IW09 不知道是什么，猜想为替换密码，尝试爆破：<a target="_blank" rel="noopener" href="https://quipqiup.com/">https://quipqiup.com/</a> 得到结果： <img data-src="https://img-blog.csdnimg.cn/2021040419230693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> flag 为 640E11012805F211B0AB24FF02A1ED09 再将大写字母替换成小写字母： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">key = <span class="string">&#x27;640E11012805F211B0AB24FF02A1ED09&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(key)):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>) &lt;= <span class="built_in">ord</span>(key[i]) &lt;= <span class="built_in">ord</span>(<span class="string">&#x27;Z&#x27;</span>):</span><br><span class="line">        flag += <span class="built_in">chr</span>(<span class="built_in">ord</span>(key[i]) - <span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>) + <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += key[i]</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure></p>
 <h2 id="结语">结语</h2>
-<p>已经4号了，GO语言还没开始学（咕咕咕） 希望继续坚持</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/uncategorized/2021/04/04/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-4#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -274,18 +322,20 @@
 <h2 id="引言">引言</h2>
 <p>今天的虎符CTF全队四个人只有我没有做出题来，感觉很对不起队友[叹气] 总共两道 crypto ，第一道 cubic 本质上是一道椭圆曲线加密问题，然而这是我的知识盲区 第二题看到 .sage 文件，点开挺长的代码，还涉及位运算，我直接懒得看了 最后第一题68人解出来，第二题仅有13题解出来 楞看了一下午的椭圆曲线加密，把加密原理大致看懂了（怎么破解还没看） 等 wp 出来之后我分两天写一下吧</p>
 <h2 id="凯撒替换呵呵">凯撒？替换？呵呵</h2>
-<p>密文：MTHJ{CUBCGXGUGXWREXIPOYAOEYFIGXWRXCHTKHFCOHCFDUCGTXZOHIXOEOWMEHZO} 尝试用凯撒解密： <img src="https://img-blog.csdnimg.cn/2021040322124019.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" /> 不知道什么玩意儿 再用<a target="_blank" rel="noopener" href="https://quipqiup.com/">替换密码爆破网站</a>： <img src="https://img-blog.csdnimg.cn/20210403221320667.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第一条有意义的语句删除空格，加大括号即为 flag</p>
+<p>密文：MTHJ{CUBCGXGUGXWREXIPOYAOEYFIGXWRXCHTKHFCOHCFDUCGTXZOHIXOEOWMEHZO} 尝试用凯撒解密： <img data-src="https://img-blog.csdnimg.cn/2021040322124019.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70"> 不知道什么玩意儿 再用<a target="_blank" rel="noopener" href="https://quipqiup.com/">替换密码爆破网站</a>： <img data-src="https://img-blog.csdnimg.cn/20210403221320667.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 第一条有意义的语句删除空格，加大括号即为 flag</p>
 <h2 id="old-fashion">old-fashion</h2>
-<p>看题目就能猜到是古典密码 然后看到题目的一串字符：Os drnuzearyuwn, y jtkjzoztzoes douwlr oj y ilzwex eq lsdexosa kn pwodw tsozj eq ufyoszlbz yrl rlufydlx pozw douwlrzlbz, ydderxosa ze y rlatfyr jnjzli; mjy gfbmw vla xy wbfnsy symmyew (mjy vrwm qrvvrf), hlbew rd symmyew, mebhsymw rd symmyew, vbomgeyw rd mjy lxrzy, lfk wr dremj. Mjy eyqybzye kyqbhjyew mjy myom xa hyedrevbfn lf bfzyewy wgxwmbmgmbrf. Wr mjy dsln bw f1_2jyf-k3_jg1-vb-vl_l 猜想是替换密码 只不过没有 flag 前缀提示了<img src="https://img-blog.csdnimg.cn/2021040322135021.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 尝试爆破，结尾显示的就是 flag</p>
+<p>看题目就能猜到是古典密码 然后看到题目的一串字符：Os drnuzearyuwn, y jtkjzoztzoes douwlr oj y ilzwex eq lsdexosa kn pwodw tsozj eq ufyoszlbz yrl rlufydlx pozw douwlrzlbz, ydderxosa ze y rlatfyr jnjzli; mjy gfbmw vla xy wbfnsy symmyew (mjy vrwm qrvvrf), hlbew rd symmyew, mebhsymw rd symmyew, vbomgeyw rd mjy lxrzy, lfk wr dremj. Mjy eyqybzye kyqbhjyew mjy myom xa hyedrevbfn lf bfzyewy wgxwmbmgmbrf. Wr mjy dsln bw f1_2jyf-k3_jg1-vb-vl_l 猜想是替换密码 只不过没有 flag 前缀提示了<img data-src="https://img-blog.csdnimg.cn/2021040322135021.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 尝试爆破，结尾显示的就是 flag</p>
 <h2 id="权限获得第一步">权限获得第一步</h2>
-<p>题目内容位Administrator:500:806EDC27AA52E314AAD3B435B51404EE:F4AD50F57683D4260DFD48AA351A17A8::: 联系题目 <img src="https://img-blog.csdnimg.cn/20210403221418319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 联想到之前的《Windows系统密码》，易知用 MD5 解密 不出所料，前面一段仍然是“付费内容” <img src="https://img-blog.csdnimg.cn/20210403221438264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第二段解密后为 flag <img src="https://img-blog.csdnimg.cn/20210403221447813.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> “答案为非常规形式”大概是指结果为纯数字</p>
+<p>题目内容位Administrator:500:806EDC27AA52E314AAD3B435B51404EE:F4AD50F57683D4260DFD48AA351A17A8::: 联系题目 <img data-src="https://img-blog.csdnimg.cn/20210403221418319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 联想到之前的《Windows系统密码》，易知用 MD5 解密 不出所料，前面一段仍然是“付费内容” <img data-src="https://img-blog.csdnimg.cn/20210403221438264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 第二段解密后为 flag <img data-src="https://img-blog.csdnimg.cn/20210403221447813.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> “答案为非常规形式”大概是指结果为纯数字</p>
 <h2 id="萌萌哒的八戒">萌萌哒的八戒</h2>
-<p>一看跟猪有关就知道是猪圈密码了 <img src="https://img-blog.csdnimg.cn/20210403221503108.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" />题目给了一张图片：</p>
-<p>题目给了一张图片：</p>
-<p><img src="https://img-blog.csdnimg.cn/20210403221518318.jpg" alt="在这里插入图片描述" /> 对照猪圈密码表： <img src="https://img-blog.csdnimg.cn/20210403221749629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 可得明文：WHENTHEPIGWANTTOEAT</p>
-<h2 id="结语">结语</h2>
-<p>总算水完了（？） 比赛打完了，这两天天写写作业，摆弄摆弄博客，玩玩胶就把清明假期过去了 <img src="https://img-blog.csdnimg.cn/20210403221649822.png" alt="在这里插入图片描述" /> 希望能坚持</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/uncategorized/2021/04/03/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-3#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -353,9 +403,9 @@
 <h2 id="引言">引言</h2>
 <p>啊，假期就要开始了，好耶！ 明天还有虎符CTF要打（TTK，一直摸TTK）</p>
 <h2 id="信息化时代的步伐">信息化时代的步伐</h2>
-<p>打开附件，只见一串数字：”606046152623600817831216121621196386“ 我直接“？？？” 再看题目描述： <img src="https://img-blog.csdnimg.cn/20210402215456169.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 还是摸不着头脑 只好搜题解 说是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%96%87%E7%94%B5%E7%A0%81">中文电码</a>，又是没见过的密码[捂脸] “也许中国可以早早进入信息化时代，但是被清政府拒绝了”： 自摩尔斯电码在1835年发明后，一直只能用来传送英语或以拉丁字母拼写的文字。1873年，法国驻华人员威基杰（S·A·Viguer）参照《康熙字典》的部首排列方法，挑选了常用汉字6800多个，编成了第一部汉字电码本《电报新书》。后由任上海电报局首任总办的郑观应将其改编成为《中国电报新编》。（摘自wiki） flag 为：flag{计算机要从娃娃抓起} 这句话是1984年邓小平同志说的：<a target="_blank" rel="noopener" href="http://cpc.people.com.cn/n1/2019/1030/c69113-31428714.html">数十年后一位伟人说的话</a> 中文电码加密解密：<a target="_blank" rel="noopener" href="http://code.mcdvisa.com/">http://code.mcdvisa.com/</a></p>
+<p>打开附件，只见一串数字：”606046152623600817831216121621196386“ 我直接“？？？” 再看题目描述： <img data-src="https://img-blog.csdnimg.cn/20210402215456169.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 还是摸不着头脑 只好搜题解 说是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%96%87%E7%94%B5%E7%A0%81">中文电码</a>，又是没见过的密码[捂脸] “也许中国可以早早进入信息化时代，但是被清政府拒绝了”： 自摩尔斯电码在1835年发明后，一直只能用来传送英语或以拉丁字母拼写的文字。1873年，法国驻华人员威基杰（S·A·Viguer）参照《康熙字典》的部首排列方法，挑选了常用汉字6800多个，编成了第一部汉字电码本《电报新书》。后由任上海电报局首任总办的郑观应将其改编成为《中国电报新编》。（摘自wiki） flag 为：flag{计算机要从娃娃抓起} 这句话是1984年邓小平同志说的：<a target="_blank" rel="noopener" href="http://cpc.people.com.cn/n1/2019/1030/c69113-31428714.html">数十年后一位伟人说的话</a> 中文电码加密解密：<a target="_blank" rel="noopener" href="http://code.mcdvisa.com/">http://code.mcdvisa.com/</a></p>
 <h2 id="rsa1">RSA1</h2>
-<p>dp dq 泄露的题没做过（别问，问就是看wp） <img src="https://img-blog.csdnimg.cn/20210402220615920.jpg" alt="在这里插入图片描述" /> 当然，剽窃别人的答案是可耻的，我们还要“剽窃”别人的知识（嘿嘿嘿） 参考博客：<a target="_blank" rel="noopener" href="https://skysec.top/2018/08/25/RSA%E4%B9%8B%E6%8B%92%E7%BB%9D%E5%A5%97%E8%B7%AF-2/">RSA之拒绝套路(2)</a> 这篇博客讲得很详细，但仍有地方可以细化和纠错 作为一个数理基础不扎实的数院学生，花了老半天才看明白 下面，让我来逐步推导（也当练习 <span class="math inline">\(Latex\)</span>了）： 首先，什么是 <span class="math inline">\(dp\)</span> 和 <span class="math inline">\(dq\)</span>： <span class="math display">\[
+<p>dp dq 泄露的题没做过（别问，问就是看wp） <img data-src="https://img-blog.csdnimg.cn/20210402220615920.jpg" alt="在这里插入图片描述" /> 当然，剽窃别人的答案是可耻的，我们还要“剽窃”别人的知识（嘿嘿嘿） 参考博客：<a target="_blank" rel="noopener" href="https://skysec.top/2018/08/25/RSA%E4%B9%8B%E6%8B%92%E7%BB%9D%E5%A5%97%E8%B7%AF-2/">RSA之拒绝套路(2)</a> 这篇博客讲得很详细，但仍有地方可以细化和纠错 作为一个数理基础不扎实的数院学生，花了老半天才看明白 下面，让我来逐步推导（也当练习 <span class="math inline">\(Latex\)</span>了）： 首先，什么是 <span class="math inline">\(dp\)</span> 和 <span class="math inline">\(dq\)</span>： <span class="math display">\[
 \begin{cases}
 dp \equiv d\space mod\space (p-1)\\dq \equiv d\space mod\space (q-1)
 \end{cases}
@@ -484,16 +534,18 @@ m_{2} \equiv c^{dq} \space mod \space q
 <h2 id="传统知识古典密码">传统知识+古典密码</h2>
 <p>题干如下： 小明某一天收到一封密信，信中写了几个不同的年份 辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳。 信的背面还写有“+甲子”，请解出这段密文。</p>
 <p>key值：CTF{XXX}</p>
-<p>一看是干支纪年法，一查表 <img src="https://img-blog.csdnimg.cn/20210331211043907.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 得到列表：[28, 30, 23, 8, 29, 10, 16, 30] 看着应该是 ascii 码 +甲子 即每个数加60（每个数加1就没有什么意义了）</p>
-<p>上面这部分是传统知识，题目还提到古典密码，常见的加密内容为字符串，加密后还是字符串的古典密码不外乎栅栏密码、凯撒密码 而且题目信息很少，也不大可能是 维吉尼亚密码 或者 base 加密之类需要字母表的密码 <img src="https://img-blog.csdnimg.cn/20210331220339234.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 结果为 SHUANGYU</p>
+<p>一看是干支纪年法，一查表 <img data-src="https://img-blog.csdnimg.cn/20210331211043907.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 得到列表：[28, 30, 23, 8, 29, 10, 16, 30] 看着应该是 ascii 码 +甲子 即每个数加60（每个数加1就没有什么意义了）</p>
+<p>上面这部分是传统知识，题目还提到古典密码，常见的加密内容为字符串，加密后还是字符串的古典密码不外乎栅栏密码、凯撒密码 而且题目信息很少，也不大可能是 维吉尼亚密码 或者 base 加密之类需要字母表的密码 <img data-src="https://img-blog.csdnimg.cn/20210331220339234.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 结果为 SHUANGYU</p>
 <p>其实我是搜了题解的 由于题目给的信息很少，而且输出不是题目给的格式 CTF{XXX} 即使想到了用栅栏密码和凯撒密码，也无法判断那个是正确结果，只能一个个试过去 而且很可能做了一次栅栏（或根本没想到用栅栏），没有正确结果就放弃了 结果应该是和比赛的名字有关联（“SHUANGYU”看起来像"双语"？），比如是 XX杯，这也是 BUUOJ 一个缺失的地方吧</p>
 <h2 id="传感器">传感器</h2>
-<p>“传统知识+古典密码”的问题暂且不提，但是附件里有另一个题是什么鬼？？？（您搁这儿套娃呢） <img src="https://img-blog.csdnimg.cn/20210401210401497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> “传感器”解压之后题目如下： 5555555595555A65556AA696AA6666666955 这是某压力传感器无线数据包解调后但未解码的报文(hex) 已知其ID为0xFED31F，请继续将报文完整解码，提交hex。 提示1：曼联</p>
-<p>当时我就想，这个题的结果可能是“传统知识+古典密码”的提示，然后就想先解这题，但是毫无思路 这个“提示1”给了一个足球俱乐部是什么鬼？提示是球队的比分或者创立年份之类的数字吗？可是有什么用呢？ 而“压力传感器无线数据包”的线索也没有头绪（大概给的是高低电频给的二进制编码然后转成了题干（猜的）） 只好去搜题解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/MikeCoke/article/details/106146391">https://blog.csdn.net/MikeCoke/article/details/106146391</a> 好家伙，曼联原来指的是<strong>曼彻斯特编码</strong>，我人傻了，没见过 当然，就有必要学习一下曼彻斯特编码 <strong>曼彻斯特码</strong>（Manchester code），又称数字双向码、分相码或相位编码(PE)，是 一种常用的的二元码线路编码方式之一，被物理层使用来编码一个同步位流的时钟和数据。在通信技术中，用来表示所要发送比特 流中的数据与定时信号所结合起来的代码。常用在以太网通信，列车总线控制，工业总线等领域 参考文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/83958412">CTF中常见的加解密集合</a> 曼彻斯特码编解码原理：<a target="_blank" rel="noopener" href="https://blog.csdn.net/i13919135998/article/details/52276029">https://blog.csdn.net/i13919135998/article/details/52276029</a> 曼彻斯特解码电路设计的关键是如何准确地从曼彻斯特码的数据流中提取出“10”和“01”信号，并且把它们转换成普通二进制编码中的“0”和“1”。例如对于曼彻斯特码“01010101”，如果从第一位开始解码，得到的二进制编码就是“1111”，而若从第二位开始解码，得到的二进制编码就是“000”和头尾两个曼彻斯特码。由此可见，如果曼彻斯特码数据流中只有“1”或“0”是不能得到正确的译码结果的，如果曼彻斯特编码数据流中出现“00”，则“00”前后的码元必定是“1”；如果曼彻斯特编码数据流中出现“11”，则“00”前后的码元必定是“0”，因此，我们可以将“00”与“11”作为曼彻斯特码译码的标志位。（阿巴阿巴阿巴） 编码的步骤，是用01表示0，用10表示1。正是因为用跳变沿表示电平，使得它的频率是信号的两倍。 将5555555595555A65556AA696AA6666666955转化为二进制，根据01-&gt;1,10-&gt;0.可以得到 0101-&gt;11 0110-&gt;10 1010-&gt;00 1001-&gt;01 将得到的二进制按照上述转换后，对比ID并不重合，根据八位倒序传输协议将二进制每八位reverse，然后转换十六进制就可以得到flag。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cipher=<span class="string">&#x27;5555555595555A65556AA696AA6666666955&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iee</span>(<span class="params">cipher</span>):</span></span><br><span class="line">    tmp=<span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(cipher)):</span><br><span class="line">        a=<span class="built_in">bin</span>(<span class="built_in">eval</span>(<span class="string">&#x27;0x&#x27;</span>+cipher[i]))[<span class="number">2</span>:].zfill(<span class="number">4</span>)</span><br><span class="line">        tmp=tmp+a[<span class="number">1</span>]+a[<span class="number">3</span>]</span><br><span class="line">        <span class="built_in">print</span>(tmp)</span><br><span class="line">    plain=[<span class="built_in">hex</span>(<span class="built_in">int</span>(tmp[i:i+<span class="number">8</span>][::-<span class="number">1</span>],<span class="number">2</span>))[<span class="number">2</span>:] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(tmp),<span class="number">8</span>)]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>.join(plain).upper())</span><br><span class="line"></span><br><span class="line">iee(cipher)</span><br></pre></td></tr></table></figure> 原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45784859/article/details/105602386">https://blog.csdn.net/qq_45784859/article/details/105602386</a></p>
-<p>结果其实与 flag 没有什么影响，就不再赘述了</p>
-<h2 id="结语">结语</h2>
-<p>今天也坚持水完了（？ 希望能坚持</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/uncategorized/2021/04/01/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-1#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -563,18 +615,18 @@ m_{2} \equiv c^{dq} \space mod \space q
 <h2 id="hexo-遇到的各种坑">hexo 遇到的各种坑</h2>
 <p>既然讲到了搭个人博客，就讲一讲我用 hexo + github 遇到的各种坑 我搭博客主要参考了知乎的这篇文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35668237">https://zhuanlan.zhihu.com/p/35668237</a> 但是这个作者参考的是这篇18年文章：<a target="_blank" rel="noopener" href="https://godweiyang.com/2018/04/13/hexo-blog/">https://godweiyang.com/2018/04/13/hexo-blog/</a> 以致于我踩了不少坑</p>
 <h3 id="node.js">1、Node.js</h3>
-<p>首先是 Node.js <img src="https://img-blog.csdnimg.cn/20210331204551487.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 一定要下右边这个！！！ 我当时贪了下了最新版，结果各种报错</p>
+<p>首先是 Node.js <img data-src="https://img-blog.csdnimg.cn/20210331204551487.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 一定要下右边这个！！！ 我当时贪了下了最新版，结果各种报错</p>
 <h3 id="git">2、Git</h3>
 <p>记得更新 （虽然我当时更新前后似乎也没什么变化）</p>
 <h3 id="hexo">3、Hexo</h3>
-<p>参考文章里面有这样一段话：<img src="https://img-blog.csdnimg.cn/20210331205002967.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 结果我 hexo d 了无数次，github 上博客的内容丝毫没有改变 大致会出现这么一段话： <img src="https://img-blog.csdnimg.cn/20210331205148440.png" alt="在这里插入图片描述" /> 后来我看到了另一篇知乎文章，作者碰到了和我有一样的问题：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/345841098">https://zhuanlan.zhihu.com/p/345841098</a> <img src="https://img-blog.csdnimg.cn/202103312053520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 我才得以解决</p>
-<p>另一个问题就是我把 .md 文件放到 source 文件夹 hexo g 后生成的网站里面 recent post 文章标题都是 (no title)（好像是这么显示的），后来才发现要在文件开头夹几行字： <img src="https://img-blog.csdnimg.cn/20210331205709954.png" alt="在这里插入图片描述" /> 吐槽的大概就这么些 只能说找资料还是要跟进时代吧</p>
-<h2 id="windows系统密码">Windows系统密码</h2>
-<p>回到正题</p>
-<p>题目给了一个 <strong>.hash 文件</strong>，很容易想到哈希函数 MD5 加密 文件内容如下： <img src="https://img-blog.csdnimg.cn/20210331210338650.png" alt="在这里插入图片描述" /> 容易猜想第二行 ctf 字样即为flag MD5 解密网站：<a target="_blank" rel="noopener" href="https://www.cmd5.com/">https://www.cmd5.com/</a> 先把第一段拿去 MD5 解密： <img src="https://img-blog.csdnimg.cn/20210331210518771.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 嗯？？？ 还要我付钱？ 再试试第二段： <img src="https://img-blog.csdnimg.cn/20210331210627845.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 诶 提交上去就是 flag</p>
-<h2 id="结语">结语</h2>
-<p>传统知识+古典密码明天再写（咕咕咕） 因为里面实际上有两道题，原题 flag 已经找到了；而另一道题加密方法没见过，与题目的 flag 无关 希望能坚持</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/uncategorized/2021/03/31/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-3-31#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -642,18 +694,20 @@ m_{2} \equiv c^{dq} \space mod \space q
 <h2 id="引言">引言</h2>
 <p>周二，比较轻松的一天 晚上有机器学习选修课（学，都可以学）</p>
 <h2 id="alice与bob">Alice与Bob</h2>
-<p>题目描述： <img src="https://img-blog.csdnimg.cn/20210330075927447.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 如题，先进行大整数分解： 分解大整数网站：<a target="_blank" rel="noopener" href="http://factordb.com/">http://factordb.com/</a> <img src="https://img-blog.csdnimg.cn/20210330075551151.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 然后进行md5加密： 参考博文<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_878799579/article/details/74324869">https://blog.csdn.net/qq_878799579/article/details/74324869</a> <img src="https://img-blog.csdnimg.cn/20210330080410603.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 输出即结果</p>
+<p>题目描述： <img data-src="https://img-blog.csdnimg.cn/20210330075927447.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 如题，先进行大整数分解： 分解大整数网站：<a target="_blank" rel="noopener" href="http://factordb.com/">http://factordb.com/</a> <img data-src="https://img-blog.csdnimg.cn/20210330075551151.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 然后进行md5加密： 参考博文<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_878799579/article/details/74324869">https://blog.csdn.net/qq_878799579/article/details/74324869</a> <img data-src="https://img-blog.csdnimg.cn/20210330080410603.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 输出即结果</p>
 <p>至于题干里面提到 Alice 和 Bob ， 初学密码学的时候设置情境，一般将 Alice(A) 作为传递信息的人， Bob(B) 作为接收信息的人， Cat(C) 作为窃听者（有个窃听软件叫 webcat ，大概是这个原因吧），然后这两个人传收信息搞出了一堆加密算法（</p>
 <h2 id="rsarsa">rsarsa</h2>
 <p>题目描述： Math is cool! Use the RSA algorithm to decode the secret message, c, p, q, and e are parameters for the RSA algorithm.</p>
 <p>p = 9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483 q = 11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407 e = 65537 c = 83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034</p>
 <p>Use RSA to find the secret message 解题代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入p, q, e, c</span></span><br><span class="line"></span><br><span class="line">N = p*q</span><br><span class="line">phi = (p-<span class="number">1</span>) * (q-<span class="number">1</span>)</span><br><span class="line">d = gmpy2.invert(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, N)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br></pre></td></tr></table></figure> 按道理是要 long_to_bytes 一下的，结果出来一堆乱码 b'8eC%Y97t' 把 m 作为 flag 提交即可</p>
-<h2 id="大帝的密码武器">大帝的密码武器</h2>
-<p>题目描述： 公元前一百年，在罗马出生了一位对世界影响巨大的人物，他生前是罗马三巨头之一。他率先使用了一种简单的加密函，因此这种加密方法以他的名字命名。 以下密文被解开后可以获得一个有意义的单词：FRPHEVGL 你可以用这个相同的加密向量加密附件中的密文，作为答案进行提交。 密文：ComeChina</p>
-<p>直接用在线工具进行解密： 随便找了个网站：<a target="_blank" rel="noopener" href="http://ctf.ssleye.com/caesar.html">http://ctf.ssleye.com/caesar.html</a> <img src="https://img-blog.csdnimg.cn/20210330082924129.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 位移13位得到有意义的单词SECURITY 同样对密文位移13位： <img src="https://img-blog.csdnimg.cn/20210330083129893.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 得到答案 PbzrPuvan （这个网站对大小写不敏感，差评）</p>
-<h2 id="结语">结语</h2>
-<p>晚上机器学习课结束之后大概就不想动脑了，所以在大早上就把每日打卡写完 昨天肝完日常就快12点了，都没时间撸胶了（ 希望能坚持</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/uncategorized/2021/03/30/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-3-30#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -723,7 +777,7 @@ m_{2} \equiv c^{dq} \space mod \space q
 <h2 id="丢失的md5">丢失的MD5</h2>
 <p>原题代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib   </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">            m=hashlib.md5()</span><br><span class="line">            m.update(<span class="string">&#x27;TASC&#x27;</span>+<span class="built_in">chr</span>(i)+<span class="string">&#x27;O3RJMV&#x27;</span>+<span class="built_in">chr</span>(j)+<span class="string">&#x27;WDJKX&#x27;</span>+<span class="built_in">chr</span>(k)+<span class="string">&#x27;ZM&#x27;</span>)</span><br><span class="line">            des=m.hexdigest()</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;e9032&#x27;</span> <span class="keyword">in</span> des <span class="keyword">and</span> <span class="string">&#x27;da&#x27;</span> <span class="keyword">in</span> des <span class="keyword">and</span> <span class="string">&#x27;911513&#x27;</span> <span class="keyword">in</span> des:</span><br><span class="line">                <span class="built_in">print</span> des</span><br></pre></td></tr></table></figure> 是用python2写的，仅仅修改了print，还是会报错 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;D:/BUUCTF/Crypto/丢失的MD5/丢失的MD5/md5 (2).py&quot;</span>, line <span class="number">6</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    m.update(<span class="string">&#x27;TASC&#x27;</span>+<span class="built_in">chr</span>(i)+<span class="string">&#x27;O3RJMV&#x27;</span>+<span class="built_in">chr</span>(j)+<span class="string">&#x27;WDJKX&#x27;</span>+<span class="built_in">chr</span>(k)+<span class="string">&#x27;ZM&#x27;</span>)</span><br><span class="line">TypeError: Unicode-objects must be encoded before hashing</span><br></pre></td></tr></table></figure> 要对 m.update() 部分进行 utf-8 编码 修改完后代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib   </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">            m=hashlib.md5()</span><br><span class="line">            m.update((<span class="string">&#x27;TASC&#x27;</span>+<span class="built_in">chr</span>(i)+<span class="string">&#x27;O3RJMV&#x27;</span>+<span class="built_in">chr</span>(j)+<span class="string">&#x27;WDJKX&#x27;</span>+<span class="built_in">chr</span>(k)+<span class="string">&#x27;ZM&#x27;</span>).encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">            des=m.hexdigest()</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;e9032&#x27;</span> <span class="keyword">in</span> des <span class="keyword">and</span> <span class="string">&#x27;da&#x27;</span> <span class="keyword">in</span> des <span class="keyword">and</span> <span class="string">&#x27;911513&#x27;</span> <span class="keyword">in</span> des:</span><br><span class="line">                <span class="built_in">print</span>(des)</span><br></pre></td></tr></table></figure> 然后运行结果为： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e9032994dabac08080091151380478a2</span><br></pre></td></tr></table></figure> 之后就不知道要干什么了 搜了搜题解[捂脸]，结果说flag就是输出部分（wtm人傻了）</p>
 <p>当然，搜题解之前搜了搜关于 MD5 的资料（对于哈希函数这块一直是云里雾里的） MD5加密算法：<a target="_blank" rel="noopener" href="https://www.tomorrow.wiki/archives/503">https://www.tomorrow.wiki/archives/503</a>来源TOMORROW星辰：www.tomorrow.wik 简单概括起来，MD5 算法的过程分为四步：处理原文，设置初始值，循环加工，拼接结果。（底层实现非常复杂） 破解MD5加密算法：<a target="_blank" rel="noopener" href="https://www.tomorrow.wiki/archives/562">https://www.tomorrow.wiki/archives/562</a>来源TOMORROW星辰：www.tomorrow.wik 破解算法都是利用 MD5 碰撞原理：被加密的数据与 MD5 加密算法所生成的哈希值并不是一一对应的关系，而是多对一，也就是说不同的数据经过 MD5 加密算法处理后，可能生成同样的 MD5 哈希值。通过碰撞寻找可以生成相同的哈希值的数据来实现破解。 其中暴力破解法的时间成本太高了，字典法则是空间成本太高，彩虹表法的时间成本和空间成本都较为均衡，相对较低，实用性更强。但是，计算机技术发展现在，利用分布式技术仍是可以有效利用以上方法进行破解 MD5 加密的。因此，这些方法都是有广泛应用的。 2004 年，中国数学家王小云等提出了一种新的 MD5 碰撞方法，使得 MD5 加密算法破解的效率大大提高。 2009 年，冯登国、谢涛提出了利用差分攻击的，使得 MD5 加密算法的破解复杂度进一步降低。 百度上搜的差分攻击（看不懂）：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%B7%AE%E5%88%86%E6%94%BB%E5%87%BB">https://baike.baidu.com/item/%E5%B7%AE%E5%88%86%E6%94%BB%E5%87%BB</a></p>
-<p>一个小插曲： <img src="https://img-blog.csdnimg.cn/20210329215331168.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 我还特地搜了一下，我是不会告诉你们俗称“拉面女神”的[滑稽]</p>
+<p>一个小插曲： <img data-src="https://img-blog.csdnimg.cn/20210329215331168.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 我还特地搜了一下，我是不会告诉你们俗称“拉面女神”的[滑稽]</p>
 <h2 id="结语">结语</h2>
 <p>第二天，希望能坚持</p>
 
@@ -794,15 +848,20 @@ m_{2} \equiv c^{dq} \space mod \space q
 <h1 id="引言">引言</h1>
 <p>开学半个月了，原本定的每日一题计划至今还没有实施（咕咕咕） 新学期首次CTF社团培训，让我们按方向分组每周做题发到博客上 （然而搞crypto的好像只有我一个😂） 想起寒假的cryptohack任务还有一大部分没搞，就突然感觉很无力很挫败 然后决定转战BUUOJ 希望这个系列能一直做下去 也当是写日记了</p>
 <h1 id="rabbit">Rabbit</h1>
-<p>Rabbit, Tank, Best Match 不好意思，搞错了😂 题目就是一串加密字符：U2FsdGVkX1/+ydnDPowGbjjJXhZxm2MP2AgI 然后搜一下Rabbit加密 <img src="https://img-blog.csdnimg.cn/2021032810274494.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="解密网站：http://www.jsons.cn/rabbitencrypt/" />解密网站：<a target="_blank" rel="noopener" href="http://www.jsons.cn/rabbitencrypt/">http://www.jsons.cn/rabbitencrypt/</a> 当然，解出了题目是不够的 一个关于Rabbit加密的文档：<a target="_blank" rel="noopener" href="https://www.ietf.org/rfc/rfc4503.txt">https://www.ietf.org/rfc/rfc4503.txt</a> Rabbit流密码（Rabbit Stream Cipher）简介： Rabbit流密码是由Cryptico公司（http://www.cryptico.com）设计的， Rabbit输入128bit的密钥和64bit的<em>IV初始向量</em>，每次迭代后从513bit内部状态中生成128bit的伪随机序列。最大加密消息长度为 <span class="math inline">\(2^{64}\)</span>​ bytes，即16TB，若消息超过该长度，则需要更换密钥对剩下的消息进行处理。 那么，什么是IV初始向量呢？ 在密码学的领域里，初始向量（英语：initialization vector，缩写为IV），或译初向量，又称初始变量（starting variable，缩写为SV），是一个固定长度的输入值。一般的使用上会要求它是随机数或拟随机数（pseudorandom）。使用随机数产生的初始向量才能达到语义安全（消息验证码也可能用到初始向量），并让攻击者难以对原文一致且使用同一把密钥生成的密文进行破解。（摘自wiki）</p>
+<p>Rabbit, Tank, Best Match 不好意思，搞错了😂 题目就是一串加密字符：U2FsdGVkX1/+ydnDPowGbjjJXhZxm2MP2AgI 然后搜一下Rabbit加密 <img data-src="https://img-blog.csdnimg.cn/2021032810274494.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="解密网站：http://www.jsons.cn/rabbitencrypt/">解密网站：<a target="_blank" rel="noopener" href="http://www.jsons.cn/rabbitencrypt/">http://www.jsons.cn/rabbitencrypt/</a> 当然，解出了题目是不够的 一个关于Rabbit加密的文档：<a target="_blank" rel="noopener" href="https://www.ietf.org/rfc/rfc4503.txt">https://www.ietf.org/rfc/rfc4503.txt</a> Rabbit流密码（Rabbit Stream Cipher）简介： Rabbit流密码是由Cryptico公司（http://www.cryptico.com）设计的， Rabbit输入128bit的密钥和64bit的<em>IV初始向量</em>，每次迭代后从513bit内部状态中生成128bit的伪随机序列。最大加密消息长度为 <span class="math inline">\(2^{64}\)</span>​ bytes，即16TB，若消息超过该长度，则需要更换密钥对剩下的消息进行处理。 那么，什么是IV初始向量呢？ 在密码学的领域里，初始向量（英语：initialization vector，缩写为IV），或译初向量，又称初始变量（starting variable，缩写为SV），是一个固定长度的输入值。一般的使用上会要求它是随机数或拟随机数（pseudorandom）。使用随机数产生的初始向量才能达到语义安全（消息验证码也可能用到初始向量），并让攻击者难以对原文一致且使用同一把密钥生成的密文进行破解。（摘自wiki）</p>
 <h1 id="篱笆墙的影子">篱笆墙的影子</h1>
-<p><img src="https://img-blog.csdnimg.cn/20210328105527218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 老谜语人了 一看题目就知道这是个<strong>栅栏密码</strong> 密文：felhaagv{ewtehtehfilnakgw} <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="string">&#x27;felhaagv&#123;ewtehtehfilnakgw&#125;&#x27;</span></span><br><span class="line">c = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(m), <span class="number">2</span>):</span><br><span class="line">    c += m[i]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(m), <span class="number">2</span>):</span><br><span class="line">    c += m[i]</span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure></p>
+<p><img data-src="https://img-blog.csdnimg.cn/20210328105527218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"> 老谜语人了 一看题目就知道这是个<strong>栅栏密码</strong> 密文：felhaagv{ewtehtehfilnakgw} <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="string">&#x27;felhaagv&#123;ewtehtehfilnakgw&#125;&#x27;</span></span><br><span class="line">c = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(m), <span class="number">2</span>):</span><br><span class="line">    c += m[i]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(m), <span class="number">2</span>):</span><br><span class="line">    c += m[i]</span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure></p>
 <h1 id="rsa">RSA</h1>
 <p>题目：在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17 求解出d作为flag提交</p>
 <p>RSA加密原理： 选择两个大素数p和q，计算出模数N = p * q 计算φ = (p−1) * (q−1) 即N的欧拉函数，然后选择一个e (1&lt;e&lt;φ)，且e和φ互质 取e的模反数为d，计算方法: e * d ≡ 1 (mod φ) 对明文m进行加密：c = pow(m, e, N)，得到的c即为密文 对密文c进行解密，m = pow(c, d, N)，得到的m即为明文 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line">p = <span class="number">473398607161</span></span><br><span class="line">q = <span class="number">4511491</span></span><br><span class="line">e = <span class="number">17</span></span><br><span class="line"></span><br><span class="line">phi = (p-<span class="number">1</span>) * (q-<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;d = &#x27;</span> + <span class="built_in">str</span>(gmpy2.invert(e, phi)))</span><br></pre></td></tr></table></figure></p>
-<h1 id="结语">结语</h1>
-<p>炸鱼一时爽，一直炸鱼一直爽（doge） 希望能坚持</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/uncategorized/2021/03/28/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-3-28#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -928,6 +987,26 @@ m_{2} \equiv c^{dq} \space mod \space q
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -941,7 +1020,10 @@ m_{2} \equiv c^{dq} \space mod \space q
   </div>
 
   
+  
+  <script color='255,250,250' opacity='0.7' zIndex='-1' count='80' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -961,6 +1043,10 @@ m_{2} \equiv c^{dq} \space mod \space q
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -1033,8 +1119,77 @@ m_{2} \equiv c^{dq} \space mod \space q
 
   
 
+
+  
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    //只在桌面版网页启用特效
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('#header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+          $('#sidebar').wobbleWindow({
+            radius: 50,
+            movementLeft: false,
+            movementTop: false,
+            movementBottom: false,
+            position: 'fixed',
+            debug: false,
+          });
+        
+
+        
+          $('#footer').wobbleWindow({
+            radius: 50,
+            movementBottom: false,
+            movementLeft: false,
+            movementRight: false,
+            offsetX: ,
+            position: 'absolute',
+            debug: false,
+          });
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
 <script src="/live2d-widget/autoload.js"></script>
+
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>

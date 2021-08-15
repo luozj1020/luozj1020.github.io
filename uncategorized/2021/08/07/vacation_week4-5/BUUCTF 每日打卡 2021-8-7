@@ -12,12 +12,14 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto:300,300italic,400,400italic,700,700italic|Source Sans Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livers","storage":false,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="引言 无 [watevrCTF 2019]ECC-RSA 看到标题就有点怕了，ECC椭圆曲线加密，学过一点皮毛，没做过题，找wp 加密代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748from fastecdsa.curve import P521 as">
@@ -89,6 +91,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+<!-- 加入APlayer音乐播放器 -->
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
   <div class="container use-motion">
     <div class="headband"></div>
 
@@ -113,6 +122,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -127,16 +137,48 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -194,6 +236,13 @@
               </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -209,14 +258,14 @@
 <h2 id="watevrctf-2019ecc-rsa">[watevrCTF 2019]ECC-RSA</h2>
 <p>看到标题就有点怕了，ECC椭圆曲线加密，学过一点皮毛，没做过题，找<a target="_blank" rel="noopener" href="https://blog.csdn.net/a5555678744/article/details/117575339">wp</a> 加密代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastecdsa.curve <span class="keyword">import</span> P521 <span class="keyword">as</span> Curve</span><br><span class="line"><span class="keyword">from</span> fastecdsa.point <span class="keyword">import</span> Point</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> bytes_to_long, isPrime</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> urandom</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> getrandbits</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_rsa_primes</span>(<span class="params">G</span>):</span></span><br><span class="line">	urand = bytes_to_long(urandom(<span class="number">521</span>//<span class="number">8</span>))</span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		s = getrandbits(<span class="number">521</span>) ^ urand</span><br><span class="line"></span><br><span class="line">		Q = s*G</span><br><span class="line">		<span class="keyword">if</span> isPrime(Q.x) <span class="keyword">and</span> isPrime(Q.y):</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;ECC Private key:&quot;</span>, <span class="built_in">hex</span>(s))</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;RSA primes:&quot;</span>, <span class="built_in">hex</span>(Q.x), <span class="built_in">hex</span>(Q.y))</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;Modulo:&quot;</span>, <span class="built_in">hex</span>(Q.x * Q.y))</span><br><span class="line">			<span class="keyword">return</span> (Q.x, Q.y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">flag = <span class="built_in">int</span>.from_bytes(<span class="built_in">input</span>(), byteorder=<span class="string">&quot;big&quot;</span>)</span><br><span class="line"></span><br><span class="line">ecc_p = Curve.p</span><br><span class="line">a = Curve.a</span><br><span class="line">b = Curve.b</span><br><span class="line"></span><br><span class="line">Gx = Curve.gx</span><br><span class="line">Gy = Curve.gy</span><br><span class="line">G = Point(Gx, Gy, curve=Curve)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line">p, q = gen_rsa_primes(G)</span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">file_out = <span class="built_in">open</span>(<span class="string">&quot;downloads/ecc-rsa.txt&quot;</span>, <span class="string">&quot;w&quot;</span>)</span><br><span class="line"></span><br><span class="line">file_out.write(<span class="string">&quot;ECC Curve Prime: &quot;</span> + <span class="built_in">hex</span>(ecc_p) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;Curve a: &quot;</span> + <span class="built_in">hex</span>(a) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;Curve b: &quot;</span> + <span class="built_in">hex</span>(b) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;Gx: &quot;</span> + <span class="built_in">hex</span>(Gx) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;Gy: &quot;</span> + <span class="built_in">hex</span>(Gy) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line">file_out.write(<span class="string">&quot;e: &quot;</span> + <span class="built_in">hex</span>(e) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;p * q: &quot;</span> + <span class="built_in">hex</span>(n) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line">c = <span class="built_in">pow</span>(flag, e, n)</span><br><span class="line">file_out.write(<span class="string">&quot;ciphertext: &quot;</span> + <span class="built_in">hex</span>(c) + <span class="string">&quot;\n&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>后来发现，关于<a target="_blank" rel="noopener" href="https://blog.csdn.net/sitebus/article/details/82835492">椭圆曲线加密算法</a>，本题用到的其实就是威尔斯特拉斯方程（Weierstrass）：<span class="math inline">\(y^2 = x^3 + ax + b\)</span> 代码中<code>a</code>,<code>b</code>就是方程中的a,b，<code>ecc_p</code>指的是椭圆曲线加密算法<span class="math inline">\(y^2 = x^3 + ax + b(mod\space p)\)</span>，具体可以参照<a target="_blank" rel="noopener" href="https://fastecdsa.readthedocs.io/en/latest/fastecdsa.html">fastecdsa库的官方文档</a> 顺带一提，这个库只能在Linux环境下安装 <img src="https://img-blog.csdnimg.cn/c7f9edead21b4e72ab525a5b4a8b2bfa.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 代码中的<code>G</code>指的是基点，也就是加密最开始的那个点；<code>Gx</code>,<code>Gy</code>即为基点的横纵坐标 然后把<code>G</code>放到生成RSA加密所需的p,q的函数<code>gen_rsa_primes(G)</code>中，先随机生成了一个<code>s</code>，然后<code>Q = s*G</code>中<code>Q</code>也是椭圆曲线上的点，只是在这个阿贝尔群中作数乘运算，其中<code>s</code>应该小于G的阶数 最后，p,q即为Q点的横纵坐标 显然G点满足椭圆曲线方程，而n=pq，其中n为已知量，即有如下方程组： <span class="math display">\[
+<p>后来发现，关于<a target="_blank" rel="noopener" href="https://blog.csdn.net/sitebus/article/details/82835492">椭圆曲线加密算法</a>，本题用到的其实就是威尔斯特拉斯方程（Weierstrass）：<span class="math inline">\(y^2 = x^3 + ax + b\)</span> 代码中<code>a</code>,<code>b</code>就是方程中的a,b，<code>ecc_p</code>指的是椭圆曲线加密算法<span class="math inline">\(y^2 = x^3 + ax + b(mod\space p)\)</span>，具体可以参照<a target="_blank" rel="noopener" href="https://fastecdsa.readthedocs.io/en/latest/fastecdsa.html">fastecdsa库的官方文档</a> 顺带一提，这个库只能在Linux环境下安装 <img data-src="https://img-blog.csdnimg.cn/c7f9edead21b4e72ab525a5b4a8b2bfa.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 代码中的<code>G</code>指的是基点，也就是加密最开始的那个点；<code>Gx</code>,<code>Gy</code>即为基点的横纵坐标 然后把<code>G</code>放到生成RSA加密所需的p,q的函数<code>gen_rsa_primes(G)</code>中，先随机生成了一个<code>s</code>，然后<code>Q = s*G</code>中<code>Q</code>也是椭圆曲线上的点，只是在这个阿贝尔群中作数乘运算，其中<code>s</code>应该小于G的阶数 最后，p,q即为Q点的横纵坐标 显然G点满足椭圆曲线方程，而n=pq，其中n为已知量，即有如下方程组： <span class="math display">\[
 \begin{cases}
 q^2 = p^3 + ap + b\space(mod\space P)\\
 n = pq
 \end{cases}
-\]</span> 由于变量重复，记<code>ecc_p</code>为<span class="math inline">\(P\)</span> 解方程<span class="math inline">\(n^2 = p^5 + ap^3 + bp^2\space(mod\space P)\)</span>即可得到p sage代码如下： <img src="https://img-blog.csdnimg.cn/45a2dcede7de408f85894e01d9debdd7.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 其中<code>R.&lt;x&gt; = PolynomialRing(GF(P))</code>即为在有限域<span class="math inline">\(GF(P)\)</span>中求解，其实就是<span class="math inline">\(mod\space P\)</span>的意思 得到三个解，显然第一和第三个不是质数，只可能是第二个 然后就是常规的RSA解密，解密代码如下：</p>
+\]</span> 由于变量重复，记<code>ecc_p</code>为<span class="math inline">\(P\)</span> 解方程<span class="math inline">\(n^2 = p^5 + ap^3 + bp^2\space(mod\space P)\)</span>即可得到p sage代码如下： <img data-src="https://img-blog.csdnimg.cn/45a2dcede7de408f85894e01d9debdd7.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 其中<code>R.&lt;x&gt; = PolynomialRing(GF(P))</code>即为在有限域<span class="math inline">\(GF(P)\)</span>中求解，其实就是<span class="math inline">\(mod\space P\)</span>的意思 得到三个解，显然第一和第三个不是质数，只可能是第二个 然后就是常规的RSA解密，解密代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line">list_p = [<span class="number">6813140671672694477701511883397067876211159809088064490593325584756562268820329988116480298456252746748095410666300132267213094431909630229631434972416225885</span>, <span class="number">4573744216059593260686660411936793507327994800883645562370166075007970317346237399760397301505506131100113886281839847419425482918932436139080837246914736557</span>, <span class="number">1859314969084523636298100850823722544590555574470838518640063093117116629078281861281849586432508721074855657736668366212762253040197962779753163192386773060</span>]</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> list_p:</span><br><span class="line">    <span class="built_in">print</span>(gmpy2.is_prime(p))</span><br><span class="line"></span><br><span class="line">p = <span class="number">4573744216059593260686660411936793507327994800883645562370166075007970317346237399760397301505506131100113886281839847419425482918932436139080837246914736557</span></span><br><span class="line">n = <span class="number">0x118aaa1add80bdd0a1788b375e6b04426c50bb3f9cae0b173b382e3723fc858ce7932fb499cd92f5f675d4a2b05d2c575fc685f6cf08a490d6c6a8a6741e8be4572adfcba233da791ccc0aee033677b72788d57004a776909f6d699a0164af514728431b5aed704b289719f09d591f5c1f9d2ed36a58448a9d57567bd232702e9b28f</span></span><br><span class="line">q = n//p</span><br><span class="line">c = <span class="number">0x3862c872480bdd067c0c68cfee4527a063166620c97cca4c99baff6eb0cf5d42421b8f8d8300df5f8c7663adb5d21b47c8cb4ca5aab892006d7d44a1c5b5f5242d88c6e325064adf9b969c7dfc52a034495fe67b5424e1678ca4332d59225855b7a9cb42db2b1db95a90ab6834395397e305078c5baff78c4b7252d7966365afed9e</span></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line"></span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
-<p>结果为： <img src="https://img-blog.csdnimg.cn/338b741a270a41eb8b41360ad6d9b887.png" alt="在这里插入图片描述" /></p>
+<p>结果为： <img data-src="https://img-blog.csdnimg.cn/338b741a270a41eb8b41360ad6d9b887.png" alt="在这里插入图片描述" /></p>
 <h2 id="结语">结语</h2>
 <p>终于把1分题刷完了 下一道题还得研究一下 希望继续坚持</p>
 
@@ -225,6 +274,23 @@ n = pq
     
     
     
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Σ2333!
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luozj1020.github.io/uncategorized/2021/08/07/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-7" title="BUUCTF 每日打卡 2021-8-7">https://luozj1020.github.io/uncategorized/2021/08/07/vacation_week4-5/BUUCTF 每日打卡 2021-8-7</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
         
 
   <div class="followme">
@@ -244,10 +310,13 @@ n = pq
     </div>
   </div>
 
+      
+      <div> <div> <div style="text-align:center;color:#bfbfbf;font-size:16px;"> <span>-------- 本文结束 </span> <i class="fa fa-paw"></i> <span> 感谢阅读 --------</span> </div> </div>
+ </div>
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Crypto/" rel="tag"># Crypto</a>
+              <a href="/tags/Crypto/" rel="tag"><i class="fa fa-tags"></i> Crypto</a>
           </div>
 
         
@@ -377,6 +446,26 @@ n = pq
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -390,7 +479,10 @@ n = pq
   </div>
 
   
+  
+  <script color='255,250,250' opacity='0.7' zIndex='-1' count='80' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -410,6 +502,10 @@ n = pq
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -482,8 +578,77 @@ n = pq
 
   
 
+
+  
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    //只在桌面版网页启用特效
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('#header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+          $('#sidebar').wobbleWindow({
+            radius: 50,
+            movementLeft: false,
+            movementTop: false,
+            movementBottom: false,
+            position: 'fixed',
+            debug: false,
+          });
+        
+
+        
+          $('#footer').wobbleWindow({
+            radius: 50,
+            movementBottom: false,
+            movementLeft: false,
+            movementRight: false,
+            offsetX: ,
+            position: 'absolute',
+            debug: false,
+          });
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
 <script src="/live2d-widget/autoload.js"></script>
+
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
