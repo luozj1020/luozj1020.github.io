@@ -192,6 +192,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/15/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-15">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/uncategorized/2021/04/15/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-15" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-15</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-15 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-15T00:00:00+08:00">2021-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="buuctf-每日打卡-2021-4-15">BUUCTF 每日打卡 2021-4-15</h2>
+<h2 id="引言">引言</h2>
+<p>今天也是元气满满的一天（打哈欠）</p>
+<h2 id="childrsa">childRSA</h2>
+<p>题目给了 n和c 照例碰运气<a target="_blank" rel="noopener" href="http://factordb.com/">爆破 n</a>： <img data-src="https://img-blog.csdnimg.cn/20210415214932298.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 啊这 真让我爆破出来了 然后就是 RSA 常规操作 代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># p, q, c, n</span></span><br><span class="line">e = <span class="built_in">int</span>(<span class="string">&#x27;0x10001&#x27;</span>, <span class="number">16</span>)</span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure> 结果为：NCTF{Th3r3_ar3_1ns3cure_RSA_m0duli_7hat_at_f1rst_gl4nce_appe4r_t0_be_s3cur3}</p>
+<h2 id="bbbbbbrsa">bbbbbbrsa</h2>
+<p>附件 python2 加密代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64encode <span class="keyword">as</span> b32encode</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> invert,gcd,iroot</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> binascii <span class="keyword">import</span> a2b_hex,b2a_hex</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&quot;******************************&quot;</span></span><br><span class="line"></span><br><span class="line">nbit = <span class="number">128</span></span><br><span class="line"></span><br><span class="line">p = getPrime(nbit)</span><br><span class="line">q = getPrime(nbit)</span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> p</span><br><span class="line"><span class="built_in">print</span> n</span><br><span class="line"></span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">e = random.randint(<span class="number">50000</span>,<span class="number">70000</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">	<span class="keyword">if</span> gcd(e,phi) == <span class="number">1</span>:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		e -= <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">c = <span class="built_in">pow</span>(<span class="built_in">int</span>(b2a_hex(flag),<span class="number">16</span>),e,n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> b32encode(<span class="built_in">str</span>(c))[::-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2373740699529364991763589324200093466206785561836101840381622237225512234632</span></span><br></pre></td></tr></table></figure> 这个注释就很魔性 一猜就知道是 c 另一个附件内容为： p = 177077389675257695042507998165006460849 n = 37421829509887796274897162249367329400988647145613325367337968063341372726061 c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM</p>
+<p>根据加密代码，c 经过了 base64 加密并且倒序输出了 为了保险起见，还是先解码给出的 c 代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">c = <span class="string">&#x27;==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM&#x27;</span>[::-<span class="number">1</span>]</span><br><span class="line">base64_bytes = c.encode(<span class="string">&#x27;ascii&#x27;</span>)</span><br><span class="line">message_bytes = base64.b64decode(base64_bytes)</span><br><span class="line">message = message_bytes.decode(<span class="string">&#x27;ascii&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(message)</span><br><span class="line">c = <span class="built_in">int</span>(message)</span><br></pre></td></tr></table></figure> c = 2373740699529364991763589324200093466206785561836101840381622237225512234632 啊这 跟注释一模一样 解密代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="number">177077389675257695042507998165006460849</span></span><br><span class="line">n = <span class="number">37421829509887796274897162249367329400988647145613325367337968063341372726061</span></span><br><span class="line">q = n//p</span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">50000</span>, <span class="number">70000</span>):</span><br><span class="line">    <span class="keyword">if</span> math.gcd(e, phi) == <span class="number">1</span>:</span><br><span class="line">        d = inverse(e, phi)</span><br><span class="line">        m = <span class="built_in">str</span>(long_to_bytes(<span class="built_in">pow</span>(c, d, n)))</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;&#123;&#x27;</span> <span class="keyword">in</span> m <span class="keyword">and</span> <span class="string">&#x27;&#125;&#x27;</span> <span class="keyword">in</span> m:</span><br><span class="line">            <span class="built_in">print</span>(m)</span><br></pre></td></tr></table></figure> 结果如下： <img data-src="https://img-blog.csdnimg.cn/20210415215614224.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="结语">结语</h2>
+<p>啊。。。好像也没什么好说的 希望继续坚持</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/uncategorized/2021/04/15/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-15#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/14/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-14">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -922,109 +1003,6 @@ P(x_{1},x_{2},\cdots,x_{k})=\sum _{ {0\leq i_{j}\leq n_{j} } }a_{ {i_{1}i_{2}\cd
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/05/week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-5">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Σ2333!">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Σ2333! の 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/uncategorized/2021/04/05/week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-5" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-5</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-05T00:00:00+08:00">2021-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="引言">引言</h2>
-<p>出人意料的得到消息要被拉去打国赛（第十四届全国大学生信息安全竞赛-创新实践能力赛）了（一脸懵逼） 我还什么都没学呢（摸鱼） 嘛，不过被分到第二梯队大概也没抱什么希望吧（继续摸鱼） 害，说丧气话也改变不了什么，还是脚踏实地地慢慢进步吧 毕竟 Crypto手 在队里也是稀缺人才 我也是加把劲骑士！(doge)</p>
-<h2 id="rsa2">RSA2</h2>
-<p>dp(dq) 泄露的题没做过，不过跟 dp, dq 泄露相比容易许多 首先，根据 <span class="math display">\[
-dp \equiv d\space mod \space (p-1)
-\]</span> 联想到 <span class="math display">\[
-\varphi = (p-1) * (q-1)
-\]</span> 那肯定就有人问了，你在 dp,dq 泄露中字母就没联想到 φ 呢？ 对比 dp,dq 泄露和 dp(dq) 泄露的已知条件：前者已知 <span class="math inline">\(p, q, (n), (φ), dp, dq, c\)</span> ；而后者已知 <span class="math inline">\(e, n, dp(dq), c\)</span> 我们的目的是解出私钥 <span class="math inline">\(d\)</span> ，或者 直接解出 <span class="math inline">\(c^{d}\)</span> ，通过 <span class="math inline">\(m \equiv c^{d} \space mod \space n\)</span> 来解出密文 <span class="math inline">\(m\)</span> 而 RSA 加密算法中有很重要的一步 <span class="math display">\[
-e * d \equiv 1 \space mod \space \varphi
-\]</span> dp(dq) 泄露问题中已知 <span class="math inline">\(e\)</span> ，所以可以根据此式解出私钥 <span class="math inline">\(d\)</span> 而 dp,dq 泄露问题中 <span class="math inline">\(e\)</span> 未知，于是采取解出 <span class="math inline">\(c^{d}\)</span> 整体的策略</p>
-<p>回到 dp,dq 泄露问题 因为 <span class="math display">\[
-dp \equiv d\space mod \space (p-1)
-\]</span> 所以 <span class="math inline">\(\exists\space k_{1} \in\mathbb{Z}, \space s.t.\)</span> <span class="math display">\[
-dp = d + k_{1} * (p-1)
-\]</span> 等式两边同时乘 <span class="math inline">\(e\)</span> 得 <span class="math display">\[
-e * dp = e * d + k_{1} * e * (p-1) \qquad \qquad (*)
-\]</span> 因为 <span class="math display">\[
-e * d \equiv 1 \space mod \space \varphi
-\]</span> 所以 <span class="math inline">\(\exists\space k_{2} \in\mathbb{Z}, \space s.t.\)</span> <span class="math display">\[
-e * d = 1 + k_{2} * \varphi = 1 + k_{2} * (p-1) * (q-1)
-\]</span> 将此式中的 <span class="math inline">\(e * d\)</span> 代入 <span class="math inline">\(*\)</span> 式，得 <span class="math display">\[
-e * dp = 1+k * (p-1)
-\]</span> 其中 <span class="math inline">\(k = (p-1) * (k_{1} * e + k_{2} * (q - 1)) \space \in\mathbb{Z}\)</span></p>
-<p>由 <span class="math inline">\(dp \equiv d\space mod \space (p-1)\)</span> 可知， <span class="math display">\[
-dp &lt; (p-1) &lt; p
-\]</span> 故 <span class="math display">\[
-e &gt; k
-\]</span> 所以，只要我们使 <span class="math inline">\(k\)</span> 遍历 <span class="math inline">\(e\)</span> 的取值就能求出 <span class="math inline">\(p\)</span> ，进而求出 <span class="math inline">\(\varphi\)</span> ，再对 <span class="math inline">\(e\)</span> 求关于 <span class="math inline">\(\varphi\)</span> 的逆元，就能求出私钥 <span class="math inline">\(d\)</span> 进行解密 实现代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">n = <span class="number">248254007851526241177721526698901802985832766176221609612258877371620580060433101538328030305219918697643619814200930679612109885533801335348445023751670478437073055544724280684733298051599167660303645183146161497485358633681492129668802402065797789905550489547645118787266601929429724133167768465309665906113</span></span><br><span class="line">dp = <span class="number">905074498052346904643025132879518330691925174573054004621877253318682675055421970943552016695528560364834446303196939207056642927148093290374440210503657</span></span><br><span class="line">c = <span class="number">140423670976252696807533673586209400575664282100684119784203527124521188996403826597436883766041879067494280957410201958935737360380801845453829293997433414188838725751796261702622028587211560353362847191060306578510511380965162133472698713063592621028959167072781482562673683090590521214218071160287665180751</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, e):</span><br><span class="line">    p = (e*dp-<span class="number">1</span>) // k +<span class="number">1</span></span><br><span class="line">    q = n // p</span><br><span class="line">    <span class="keyword">if</span> (n - p*q) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(p, q)</span><br><span class="line">phi = (p-<span class="number">1</span>) * (q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line"><span class="built_in">print</span>(d)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure> 得到 flag{wow_leaking_dp_breaks_rsa?_98924743502}</p>
-<h2 id="rsa">RSA</h2>
-<p>打开 pub.key 文件，看到前缀后缀就知道是 SSL 证书格式 <img data-src="https://img-blog.csdnimg.cn/20210405195822130.png" alt="在这里插入图片描述"> 用解密网站：<a target="_blank" rel="noopener" href="http://ctf.ssleye.com/pub_asys.html">http://ctf.ssleye.com/pub_asys.html</a><img data-src="https://img-blog.csdnimg.cn/20210405202125892.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 得到 n 和 e 尝试用 <a target="_blank" rel="noopener" href="http://factordb.com/">http://factordb.com/</a> 网站爆破： <img data-src="https://img-blog.csdnimg.cn/20210405202415250.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 没有结果 emmm...... 再用 sagemath 爆破： <img data-src="https://img-blog.csdnimg.cn/20210405195643588.png" alt="在这里插入图片描述"> 花了一点时间 这样，我们得出了 p, q, n, e，然后就可以开始解密。。。 嗯？？？ 密文呢？ 解压之后的文件里面还有一个 flag.enc 文件，密文应该就在里面 但是打开文件 <img data-src="https://img-blog.csdnimg.cn/20210405204049918.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p><img data-src="https://img-blog.csdnimg.cn/20210405204107961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 一堆乱码是什么鬼？ 用 python 读取文件： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;D:\BUUCTF\Crypto\RSA(1)\0eaf8d6c-3fe5-4549-9e81-94ac42535e7b\flag.enc&quot;</span>, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f = f.read()</span><br><span class="line"><span class="built_in">print</span>(f)</span><br></pre></td></tr></table></figure> 得到一串 bytes ：b'A0YJ^8x|$y[9c(9bb' bytes_to_long 之后应该就是密文了 解密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">86934482296048119190666062003494800588905656017203025617216654058378322103517</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">p = <span class="number">285960468890451637935629440372639283459</span></span><br><span class="line">q = <span class="number">304008741604601924494328155975272418463</span></span><br><span class="line"></span><br><span class="line">phi = (p-<span class="number">1</span>) * (q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line"><span class="built_in">print</span>(d)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;D:\BUUCTF\Crypto\RSA(1)\0eaf8d6c-3fe5-4549-9e81-94ac42535e7b\flag.enc&quot;</span>, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f = f.read()</span><br><span class="line"><span class="built_in">print</span>(f)</span><br><span class="line">c = bytes_to_long(f)</span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line"></span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure> 这是我参考了大佬的建议自己写的版本 结果如下： <img data-src="https://img-blog.csdnimg.cn/20210405204527775.png" alt="在这里插入图片描述"> 高亮处即为 flag ，但是有一堆 padding</p>
-<p>然后是另一个参考了 wp 的版本： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> rsa</span><br><span class="line"></span><br><span class="line">n = <span class="number">86934482296048119190666062003494800588905656017203025617216654058378322103517</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">p = <span class="number">285960468890451637935629440372639283459</span></span><br><span class="line">q = <span class="number">304008741604601924494328155975272418463</span></span><br><span class="line"></span><br><span class="line">phi = (p-<span class="number">1</span>) * (q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line"><span class="built_in">print</span>(d)</span><br><span class="line">key = rsa.PrivateKey(n, e, <span class="built_in">int</span>(d), p, q)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;D:\BUUCTF\Crypto\RSA(1)\0eaf8d6c-3fe5-4549-9e81-94ac42535e7b\flag.enc&quot;</span>, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f = f.read()</span><br><span class="line">    <span class="built_in">print</span>(rsa.decrypt(f, key))</span><br></pre></td></tr></table></figure> 结果如下： <img data-src="https://img-blog.csdnimg.cn/20210405204703573.png" alt="在这里插入图片描述"> 属实恶心人</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/uncategorized/2021/04/05/week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-5#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1094,7 +1072,7 @@ e &gt; k
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

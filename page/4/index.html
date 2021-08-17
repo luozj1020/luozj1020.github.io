@@ -192,6 +192,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/05/10/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-10">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/uncategorized/2021/05/10/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-10" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-5-10</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-10 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-10T00:00:00+08:00">2021-05-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="buuctf-每日打卡-2021-5-10">BUUCTF 每日打卡 2021-5-10</h1>
+<h2 id="引言">引言</h2>
+<p>时间太晚了，原本想讲一讲红帽杯的 crypto 的（干啥啥不行，找 wp 第一名）</p>
+<h2 id="polybius">Polybius</h2>
+<p>波利比奥斯方阵密码（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Polybius_square">Polybius square</a>） 参考了 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44110537/article/details/107302665">wp</a> 附件内容： 密文：ouauuuoooeeaaiaeauieuooeeiea hint：VGhlIGxlbmd0aCBvZiB0aGlzIHBsYWludGV4dDogMTQ= flag:解出明文后，请加上BJD{}</p>
+<p>hint 解密内容： <img data-src="https://img-blog.csdnimg.cn/20210511000159954.png" alt="在这里插入图片描述"> 而密文内容有 28 位 联想到波利比奥斯方阵密码加密结果为波利比奥斯方阵中的坐标 如 wp 中所说，密文中的字母对应于 “aeiou” 字符串中字母在波利比奥斯方阵中的位置 由于不知道 "a", "e", "i", "o", "u" 的排列顺序，就有 5<em>4</em>3<em>2</em>1 种情况 而波利比奥斯方阵中（2，4）为可以是 i 或 j 所以一共有 5<em>4</em>3<em>2</em>1*2 种情况 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">s = <span class="string">&quot;aeoiu&quot;</span></span><br><span class="line">sumresult = []</span><br><span class="line">numsumresult = []</span><br><span class="line">cipher = <span class="string">&quot;ouauuuoooeeaaiaeauieuooeeiea&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> itertools.permutations(s, <span class="number">5</span>): <span class="comment"># 找出全排列</span></span><br><span class="line">    sumresult.append(<span class="string">&quot;&quot;</span>.join(i))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sumresult:</span><br><span class="line">    temp = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> cipher:</span><br><span class="line">        temp += <span class="built_in">str</span>(i.index(j)+<span class="number">1</span>)</span><br><span class="line">    numsumresult.append(temp)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;考虑（2，4）位是 i 的情况&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> numsumresult:</span><br><span class="line">    ans_ = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(i), <span class="number">2</span>):</span><br><span class="line">        xx = (<span class="built_in">int</span>(i[j])-<span class="number">1</span>)*<span class="number">5</span> + <span class="built_in">int</span>(i[j+<span class="number">1</span>]) + <span class="number">96</span></span><br><span class="line">        <span class="keyword">if</span> xx &gt; <span class="built_in">ord</span>(<span class="string">&#x27;i&#x27;</span>):</span><br><span class="line">            xx += <span class="number">1</span></span><br><span class="line">        ans_ += <span class="built_in">chr</span>(xx)</span><br><span class="line">    <span class="built_in">print</span>(ans_)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;考虑（2，4）位是 j 的情况&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> numsumresult:</span><br><span class="line">    ans_ = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(i), <span class="number">2</span>):</span><br><span class="line">        xx = (<span class="built_in">int</span>(i[j])-<span class="number">1</span>)*<span class="number">5</span> + <span class="built_in">int</span>(i[j+<span class="number">1</span>]) + <span class="number">96</span></span><br><span class="line">        <span class="keyword">if</span> xx &gt; <span class="built_in">ord</span>(<span class="string">&#x27;h&#x27;</span>):</span><br><span class="line">            xx += <span class="number">1</span></span><br><span class="line">        ans_ += <span class="built_in">chr</span>(xx)</span><br><span class="line">    <span class="built_in">print</span>(ans_)</span><br></pre></td></tr></table></figure>
+<p>(wp 中指考虑了考虑（2，4）位是 i 的情况，大概是已经找到 flag 了) 结果为： <img data-src="https://img-blog.csdnimg.cn/20210511000910208.png" alt="在这里插入图片描述"></p>
+<h2 id="情书">情书</h2>
+<p>附件内容： Premise: Enumerate the alphabet by 0、1、2、..... 、25 Using the RSA system Encryption:0156 0821 1616 0041 0140 2130 1616 0793 Public Key:2537 and 13 Private Key:2537 and 937</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/uncategorized/2021/05/10/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-10#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/05/09/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-9">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -932,87 +1013,6 @@ p[-(B+1)(B+2)\cdots(A-1)]\equiv 1 \space mod \space A
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/25/week4/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-25">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Σ2333!">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Σ2333! の 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/uncategorized/2021/04/25/week4/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-25" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-25</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-25 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-25T00:00:00+08:00">2021-04-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="buuctf-每日打卡-2021-4-25">BUUCTF 每日打卡 2021-4-25</h1>
-<h2 id="引言">引言</h2>
-<p>每次机器学习都因为一些小错误搞了半天 我吐了</p>
-<h2 id="鸡藕椒盐味">鸡藕椒盐味</h2>
-<p><img data-src="https://img-blog.csdnimg.cn/20210425223305213.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 什么玩意？ 直接找 <a target="_blank" rel="noopener" href="https://www.dazhuanlan.com/2019/12/17/5df7e64bc03b2/">wp</a>（ 原来“鸡藕椒盐味”是“奇偶校验位”的谐音 然后用汉明码还原最后md5 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44017838/article/details/104889490">代码</a></p>
-<h2 id="crypto-classic0">crypto-classic0</h2>
-<p>拿到附件解压 <img data-src="https://img-blog.csdnimg.cn/2021042523210447.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 嗯？ 没解压完？ 难道又是伪加密？ 用 010editor 看了之后，也没有伪加密的特征啊 里面还有个压缩包要密码 <img data-src="https://img-blog.csdnimg.cn/20210425232245660.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 给了个提示 <img data-src="https://img-blog.csdnimg.cn/20210425232321333.png" alt="在这里插入图片描述"> 还是摸不着头脑 只能找 <a target="_blank" rel="noopener" href="https://blog.csdn.net/seven749/article/details/109606928">wp</a>（ 结果是个工具题 要用 ziperello 爆破 但是找了半天找不到都下载失败了（ 然后在 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1EK4y187WG?from=search&amp;seid=579101326676298682">b站上</a>，找到了这么一个<a target="_blank" rel="noopener" href="https://ww.lanzous.com/icug02f">链接</a> 找到了一个代替的软件 <img data-src="https://img-blog.csdnimg.cn/20210425232722549.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> 爆破出密码 加密代码为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> flag[<span class="number">25</span>] = ***</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">25</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		flag[i] -= <span class="number">3</span>;</span><br><span class="line">		flag[i] ^= <span class="number">0x7</span>;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,flag[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>根据加密代码写解密代码即可 代码如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> flag[<span class="number">25</span>] = <span class="string">&quot;Ygvdmq[lYate[elghqvakl&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">25</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">        flag[i] ^= <span class="number">0x7</span>;</span><br><span class="line">		flag[i] += <span class="number">3</span>;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,flag[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/uncategorized/2021/04/25/week4/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-25#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1082,7 +1082,7 @@ p[-(B+1)(B+2)\cdots(A-1)]\equiv 1 \space mod \space A
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
