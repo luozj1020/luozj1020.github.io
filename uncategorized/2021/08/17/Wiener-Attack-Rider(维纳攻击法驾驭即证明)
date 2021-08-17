@@ -22,24 +22,24 @@
     var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livers","storage":false,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Wiener&#39;s Attack Ride(维纳攻击法驾驭)  image-20210817172458158  背景 在刷BUU的时候碰到了[羊城杯 2020]RRRRRRRSA运用了连分数求解，而Wiener&#39;s Attack（维纳攻击法）也是利用连分数来求解。但是网上的文章总是停留在对Wiener&#39;s Attack的应用层面（在碰到这道题之前，我对Wiener&#39;s Attack的运用">
+  <meta name="description" content="Wiener&#39;s Attack Ride(维纳攻击法驾驭)  在这里插入图片描述  背景 在刷BUU的时候碰到了[羊城杯 2020]RRRRRRRSA运用了连分数求解，而Wiener&#39;s Attack（维纳攻击法）也是利用连分数来求解。但是网上的文章总是停留在对Wiener&#39;s Attack的应用层面（在碰到这道题之前，我对Wiener&#39;s Attack的运用也只停留在抄代码的层面），并">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Wiener&#39;s Attack Rider(维纳攻击法驾驭即证明)">
-<meta property="og:url" content="https://luozj1020.github.io/uncategorized/2021/08/15/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)">
+<meta property="og:title" content="Wiener&#39;s Attack Ride(维纳攻击法驾驭)">
+<meta property="og:url" content="https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)">
 <meta property="og:site_name" content="Σ2333! の 博客">
-<meta property="og:description" content="Wiener&#39;s Attack Ride(维纳攻击法驾驭)  image-20210817172458158  背景 在刷BUU的时候碰到了[羊城杯 2020]RRRRRRRSA运用了连分数求解，而Wiener&#39;s Attack（维纳攻击法）也是利用连分数来求解。但是网上的文章总是停留在对Wiener&#39;s Attack的应用层面（在碰到这道题之前，我对Wiener&#39;s Attack的运用">
+<meta property="og:description" content="Wiener&#39;s Attack Ride(维纳攻击法驾驭)  在这里插入图片描述  背景 在刷BUU的时候碰到了[羊城杯 2020]RRRRRRRSA运用了连分数求解，而Wiener&#39;s Attack（维纳攻击法）也是利用连分数来求解。但是网上的文章总是停留在对Wiener&#39;s Attack的应用层面（在碰到这道题之前，我对Wiener&#39;s Attack的运用也只停留在抄代码的层面），并">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="e:/blog/source_posts/Wiener-Attack-Rider(维纳攻击法驾驭即证明).assets/image-20210817172458158.png">
-<meta property="og:image" content="c:/Users/pc/AppData/Roaming/Typora/typora-user-images/image-20210815105355768.png">
-<meta property="og:image" content="e:/blog/source_posts/Wiener-Attack-Rider(维纳攻击法驾驭即证明).assets/image-20210817172310768.png">
-<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-08-17T12:46:53.799Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8f3476e5e9fa40e79d1f753e29fdbcf6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/cd0f3b0580824a3d9874571d951393e0.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/82d17bc06f05439587c1c2c4b4331570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-08-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-17T13:05:29.872Z">
 <meta property="article:author" content="Σ2333!">
 <meta property="article:tag" content="Crypto">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="e:/blog/source_posts/Wiener-Attack-Rider(维纳攻击法驾驭即证明).assets/image-20210817172458158.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/8f3476e5e9fa40e79d1f753e29fdbcf6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
 
-<link rel="canonical" href="https://luozj1020.github.io/uncategorized/2021/08/15/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)">
+<link rel="canonical" href="https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)">
 
 
 <script id="page-configurations">
@@ -52,7 +52,7 @@
   };
 </script>
 
-  <title>Wiener's Attack Rider(维纳攻击法驾驭即证明) | Σ2333! の 博客</title>
+  <title>Wiener's Attack Ride(维纳攻击法驾驭) | Σ2333! の 博客</title>
   
 
 
@@ -202,7 +202,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/08/15/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -215,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Wiener's Attack Rider(维纳攻击法驾驭即证明)
+          Wiener's Attack Ride(维纳攻击法驾驭)
         </h1>
 
         <div class="post-meta">
@@ -224,16 +224,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-08-15 00:00:00" itemprop="dateCreated datePublished" datetime="2021-08-15T00:00:00+08:00">2021-08-15</time>
+              <time title="创建时间：2021-08-17 00:00:00 / 修改时间：21:05:29" itemprop="dateCreated datePublished" datetime="2021-08-17T00:00:00+08:00">2021-08-17</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-17 20:46:53" itemprop="dateModified" datetime="2021-08-17T20:46:53+08:00">2021-08-17</time>
-              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -253,16 +247,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="wieners-attack-ride维纳攻击法驾驭">Wiener's Attack Ride(维纳攻击法驾驭)</h1>
+        <h2 id="wieners-attack-ride维纳攻击法驾驭">Wiener's Attack Ride(维纳攻击法驾驭)</h2>
 <figure>
-<img data-src="E:\blog\source_posts\Wiener-Attack-Rider(维纳攻击法驾驭即证明).assets\image-20210817172458158.png" alt="image-20210817172458158" /><figcaption aria-hidden="true">image-20210817172458158</figcaption>
+<img data-src="https://img-blog.csdnimg.cn/8f3476e5e9fa40e79d1f753e29fdbcf6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
 </figure>
 <h2 id="背景">背景</h2>
 <p>在刷BUU的时候碰到了<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/119671024?spm=1001.2014.3001.5501">[羊城杯 2020]RRRRRRRSA</a>运用了连分数求解，而Wiener's Attack（维纳攻击法）也是利用连分数来求解。但是网上的文章总是停留在对Wiener's Attack的应用层面（在碰到这道题之前，我对Wiener's Attack的运用也只停留在抄代码的层面），并没有对其中的具体步骤进行证明和推导</p>
 <p>本文试图深挖其中的原理，并对其中的步骤进行较为完整的证明和解释</p>
 <h2 id="关于rsa体系">关于RSA体系</h2>
-<p>关于RSA的介绍网上多的是，这里不再赘述<span class="math inline">\(^{[1]}\)</span></p>
-<p><img data-src="C:\Users\pc\AppData\Roaming\Typora\typora-user-images\image-20210815105355768.png" alt="image-20210815105355768" />不知道RSA的话，就更别说Wiener's Attack了</p>
+<p>关于RSA的介绍网上多的是，这里不再赘述<span class="math inline">\(^{[1]}\)</span> <img data-src="https://img-blog.csdnimg.cn/cd0f3b0580824a3d9874571d951393e0.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<p>不知道RSA的话，就更别说Wiener's Attack了</p>
 <h2 id="wieners-attack简介wieners-theorem2">Wiener's Attack简介（Wiener's theorem）<span class="math inline">\(^{[2]}\)</span></h2>
 <p>模数<span class="math inline">\(N=pq\)</span>，其中<span class="math inline">\(q&lt;p&lt;2q\)</span></p>
 <p>若<span class="math inline">\(d&lt;\dfrac{1}{3}N^{\frac{1}{4}}\)</span>​ 时，给定公钥<span class="math inline">\((N,e)\)</span>​，且<span class="math inline">\(ed \equiv 1\space mod \space \lambda (N)\)</span>​​，</p>
@@ -535,10 +529,7 @@ q_{n-1} \alpha - p_{n-1} = \dfrac{(-1)^{n-1}}{a_{n}q_{n-1} + q_{n-2}}
 <p>[4] 维基百科编者. 连分数[G/OL]. 维基百科, 2021(20210502)[2021-05-02]. <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=连分数&amp;oldid=65444935">https://zh.wikipedia.org/w/index.php?title=%E8%BF%9E%E5%88%86%E6%95%B0&amp;oldid=65444935</a>.</p>
 <p>[5] Unknown. Continud Fractions[DB/OL]. Unkown. Available from:http://personal.psu.edu/rcv4/677C02.pdf</p>
 <h2 id="结语">结语</h2>
-<p>终于肝完了</p>
-<figure>
-<img data-src="E:\blog\source_posts\Wiener-Attack-Rider(维纳攻击法驾驭即证明).assets\image-20210817172310768.png" alt="image-20210817172310768" /><figcaption aria-hidden="true">image-20210817172310768</figcaption>
-</figure>
+<p>终于肝完了 <img data-src="https://img-blog.csdnimg.cn/82d17bc06f05439587c1c2c4b4331570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
 
     </div>
 
@@ -554,7 +545,7 @@ q_{n-1} \alpha - p_{n-1} = \dfrac{(-1)^{n-1}}{a_{n}q_{n-1} + q_{n-2}}
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://luozj1020.github.io/uncategorized/2021/08/15/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)" title="Wiener&#39;s Attack Rider(维纳攻击法驾驭即证明)">https://luozj1020.github.io/uncategorized/2021/08/15/Wiener-Attack-Rider(维纳攻击法驾驭即证明)</a>
+    <a href="https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)" title="Wiener&#39;s Attack Ride(维纳攻击法驾驭)">https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(维纳攻击法驾驭即证明)</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -658,7 +649,7 @@ q_{n-1} \alpha - p_{n-1} = \dfrac{(-1)^{n-1}}{a_{n}q_{n-1} + q_{n-2}}
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#wieners-attack-ride%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD"><span class="nav-number">1.</span> <span class="nav-text">Wiener&#39;s Attack Ride(维纳攻击法驾驭)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Ersa%E4%BD%93%E7%B3%BB"><span class="nav-number">1.2.</span> <span class="nav-text">关于RSA体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-attack%E7%AE%80%E4%BB%8Bwieners-theorem2"><span class="nav-number">1.3.</span> <span class="nav-text">Wiener&#39;s Attack简介（Wiener&#39;s theorem）\(^{[2]}\)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-attack%E5%8E%9F%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">Wiener&#39;s Attack原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-theorem%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-number">1.5.</span> <span class="nav-text">Wiener&#39;s theorem的证明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%BF%9E%E5%88%86%E6%95%B0%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">1.6.</span> <span class="nav-text">关于连分数的解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E8%BF%9E%E5%88%86%E6%95%B04"><span class="nav-number">1.6.1.</span> <span class="nav-text">定义一（连分数）\(^{[4]}\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%B8%80"><span class="nav-number">1.6.2.</span> <span class="nav-text">定理一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BA%8C%E6%94%B6%E6%95%9B%E5%88%86%E6%95%B0"><span class="nav-number">1.6.3.</span> <span class="nav-text">定义二（收敛分数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E4%B8%80"><span class="nav-number">1.6.4.</span> <span class="nav-text">引理一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E4%BA%8C"><span class="nav-number">1.6.5.</span> <span class="nav-text">引理二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E4%B8%89"><span class="nav-number">1.6.6.</span> <span class="nav-text">引理三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%BA%8C"><span class="nav-number">1.6.7.</span> <span class="nav-text">定理二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%B8%89legendres-theorem"><span class="nav-number">1.6.8.</span> <span class="nav-text">定理三（Legendre’s theorem）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">1.7.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">1.8.</span> <span class="nav-text">结语</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-attack-ride%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD"><span class="nav-number">1.</span> <span class="nav-text">Wiener&#39;s Attack Ride(维纳攻击法驾驭)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Ersa%E4%BD%93%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">关于RSA体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-attack%E7%AE%80%E4%BB%8Bwieners-theorem2"><span class="nav-number">4.</span> <span class="nav-text">Wiener&#39;s Attack简介（Wiener&#39;s theorem）\(^{[2]}\)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-attack%E5%8E%9F%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">Wiener&#39;s Attack原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-theorem%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-number">6.</span> <span class="nav-text">Wiener&#39;s theorem的证明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%BF%9E%E5%88%86%E6%95%B0%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">7.</span> <span class="nav-text">关于连分数的解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E8%BF%9E%E5%88%86%E6%95%B04"><span class="nav-number">7.1.</span> <span class="nav-text">定义一（连分数）\(^{[4]}\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%B8%80"><span class="nav-number">7.2.</span> <span class="nav-text">定理一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BA%8C%E6%94%B6%E6%95%9B%E5%88%86%E6%95%B0"><span class="nav-number">7.3.</span> <span class="nav-text">定义二（收敛分数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E4%B8%80"><span class="nav-number">7.4.</span> <span class="nav-text">引理一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E4%BA%8C"><span class="nav-number">7.5.</span> <span class="nav-text">引理二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E4%B8%89"><span class="nav-number">7.6.</span> <span class="nav-text">引理三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%BA%8C"><span class="nav-number">7.7.</span> <span class="nav-text">定理二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%B8%89legendres-theorem"><span class="nav-number">7.8.</span> <span class="nav-text">定理三（Legendre’s theorem）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">8.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">9.</span> <span class="nav-text">结语</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
