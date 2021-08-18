@@ -6,7 +6,7 @@
   <link href="https://luozj1020.github.io/atom.xml" rel="self"/>
   
   <link href="https://luozj1020.github.io/"/>
-  <updated>2021-08-17T13:05:29.872Z</updated>
+  <updated>2021-08-18T14:58:08.332Z</updated>
   <id>https://luozj1020.github.io/</id>
   
   <author>
@@ -17,17 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title></title>
+    <link href="https://luozj1020.github.io/uncategorized/2021/08/18/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-18"/>
+    <id>https://luozj1020.github.io/uncategorized/2021/08/18/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-18</id>
+    <published>2021-08-18T14:57:33.064Z</published>
+    <updated>2021-08-18T14:58:08.332Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;之前这段时间一直在打比赛、写文章，没时间更新 关于之前说的&lt;strong&gt;关于Wiener&#39;s Attack的完整推导&lt;/strong&gt;，详见&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>Wiener&#39;s Attack Ride(维纳攻击法驾驭)</title>
     <link href="https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)"/>
     <id>https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)</id>
     <published>2021-08-16T16:00:00.000Z</published>
-    <updated>2021-08-17T13:05:29.872Z</updated>
+    <updated>2021-08-17T14:11:00.261Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;wieners-attack-ride维纳攻击法驾驭&quot;&gt;Wiener&#39;s Attack Ride(维纳攻击法驾驭)&lt;/h2&gt;
-&lt;figure&gt;
-&lt;img data-src=&quot;https://img-blog.csdnimg.cn/8f3476e5e9fa40e79d1f753e29fdbcf6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;figcaption aria-hidden=&quot;true&quot;&gt;在这里插入图片描述&lt;/figcaption&gt;
-&lt;/figure&gt;
+&lt;p&gt;&lt;img data-src=&quot;https://img-blog.csdnimg.cn/8f3476e5e9fa40e79d1f753e29fdbcf6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
 &lt;p&gt;在刷BUU的时候碰到了&lt;a href=&quot;https://blog.csdn.net/weixin_52446095/article/details/119671024?spm=1001.2014.3001.5501&quot;&gt;[羊城杯 2020]RRRRRRRSA&lt;/a&gt;运用了连分数求解，而Wiener&#39;s Attack（维纳攻击法）也是利用连分数来求解。但是网上的文章总是停留在对Wiener&#39;s Attack的应用层面（在碰到这道题之前，我对Wiener&#39;s Attack的运用也只停留在抄代码的层面），并没有对其中的具体步骤进行证明和推导&lt;/p&gt;
 &lt;p&gt;本文试图深挖其中的原理，并对其中的步骤进行较为完整的证明和解释&lt;/p&gt;
@@ -612,31 +632,6 @@ r_{n-1}=a_nr_n
 &lt;p&gt;早点更完，学ML去&lt;/p&gt;
 &lt;h2 id=&quot;guet-ctf2019no-sos&quot;&gt;[GUET-CTF2019]NO SOS&lt;/h2&gt;
 &lt;p&gt;给了个附件： &lt;img</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Crypto" scheme="https://luozj1020.github.io/tags/Crypto/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BUUCTF 每日打卡 2021-7-17</title>
-    <link href="https://luozj1020.github.io/uncategorized/2021/07/17/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-17"/>
-    <id>https://luozj1020.github.io/uncategorized/2021/07/17/vacation_week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-17</id>
-    <published>2021-07-16T16:00:00.000Z</published>
-    <updated>2021-08-12T08:46:08.097Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;引言&quot;&gt;引言&lt;/h1&gt;
-&lt;p&gt;无&lt;/p&gt;
-&lt;h2 id=&quot;inshack2019yet-another-rsa-challenge---part-1&quot;&gt;[INSHack2019]Yet Another RSA Challenge - Part</summary>
         
       
     
