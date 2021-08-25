@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/436a97630beb4afa8c07ddd841ecb5c8.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/d90a26be9d40448d8499a52812f7dd70.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-08-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-08-13T12:53:13.793Z">
+<meta property="article:modified_time" content="2021-08-25T03:03:22.629Z">
 <meta property="article:author" content="Σ2333!">
 <meta property="article:tag" content="Crypto">
 <meta name="twitter:card" content="summary">
@@ -227,10 +227,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-08-13 00:00:00 / 修改时间：20:53:13" itemprop="dateCreated datePublished" datetime="2021-08-13T00:00:00+08:00">2021-08-13</time>
+              <time title="创建时间：2021-08-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-08-13T00:00:00+08:00">2021-08-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-25 11:03:22" itemprop="dateModified" datetime="2021-08-25T11:03:22+08:00">2021-08-25</time>
+              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -325,8 +331,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/uncategorized/2021/08/11/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-11" rel="prev" title="BUUCTF 每日打卡 2021-8-11">
-      <i class="fa fa-chevron-left"></i> BUUCTF 每日打卡 2021-8-11
+    <a href="/uncategorized/2021/08/11/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-11" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
     </a></div>
       <div class="post-nav-item">
     <a href="/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)" rel="next" title="Wiener's Attack Ride(维纳攻击法驾驭)">
