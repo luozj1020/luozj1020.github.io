@@ -192,6 +192,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/27/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-27">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/uncategorized/2021/04/27/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-27" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-27</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-27 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-27T00:00:00+08:00">2021-04-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="buuctf-每日打卡-2021-4-27">BUUCTF 每日打卡 2021-4-27</h2>
+<h2 id="引言">引言</h2>
+<p>明天数分考试 我吐了</p>
+<h2 id="rsa">RSA</h2>
+<p>附件如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A=(((y%x)**<span class="number">5</span>)%(x%y))**<span class="number">2019</span>+y**<span class="number">316</span>+(y+<span class="number">1</span>)/x</span><br><span class="line">p=next_prime(z*x*y)</span><br><span class="line">q=next_prime(z)</span><br><span class="line">A =  <span class="number">2683349182678714524247469512793476009861014781004924905484127480308161377768192868061561886577048646432382128960881487463427414176114486885830693959404989743229103516924432512724195654425703453612710310587164417035878308390676612592848750287387318129424195208623440294647817367740878211949147526287091298307480502897462279102572556822231669438279317474828479089719046386411971105448723910594710418093977044179949800373224354729179833393219827789389078869290217569511230868967647963089430594258815146362187250855166897553056073744582946148472068334167445499314471518357535261186318756327890016183228412253724</span></span><br><span class="line">n =  <span class="number">117930806043507374325982291823027285148807239117987369609583515353889814856088099671454394340816761242974462268435911765045576377767711593100416932019831889059333166946263184861287975722954992219766493089630810876984781113645362450398009234556085330943125568377741065242183073882558834603430862598066786475299918395341014877416901185392905676043795425126968745185649565106322336954427505104906770493155723995382318346714944184577894150229037758434597242564815299174950147754426950251419204917376517360505024549691723683358170823416757973059354784142601436519500811159036795034676360028928301979780528294114933347127</span></span><br><span class="line">c =  <span class="number">41971850275428383625653350824107291609587853887037624239544762751558838294718672159979929266922528917912189124713273673948051464226519605803745171340724343705832198554680196798623263806617998072496026019940476324971696928551159371970207365741517064295956376809297272541800647747885170905737868568000101029143923792003486793278197051326716680212726111099439262589341050943913401067673851885114314709706016622157285023272496793595281054074260451116213815934843317894898883215362289599366101018081513215120728297131352439066930452281829446586562062242527329672575620261776042653626411730955819001674118193293313612128</span></span><br></pre></td></tr></table></figure>
+<p>拿到 n ，先<a target="_blank" rel="noopener" href="http://factordb.com/">爆破</a>： <img data-src="https://img-blog.csdnimg.cn/20210427233142596.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 得到 p,q 但是没给 e 没想法。。。 找 <a target="_blank" rel="noopener" href="https://paper.seebug.org/1059/#rsa">wp</a> 爆破出 e=65537 啊这。。。 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = <span class="number">842868045681390934539739959201847552284980179958879667933078453950968566151662147267006293571765463137270594151138695778986165111380428806545593588078365331313084230014618714412959584843421586674162688321942889369912392031882620994944241987153078156389470370195514285850736541078623854327959382156753458569</span></span><br><span class="line">q = <span class="number">139916095583110895133596833227506693679306709873174024876891023355860781981175916446323044732913066880786918629089023499311703408489151181886568535621008644997971982182426706592551291084007983387911006261442519635405457077292515085160744169867410973960652081452455371451222265819051559818441257438021073941183</span></span><br><span class="line">n =  <span class="number">117930806043507374325982291823027285148807239117987369609583515353889814856088099671454394340816761242974462268435911765045576377767711593100416932019831889059333166946263184861287975722954992219766493089630810876984781113645362450398009234556085330943125568377741065242183073882558834603430862598066786475299918395341014877416901185392905676043795425126968745185649565106322336954427505104906770493155723995382318346714944184577894150229037758434597242564815299174950147754426950251419204917376517360505024549691723683358170823416757973059354784142601436519500811159036795034676360028928301979780528294114933347127</span></span><br><span class="line">c =  <span class="number">41971850275428383625653350824107291609587853887037624239544762751558838294718672159979929266922528917912189124713273673948051464226519605803745171340724343705832198554680196798623263806617998072496026019940476324971696928551159371970207365741517064295956376809297272541800647747885170905737868568000101029143923792003486793278197051326716680212726111099439262589341050943913401067673851885114314709706016622157285023272496793595281054074260451116213815934843317894898883215362289599366101018081513215120728297131352439066930452281829446586562062242527329672575620261776042653626411730955819001674118193293313612128</span></span><br><span class="line"></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = long_to_bytes(<span class="built_in">pow</span>(c, d, n))</span><br><span class="line"><span class="built_in">print</span>(m)</span><br></pre></td></tr></table></figure>
+<p>（wp 爆破 x,y，我直接爆破 p,q，结果是一样的。嗯，就这样）</p>
+<h2 id="结语">结语</h2>
+<p>明天考试，希望及格 希望继续坚持</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/26/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-26">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -930,86 +1005,10 @@ x^{2} - c_{1}x + c_{3} = 0
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/17/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-17">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Σ2333!">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Σ2333! の 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/uncategorized/2021/04/17/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-17" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-17</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-17 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-17T00:00:00+08:00">2021-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="buuctf-每日打卡-2021-4-17">BUUCTF 每日打卡 2021-4-17</h1>
-<h2 id="引言">引言</h2>
-<p>今日无事</p>
-<h2 id="佛说只能四天">佛说：只能四天</h2>
-<p>附件给了一串。。。乱码？ 难不成是乱码题？ 尊即寂修我劫修如婆愍闍嚤婆莊愍耨羅嚴是喼婆斯吶眾喼修迦慧迦嚩喼斯願嚤摩隸所迦摩吽即塞願修咒莊波斯訶喃壽祗僧若即亦嘇蜜迦須色喼羅囉咒諦若陀喃慧愍夷羅波若劫蜜斯哆咒塞隸蜜波哆咤慧聞亦吽念彌諸嘚嚴諦咒陀叻咤叻諦缽隸祗婆諦嚩阿兜宣囉吽色缽吶諸劫婆咤咤喼愍尊寂色缽嘚闍兜阿婆若叻般壽聞彌即念若降宣空陀壽愍嚤亦喼寂僧迦色莊壽吽哆尊僧喼喃壽嘚兜我空所吶般所即諸吽薩咤諸莊囉隸般咤色空咤亦喃亦色兜哆嘇亦隸空闍修眾哆咒婆菩迦壽薩塞宣嚩缽寂夷摩所修囉菩阿伏嘚宣嚩薩塞菩波吶波菩哆若慧愍蜜訶壽色咒兜摩缽摩諦劫諸陀即壽所波咤聞如訶摩壽宣咤彌即嚩蜜叻劫嘇缽所摩闍壽波壽劫修訶如嚩嘇囉薩色嚤薩壽修闍夷闍是壽僧劫祗蜜嚴嚩我若空伏諦念降若心吽咤隸嘚耨缽伏吽色寂喃喼吽壽夷若心眾祗喃慧嚴即聞空僧須夷嚴叻心願哆波隸塞吶心須嘇摩咤壽嘚吶夷亦心亦喃若咒壽亦壽囑囑 一脸懵逼 只能找 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45883223/article/details/105193948">wp</a> 题目有一条提示：圣经分为《旧约全书》和《新约全书》 原来是叫<a target="_blank" rel="noopener" href="http://hi.pcmoe.net/buddha.html">新约佛论禅加密</a>： <img data-src="https://img-blog.csdnimg.cn/20210417222025611.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 解密结果是一串社会主义核心价值观 又懵逼了。。。 原来是叫<a target="_blank" rel="noopener" href="http://ctf.ssleye.com/cvencode.html">核心价值观编码</a>。。。 解密结果： <img data-src="https://img-blog.csdnimg.cn/20210417222137380.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 解码结果结尾是 “doyouknowfence” 还要<a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/zhalanmima.php">栅栏解密</a>。。。 解密结果： <img data-src="https://img-blog.csdnimg.cn/20210417222335279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 结尾出现了 “doyouknowCaesar” 结合提示：凯撒不是最后一步，by the way，凯撒为什么叫做凯撒？ 还要<a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/kaisamima.php">凯撒解密</a>。。。 而凯撒密码最初位移是 3 位。。。（凯撒为什么叫做凯撒） 解密结果： <img data-src="https://img-blog.csdnimg.cn/20210417222554786.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 最后得到的结果还要 <a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/base.php">base32 解码</a>。。。 结果如下： <img data-src="https://img-blog.csdnimg.cn/20210417222706775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 老千层饼了。。。 如果不是有 wp，我想破脑袋也不可能想出来。。。</p>
-<h2 id="天干地支甲子">天干地支+甲子</h2>
-<p>不禁想起了那题 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/115384023?spm=1001.2014.3001">传统知识+古典密码</a> 不过这题简单得多，只要找到对应的数字再 +60 用 ascii 码 转成字符就行</p>
-<p>得到得字符串用MRCTF{}包裹 一天Eki收到了一封来自Sndav的信，但是他有点迷希望您来解决一下 甲戌 11 甲寅 51 甲寅 51 癸卯 40 己酉 46 甲寅 51 辛丑 38</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">11</span>, <span class="number">51</span>, <span class="number">51</span>, <span class="number">40</span>, <span class="number">46</span>, <span class="number">51</span>, <span class="number">38</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>.join(<span class="built_in">chr</span>(i + <span class="number">60</span>) <span class="keyword">for</span> i <span class="keyword">in</span> a))</span><br></pre></td></tr></table></figure>
-<p>结果为：Goodjob</p>
-<h2 id="结语">结语</h2>
-<p>明天没有训练 希望继续坚持</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1075,7 +1074,7 @@ x^{2} - c_{1}x + c_{3} = 0
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
