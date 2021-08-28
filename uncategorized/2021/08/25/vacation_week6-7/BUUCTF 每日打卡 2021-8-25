@@ -353,7 +353,10 @@ x+y = (p+q)^3-(p+q)^2+(p+q)+4pq
     <a href="/uncategorized/2021/08/18/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-18" rel="prev" title="BUUCTF 每日打卡 2021-8-18">
       <i class="fa fa-chevron-left"></i> BUUCTF 每日打卡 2021-8-18
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/uncategorized/2021/08/26/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-26" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -426,7 +429,7 @@ x+y = (p+q)^3-(p+q)^2+(p+q)+4pq
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
