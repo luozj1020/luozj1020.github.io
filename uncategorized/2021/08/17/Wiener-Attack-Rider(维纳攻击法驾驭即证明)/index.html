@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto:300,300italic,400,400italic,700,700italic|Source Sans Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livers","storage":false,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Wiener&#39;s Attack Ride(维纳攻击法驾驭)  背景 在刷BUU的时候碰到了[羊城杯 2020]RRRRRRRSA运用了连分数求解，而Wiener&#39;s Attack（维纳攻击法）也是利用连分数来求解。但是网上的文章总是停留在对Wiener&#39;s Attack的应用层面（在碰到这道题之前，我对Wiener&#39;s Attack的运用也只停留在抄代码的层面），并没有对其中的具体步骤进行证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wiener&#39;s Attack Ride(维纳攻击法驾驭)">
+<meta property="og:url" content="https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)/index.html">
+<meta property="og:site_name" content="Σ2333! の 博客">
+<meta property="og:description" content="Wiener&#39;s Attack Ride(维纳攻击法驾驭)  背景 在刷BUU的时候碰到了[羊城杯 2020]RRRRRRRSA运用了连分数求解，而Wiener&#39;s Attack（维纳攻击法）也是利用连分数来求解。但是网上的文章总是停留在对Wiener&#39;s Attack的应用层面（在碰到这道题之前，我对Wiener&#39;s Attack的运用也只停留在抄代码的层面），并没有对其中的具体步骤进行证">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8f3476e5e9fa40e79d1f753e29fdbcf6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/cd0f3b0580824a3d9874571d951393e0.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/82d17bc06f05439587c1c2c4b4331570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-08-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-17T14:11:00.261Z">
+<meta property="article:author" content="Σ2333!">
+<meta property="article:tag" content="Crypto">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/8f3476e5e9fa40e79d1f753e29fdbcf6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Wiener's Attack Ride(维纳攻击法驾驭) | Σ2333! の 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Σ2333! の 博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+
+<!-- 加入APlayer音乐播放器 -->
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Σ2333! の 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Wiener's Attack Ride(维纳攻击法驾驭)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-17 00:00:00 / 修改时间：22:11:00" itemprop="dateCreated datePublished" datetime="2021-08-17T00:00:00+08:00">2021-08-17</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="wieners-attack-ride维纳攻击法驾驭">Wiener's Attack Ride(维纳攻击法驾驭)</h2>
+<p><img data-src="https://img-blog.csdnimg.cn/8f3476e5e9fa40e79d1f753e29fdbcf6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" /></p>
+<h2 id="背景">背景</h2>
+<p>在刷BUU的时候碰到了<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/119671024?spm=1001.2014.3001.5501">[羊城杯 2020]RRRRRRRSA</a>运用了连分数求解，而Wiener's Attack（维纳攻击法）也是利用连分数来求解。但是网上的文章总是停留在对Wiener's Attack的应用层面（在碰到这道题之前，我对Wiener's Attack的运用也只停留在抄代码的层面），并没有对其中的具体步骤进行证明和推导</p>
+<p>本文试图深挖其中的原理，并对其中的步骤进行较为完整的证明和解释</p>
+<h2 id="关于rsa体系">关于RSA体系</h2>
+<p>关于RSA的介绍网上多的是，这里不再赘述<span class="math inline">\(^{[1]}\)</span> <img data-src="https://img-blog.csdnimg.cn/cd0f3b0580824a3d9874571d951393e0.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<p>不知道RSA的话，就更别说Wiener's Attack了</p>
+<h2 id="wieners-attack简介wieners-theorem2">Wiener's Attack简介（Wiener's theorem）<span class="math inline">\(^{[2]}\)</span></h2>
+<p>模数<span class="math inline">\(N=pq\)</span>，其中<span class="math inline">\(q&lt;p&lt;2q\)</span></p>
+<p>若<span class="math inline">\(d&lt;\dfrac{1}{3}N^{\frac{1}{4}}\)</span>​ 时，给定公钥<span class="math inline">\((N,e)\)</span>​，且<span class="math inline">\(ed \equiv 1\space mod \space \lambda (N)\)</span>​​，</p>
+<p><span class="math inline">\(\lambda (N) = lcm(p-1,q-1)=\dfrac{(p-1)(q-1)}{G} = \dfrac{\varphi(N)}{G}\)</span>​，其中<span class="math inline">\(G=gcd(p-1, q-1)\)</span>​</p>
+<p>那么可以有效地得到公钥指数<span class="math inline">\(d\)</span></p>
+<p>这里与我们常见的RSA加密不同的是使用了<span class="math inline">\(\lambda (N)\)</span>而非<span class="math inline">\(\varphi (N)\)</span>​，两者就差了个整数<span class="math inline">\(G\)</span>​，其实是差不多的，在以下的Wiener's Attack原理和证明中可以看出</p>
+<h2 id="wieners-attack原理">Wiener's Attack原理</h2>
+<p>设<span class="math inline">\(\lambda (N) = lcm(p-1,q-1)=\dfrac{(p-1)(q-1)}{G} = \dfrac{\varphi(N)}{G}\)</span>​​，其中<span class="math inline">\(G=gcd(p-1, q-1)\)</span>​​</p>
+<p>因为 <span class="math display">\[
+ed \equiv 1\space mod \space  \lambda (N)
+\]</span> 所以<span class="math inline">\(\exists K\in \mathbb{Z}\)</span>​，<span class="math inline">\(s.t.\)</span>​ <span class="math display">\[
+ed = K\lambda (N) +1 = \dfrac{K}{G}(p-1)(q-1) + 1
+\]</span> 令<span class="math inline">\(k = \dfrac{K}{gcd(K,G)}\)</span>，<span class="math inline">\(g = \dfrac{G}{gcd(K,G)}\)</span>，代入上式得： <span class="math display">\[
+ed = \dfrac{k}{g}(p-1)(q-1) + 1 = \dfrac{k}{g} \varphi (N) + 1
+\]</span> 上式两段同时除以<span class="math inline">\(dN\)</span>​​​，可得： <span class="math display">\[
+\dfrac{e}{N} = \dfrac{k}{dg} \dfrac{\varphi (N)}{N} + \dfrac{1}{dN} \cdots\cdots(*)
+\]</span> 由于<span class="math inline">\(p,q\)</span>是大整数，所以可以认为<span class="math inline">\(\varphi (N) \approx N\)</span>，$  $​，有 <span class="math display">\[
+\dfrac{e}{N} = \dfrac{k}{dg}(1-\delta) \approx \dfrac{k}{dg}
+\]</span> 其中，<span class="math inline">\(\delta = \dfrac{p+q-1-\frac{g}{k}}{pq} \approx 0\)</span></p>
+<p>等式左侧包含了已知的公钥信息，通过对其进行<strong>连分数</strong>展开，再对每一项求<strong>渐进分数</strong>，可以得到<span class="math inline">\(k,dg\)</span>​​</p>
+<p>再将结果代入<span class="math inline">\((*)\)</span>​​式，即可求得<span class="math inline">\(\varphi (N)\)</span>​，然后就可以进行解密RSA了</p>
+<p>如果要求<span class="math inline">\(p,q\)</span>，由于已知<span class="math inline">\(N=pq\)</span>，<span class="math inline">\(\varphi (N) = (p-1)(q-1)=pq-(p+q)+1\)</span>，练习韦达定理，可以构造一元二次方程<span class="math inline">\(x^{2} - (p+q)x + pq = x^{2} - (N - \varphi (N) +1)x + N = 0\)</span>，解出两根即为<span class="math inline">\(p,q\)</span></p>
+<h2 id="wieners-theorem的证明">Wiener's theorem的证明</h2>
+<p>此部分用于说明：在Wiener's theorem给定的条件下，为什么使用连分数可以求解</p>
+<p>设<span class="math inline">\(\lambda (N) = lcm(p-1,q-1)=\dfrac{(p-1)(q-1)}{G} = \dfrac{\varphi(N)}{G}\)</span>​，其中<span class="math inline">\(G=gcd(p-1, q-1)\geq 1\)</span>​</p>
+<p>因为 <span class="math display">\[
+ed \equiv 1\space mod \space  \lambda (N)​​
+\]</span> 所以<span class="math inline">\(\exists K\in \mathbb{Z}\)</span>，<span class="math inline">\(s.t.\)</span> <span class="math display">\[
+ed = K\lambda (N) +1 = K\dfrac{\varphi (N)}{G} + 1
+\]</span> 等式两边同除以<span class="math inline">\(d\lambda (N)\)</span>可得： <span class="math display">\[
+\left| \dfrac{e}{\lambda (N)} - \dfrac{K}{d} \right| = \dfrac{1}{d\lambda (N)}
+\]</span> 两边再同除<span class="math inline">\(G\)</span>可得： <span class="math display">\[
+\left| \dfrac{e}{\varphi (N)} - \dfrac{K}{Gd} \right| = \dfrac{1}{d\varphi (N)}\cdots \cdots (**)
+\]</span> 从上述推导可知，<span class="math inline">\(\dfrac{K}{Gd}\approx \dfrac{e}{\varphi (N)}\)</span>，由于<span class="math inline">\(\varphi (N) \approx N\)</span>​，在计算的时候是可以近似替换的</p>
+<p>因为<span class="math inline">\(q&lt;p&lt;2q\)</span>​​，<span class="math inline">\(N=pq\)</span>​​​</p>
+<p>所以<span class="math inline">\(N&gt;\dfrac{p^2}{2}\)</span>​​​，故<span class="math inline">\(p&lt;\sqrt{2N}\)</span>​</p>
+<p>又<span class="math inline">\(N&gt;q^2\)</span>​，故<span class="math inline">\(q&lt;\sqrt{N}\)</span></p>
+<p>因此<span class="math inline">\(p+q-1&lt;(1+\sqrt{2})\sqrt{N}-1&lt;3\sqrt{N}\)</span>​​​</p>
+<p>又 <span class="math display">\[
+\varphi (N) = (p-1)(q-1) =N-(p+q-1)
+\]</span> 故 <span class="math display">\[
+|N-\varphi (N)| = p+q-1 &lt; 3\sqrt{N}
+\]</span> 在<span class="math inline">\((**)\)</span>式中，用<span class="math inline">\(N\)</span>替换<span class="math inline">\(\varphi (N)\)</span>​可得： <span class="math display">\[
+\begin{split}
+\left| \dfrac{e}{N} - \dfrac{K}{Gd} \right|
+&amp;= \left| \dfrac{edG-KN}{NGd} \right|\\
+&amp;= \left| \dfrac{edG-K\varphi (N)-KN + K\varphi (N)}{NGd} \right|\\
+&amp;= \left| \dfrac{G - K(N-\varphi(N))}{NGd} \right|\\
+&amp;= \left| \dfrac{1 - \frac{K}{G}(N-\varphi(N))}{Nd} \right|\\
+\end{split}
+\]</span> 由于 <span class="math display">\[
+ed = K\lambda (N) +1 = \dfrac{K}{G}\varphi (N) + 1
+\]</span> 又<span class="math inline">\(e,d,\varphi (N) \in \mathbb{N^*}\)</span>，所以<span class="math inline">\(\dfrac{K}{G}\in \mathbb{N^*}\)</span>，即有<span class="math inline">\(\dfrac{K}{G} \geq 1\)</span></p>
+<p>而<span class="math inline">\(N-\varphi (N) = p+q-1 &gt; 1\)</span></p>
+<p>于是有 <span class="math display">\[
+\frac{K}{G}(N-\varphi(N)) &gt; 1
+\]</span> 故 <span class="math display">\[
+\begin{split}
+\left| \dfrac{e}{N} - \dfrac{K}{Gd} \right|
+&amp;= \left| \dfrac{\frac{K}{G}(N-\varphi(N)) - 1}{Nd} \right| = \dfrac{\frac{K}{G}(N-\varphi(N)) - 1}{Nd}\\
+&amp;&lt; \left| \dfrac{K(N-\varphi(N))}{NGd} \right|\\
+&amp;&lt; \left| \dfrac{3K\sqrt{N}}{NGd} \right| = \dfrac{3K}{Gd\sqrt{N}} \leq \dfrac{3K}{d\sqrt{N}}
+\end{split}
+\]</span> 因为<span class="math inline">\(ed = K\lambda (N) +1\)</span>，所以<span class="math inline">\(ed &gt; K\lambda (N)\)</span>​</p>
+<p>又根据RSA加密原理，<span class="math inline">\(e&lt;\varphi (N) \leq \lambda (N)\)</span></p>
+<p>故<span class="math inline">\(K\lambda (N)&lt;ed&lt;\lambda (N)d\)</span>​</p>
+<p>于是有<span class="math inline">\(K\lambda (N)&lt;\lambda (N)d\)</span></p>
+<p>故<span class="math inline">\(K&lt;d&lt;\dfrac{1}{3}N^{\frac{1}{4}}\)</span></p>
+<p>所以 <span class="math display">\[
+\left| \dfrac{e}{N} - \dfrac{K}{Gd} \right| &lt; \dfrac{3K}{d\sqrt{N}} &lt; \dfrac{1}{dN^{\frac{1}{4}}}
+\]</span> 又因为<span class="math inline">\(2d&lt;3d&lt;N^{\frac{1}{4}}\)</span></p>
+<p>所以<span class="math inline">\(\dfrac{1}{2d}&gt;\dfrac{1}{N^{\frac{1}{4}}}\)</span></p>
+<p>于是 <span class="math display">\[
+\left| \dfrac{e}{N} - \dfrac{\frac{K}{G}}{d} \right|  &lt; \dfrac{1}{dN^{\frac{1}{4}}} &lt; \dfrac{1}{2d^2}
+\]</span> 根据<strong>Legendre’s theorem</strong><span class="math inline">\(^{[3]}\)</span>，若<span class="math inline">\(\left| x-\dfrac{a}{b} \right| &lt; \dfrac{1}{2b^2}\)</span>，其中<span class="math inline">\(x\)</span>为分数，<span class="math inline">\(a,b\)</span>为不互质的正整数，那么<span class="math inline">\(\dfrac{a}{b}\)</span>必为<span class="math inline">\(x\)</span>的一个收敛分数</p>
+<p>至于为什么（这也是很多文章没有给出的地方），将在下一部分给出较为详细的解释</p>
+<h2 id="关于连分数的解释">关于连分数的解释</h2>
+<p>在很多介绍Wiener's Attack的文章中，忽略了关于连分数的解释，或者说为什么通过进行连分数展开，再对每一项求渐进分数，就可以得到<span class="math inline">\(d\)</span>​</p>
+<p>为此，笔者查阅了一些文献，下面给出大致证明</p>
+<p>首先，什么是连分数？</p>
+<h3 id="定义一连分数4">定义一（连分数）<span class="math inline">\(^{[4]}\)</span></h3>
+<p>一个有理数可以化成如下形式： <span class="math display">\[
+a_0+\frac{1}{a_1 + \frac{1}{a_2+\frac{1}{\cdots+\frac{1}{a_n}}}}
+\]</span> 该形式即为连分数的表达形式，通常简记为<span class="math inline">\(a_0 + \frac{1}{a_1+}\frac{1}{a_2+}\cdots\frac{1}{a_n}\)</span>​或<span class="math inline">\([a_0;a_1,a_2,\cdots,a_n]\)</span>​，其中<span class="math inline">\(a_0\in \mathbb{Z}\)</span>​，<span class="math inline">\(a_1,a_2,\cdots,a_n\in \mathbb{N^*}\)</span>​​，且<span class="math inline">\(a_n&gt;1\)</span><span class="math inline">\(^{[5]}\)</span></p>
+<p>无限不循环小数，例如<span class="math inline">\(\pi,\sqrt{2}\)</span>​等也可以化成连分数形式，但不在本文讨论范围内，感兴趣的可以自行查阅</p>
+<h3 id="定理一">定理一</h3>
+<p><strong>任何一个有理数与其连分数形式是一一对应的</strong></p>
+<p><strong>证明</strong>：对于任意一个有理数<span class="math inline">\(\dfrac{b_0}{r_0}\)</span>​​，且<span class="math inline">\((b_0,r_0)=1\)</span>​​，可以写出 <span class="math display">\[
+\begin{split}
+b_0 &amp;= a_0r_0 + r_1,0 \leq r_1 &lt; r_0;\\
+r_0 &amp;= a_1r_1 + r_2,0 \leq r_2 &lt; r_1;\\
+r_1 &amp;= a_2r_2 + r_3,0 \leq r_3 &lt; r_2;\\
+\cdots
+\end{split}
+\]</span> 由于<span class="math inline">\(r_i\)</span>​严格单调递减，所以必定存在<span class="math inline">\(n\in \mathbb{N^*}\)</span>，<span class="math inline">\(s.t.\)</span>​ <span class="math display">\[
+r_{n-1}=a_nr_n
+\]</span> 其中，<span class="math inline">\(r_i\in \mathbb{N^*}\)</span>，<span class="math inline">\(\forall i=1,2,\cdots ,n\)</span>​</p>
+<p>所以有 <span class="math display">\[
+\begin{split}
+\dfrac{b_0}{r_0} &amp;= a_0 + \dfrac{r_1}{r_0} = a_0 + \dfrac{1}{\frac{r_1}{r_0}}\\
+&amp;= a_0 + \dfrac{1}{a_1 + \frac{1}{\frac{r_2}{r_1}}\\}\\
+&amp;=\cdots \\
+&amp;= [a_0;a_1,a_2,\cdots,a_n]
+\end{split}
+\]</span> 上述推导说明有理数和其连分数形式是一一对应的</p>
+<p>其次，什么是收敛分数？</p>
+<h3 id="定义二收敛分数">定义二（收敛分数）</h3>
+<p>设有理数<span class="math inline">\(a=[a_0;a_1,a_2,\cdots,a_n]\)</span>，则其收敛分数为<span class="math inline">\([a_0],[a_0;a_1],\cdots [a_0;a_1,a_2,\cdots,a_{n-1}],[a_0;a_1,a_2,\cdots,a_n]\)</span>​</p>
+<p>通俗地讲，就是把连分数从某一项开始，后面的扔掉，得到<span class="math inline">\(a\)</span>的一个近似值</p>
+<p>由<strong>定理一</strong>可知，对于有理数，其收敛分数的个数的有限的，并且越来越逼近<span class="math inline">\(a\)</span></p>
+<h3 id="引理一">引理一</h3>
+<p><strong>设</strong> <span class="math display">\[
+\begin{split}
+p_{-2}&amp;=0,p_{-1}&amp;=1,p_m = a_m p_{m-1}+p_{m-2}\space (m\geq0)\\
+q_{-2}&amp;=1,q_{-1}&amp;=0,q_m = a_m q_{m-1}+q_{m-2}\space (m\geq0)
+\end{split}
+\]</span> <strong>则 <span class="math inline">\(p_m q_{m-1} - p_{m-1}q_m = (-1)^{m-1}(m\geq -1)\)</span>​</strong>​</p>
+<p><strong>证明</strong>：用数学归纳法</p>
+<p>当<span class="math inline">\(m=-1\)</span>或<span class="math inline">\(m=0\)</span>时，显然成立</p>
+<p>假设当<span class="math inline">\(m=k-1\)</span>​​​，<span class="math inline">\(\forall k\in \mathbb{N}\)</span>​​​时也成立，即<span class="math inline">\(p_{k-1} q_{k-2} - p_{k-2}q_{k-1} = (-1)^{k-2}(k\geq 0)\)</span>​​​</p>
+<p>那么 <span class="math display">\[
+\begin{split}
+p_k q_{k-1} - p_{k-1}q_k &amp;= (a_k p_{k-1}+p_{k-2})q_{k-1} - p_{k-1}(a_k q_{k-1}+q_{k-2})\\
+&amp;= -(p_{k-1} q_{k-2} - p_{k-2}q_{k-1})\\
+&amp;= -(-1)^{k-2} = (-1)^{k-1}
+\end{split}
+\]</span> 所以，当<span class="math inline">\(m=k\)</span>时也成立</p>
+<p>证毕</p>
+<h3 id="引理二">引理二</h3>
+<p><span class="math display">\[
+[a_0;a_1,a_2,\cdots,a_m] = \frac{p_m}{q_m}\space (m\geq 0)
+\]</span></p>
+<p><strong>证明</strong>：用数学归纳法</p>
+<p>当<span class="math inline">\(m=0\)</span>时，易证</p>
+<p>假设当<span class="math inline">\(m=k-1\)</span>​​​​，<span class="math inline">\(\forall k\in \mathbb{N^*}\)</span>​​​​时也成立，即<span class="math inline">\([a_0;a_1,a_2,\cdots,a_{k-1}] = \dfrac{p_{k-1}}{q_{k-1}}\space (k\geq 1)\)</span>​​​​</p>
+<p>那么 <span class="math display">\[
+\begin{split}
+[a_0;a_1,a_2,\cdots,a_{k}] &amp;= [a_0;a_1,a_2,\cdots,a_{k-1}+\frac{1}{a_k}] \\
+&amp;= \dfrac{(a_{k-1} + \frac{1}{a_k})p_{k-2}+p_{k-3}}{(a_{k-1} + \frac{1}{a_k})q_{k-2}+q_{k-3}}\\
+&amp;= \dfrac{(a_k a_{k-1} + 1)p_{k-2}+a_k p_{k-3}}{(a_k a_{k-1} + 1)q_{k-2}+a_k q_{k-3}}\\
+&amp;= \dfrac{a_k(a_{k-1}p_{k-2} + p_{k-3})+p_{k-2}}{a_k(a_{k-1}q_{k-2} + q_{k-3})+q_{k-2}}\\
+&amp;= \dfrac{a_k p_{k-1}+p_{k-2}}{a_k q_{k-1}+q_{k-2}}\\
+&amp;= \dfrac{p_k}{q_k}
+\end{split}
+\]</span> （这里把<span class="math inline">\([a_0;a_1,a_2,\cdots,a_{k}]\)</span>​等价为<span class="math inline">\([a_0;a_1,a_2,\cdots,a_{k-1}+\frac{1}{a_k}]\)</span>​，相当于把<span class="math inline">\(k\)</span>​阶的连分数，视作<span class="math inline">\(k-1\)</span>​阶，这样就可以应用假设了）</p>
+<p>所以，当<span class="math inline">\(m=k\)</span>时也成立</p>
+<p>证毕</p>
+<h3 id="引理三">引理三</h3>
+<p><strong>规定</strong>：<span class="math inline">\(||\theta|| = \displaystyle\min_{n\in \mathbb{Z}}|\theta - n|\)</span>，<span class="math inline">\(\theta \in \mathbb{R}\)</span></p>
+<p><strong>设<span class="math inline">\(\alpha = [a_0;a_1,a_2,\cdots,a_{n+1}]\)</span>​​​，其中<span class="math inline">\(n\in \mathbb{N^*}\)</span>，<span class="math inline">\(a_i\geq 1\)</span>，<span class="math inline">\(1\leq i \leq n+1\)</span>则<span class="math inline">\(||q_i \alpha||\)</span>严格单调递减，且<span class="math inline">\(||q_1 \alpha|| &gt; ||q_2 \alpha|| &gt; \cdots &gt;||q_n \alpha|| &gt; ||q_{n+1} \alpha||=0\)</span>​​​</strong></p>
+<p><strong>证明</strong>：由连分数的定义， <span class="math display">\[
+\begin{split}
+[a_0;a_1,a_2,\cdots,a_n] &amp;= a_0 + [a_1;a_2,a_3,\cdots,a_n]\\
+&amp;= a_0 + a_1 + [a_2;a_3,a_4,\cdots,a_n]\\
+&amp;= \cdots\\
+&amp;= a_0 + a_1 +\cdots + [a_n]\\
+&amp;= a_0 + \sum\limits_{i=1}^{n}([a_i;a_{i+1},a_{i+2},\cdots,a_{n}] - [a_{i-1};a_{i},a_{i+1},\cdots,a_{n}])
+\end{split}
+\]</span> 根据<strong>引理二</strong>，<span class="math inline">\([a_0;a_1,a_2,\cdots,a_{i}] = \dfrac{p_i}{q_i}\)</span>​​​​，<span class="math inline">\(\forall i\in \{2, 3, \cdots ,n+1\}\)</span>​​​​</p>
+<p>故 <span class="math display">\[
+\begin{split}
+\dfrac{p_n}{q_n} &amp;= a_0 + \sum\limits_{i=1}^{n}(\dfrac{p_i}{q_i} - \dfrac{p_{i-1}}{q_{i-1}})\\
+&amp;= a_0 + \sum\limits_{i=1}^{n}\dfrac{p_i q_{i-1} - p_{i-1}q_i}{q_i q_{i-1}}
+\end{split}
+\]</span> 又根据<strong>引理一</strong>，<span class="math inline">\(p_i q_{i-1} - p_{i-1}q_i = (-1)^{i-1}\)</span></p>
+<p>故 <span class="math display">\[
+\begin{split}
+\dfrac{p_n}{q_n}&amp;= a_0 + \sum\limits_{i=1}^{n}\dfrac{p_i q_{i-1} - p_{i-1}q_i}{q_i q_{i-1}}\\
+&amp;= a_0 + \sum\limits_{i=1}^{n}\dfrac{(-1)^{i-1}}{q_i q_{i-1}}
+\end{split}
+\]</span> 又因为<span class="math inline">\(\alpha = \dfrac{p_{n+1}}{q_{n+1}} = \dfrac{a_{n+1}p_n + p_{n-1}}{a_{n+1}q_n + q_{n-1}}\)</span></p>
+<p>于是 <span class="math display">\[
+\alpha - \dfrac{p_n}{q_n} = \dfrac{q_n p_{n-1} - p_n q_{n-1}}{(a_{n+1}q_n + q_{n-1})q_n} = \dfrac{(-1)^{n}}{(a_{n+1}q_n + q_{n-1})q_n} = \dfrac{(-1)^{n}}{q_n q_{n+1}}\cdots\cdots(***)
+\]</span> 由于<span class="math inline">\(a_{n+1},q_n,q_{n-1}\geq 1\)</span>​，所以<span class="math inline">\(\left| \dfrac{(-1)^{n}}{a_{n+1}q_n + q_{n-1}} \right| \leq \dfrac{1}{2}\)</span>​</p>
+<p>因此 <span class="math display">\[
+||q_n \alpha|| = |q_n \alpha - p_n| = \dfrac{1}{a_{n+1}q_n + q_{n-1}}
+\]</span> 因为<span class="math inline">\(a_i\geq 1\)</span>，<span class="math inline">\(1\leq i \leq n+1\)</span></p>
+<p>所以 <span class="math display">\[
+\begin{split}
+a_{n+1}q_n + q_{n-1} &amp;\geq q_n + q_{n-1} \\
+&amp;= a_n q_{n-1} + q_{n-2} + q_{n-1}\\
+&amp;= (a_n +1)q_{n-1} + q_{n-2} \\
+&amp;&gt; a_n q_{n-1} + q_{n-2}
+\end{split}
+\]</span> 所以，<span class="math inline">\(a_{i+1}q_i + q_{i-1}\)</span>​严格单调递增</p>
+<p>因此，<span class="math inline">\(||q_i \alpha||\)</span>​​严格单调递减</p>
+<p>又<span class="math inline">\(\alpha = \dfrac{p_{n+1}}{q_{n+1}}\)</span>，故<span class="math inline">\(\alpha q_{n+1} = p_{n+1} \in \mathbb{Z}\)</span></p>
+<p>于是，<span class="math inline">\(||\alpha q_{n+1}|| = |\alpha q_{n+1} - p_{n+1}| = 0\)</span>​</p>
+<p>证毕</p>
+<h3 id="定理二">定理二</h3>
+<p><strong>由引理三，<span class="math inline">\(||q_1 \alpha|| &gt; ||q_2 \alpha|| &gt; \cdots &gt;||q_n \alpha|| &gt; ||q_{n+1} \alpha||=0\)</span>​​​，则当<span class="math inline">\(0&lt;q&lt;q_n\)</span>​​​时，<span class="math inline">\(||q \alpha||\geq ||q_{n-1} \alpha||\)</span>​​​，其中<span class="math inline">\(n\in \mathbb{N^{*}}\)</span>​​​​​</strong></p>
+<p><strong>证明</strong>：我们先证明一个引理：</p>
+当<span class="math inline">\(0&lt;q&lt;q_n\)</span>​​时，对于正整数<span class="math inline">\(q,p\)</span>，总<span class="math inline">\(\exists x,y \in \mathbb{Z}\)</span>，<span class="math inline">\(s.t.\)</span> <span class="math display">\[
+\begin{cases}
+q = q_n x + q_{n-1}y\\
+p = p_n x + p_{n-1}y
+\end{cases}
+\]</span> 也可以化成矩阵形式： <span class="math display">\[
+\begin{pmatrix}
+q\\
+p
+\end{pmatrix}
+=
+\begin{pmatrix}
+q_n &amp; q_{n-1}\\
+p_n &amp; p_{n-1}
+\end{pmatrix}
+\begin{pmatrix}
+x\\
+y
+\end{pmatrix}
+\]</span> 由于 <span class="math display">\[
+\begin{vmatrix}
+q_n &amp; q_{n-1}\\
+p_n &amp; p_{n-1}
+\end{vmatrix}
+=p_{n-1}q_n - p_n q_{n-1}= (-1)^{n}
+\]</span> 所以，$
+<span class="math display">\[\begin{pmatrix}q \\ p\end{pmatrix}\]</span>
+ 
+<span class="math display">\[\begin{pmatrix}x \\ y\end{pmatrix}\]</span>
+<p> $</p>
+<p>亦即，该映射为双射</p>
+<p>引理得证</p>
+<p>①当<span class="math inline">\(x=0\)</span>时，则<span class="math inline">\(q\alpha - p = y(q_{n-1}\alpha - p_{n-1})\)</span>，所以<span class="math inline">\(|q\alpha - p| = |y||q_{n-1}\alpha - p_{n-1}| = |y|||q_{n-1}\alpha|| \geq ||q_{n-1}\alpha||\)</span></p>
+<p>②当<span class="math inline">\(y=0\)</span>时，则<span class="math inline">\(q=q_n x \geq q_n\)</span>与假设矛盾，排除</p>
+<p>③当<span class="math inline">\(x,y\)</span>均不为<span class="math inline">\(0\)</span> 时，</p>
+<p>因为<span class="math inline">\(q = q_n x + q_{n-1}y &lt; q_{n}\)</span></p>
+<p>又<span class="math inline">\(q, q_n, q_{n-1} \in \mathbb{N^*}\)</span></p>
+<p>所以<span class="math inline">\(x,y\)</span>异号</p>
+<p>由<span class="math inline">\((***)\)</span>式可得， <span class="math display">\[
+\begin{cases}
+q_n \alpha - p_n = \dfrac{(-1)^n}{a_{n+1}q_n + q_{n-1}}\\
+q_{n-1} \alpha - p_{n-1} = \dfrac{(-1)^{n-1}}{a_{n}q_{n-1} + q_{n-2}}
+\end{cases}
+\]</span> 因此，<span class="math inline">\(q_n \alpha - p_n\)</span>与<span class="math inline">\(q_{n-1} \alpha - p_{n-1}\)</span>也异号</p>
+<p>所以，<span class="math inline">\((q_n \alpha - p_n)x\)</span>与<span class="math inline">\((q_{n-1} \alpha - p_n)y\)</span>同号</p>
+<p>于是， <span class="math display">\[
+\begin{split}
+|q\alpha - p| &amp;= |(q_n \alpha - p_n)x - (q_{n-1} \alpha - p_n)y|\\
+&amp;= |x||q_n \alpha - p_n| + |y||q_{n-1} \alpha - p_n|\\
+&amp;= |x|||q_n \alpha|| + |y|||q_{n-1} \alpha|| \geq ||q_n \alpha||
+\end{split}
+\]</span> 综上所述，</p>
+<p>当<span class="math inline">\(0&lt;q&lt;q_n\)</span>时，<span class="math inline">\(||q \alpha||\geq ||q_{n-1} \alpha||\)</span></p>
+<p>证毕</p>
+<p>经过以上"铺垫"，终于到了我们要讲的核心部分<strong>Legendre’s theorem</strong></p>
+<h3 id="定理三legendres-theorem">定理三（Legendre’s theorem）</h3>
+<p><strong>若<span class="math inline">\(|\alpha - \dfrac{p}{q}| &lt; \dfrac{1}{2q^2}\)</span>且<span class="math inline">\((p,q)=1\)</span>，则<span class="math inline">\(q = q_k\)</span>，<span class="math inline">\(k \in \{1, 2, \cdots n+1\}\)</span></strong></p>
+<p><strong>证明</strong>：选择一个<span class="math inline">\(n\)</span>，满足<span class="math inline">\(q_n \leq q &lt; q_{n+1}\)</span></p>
+<p>因为<span class="math inline">\(pq_n - qp_n = q(\alpha q_n - p_n)-q_n(q\alpha - p)\)</span></p>
+<p>由三角不等式可得： <span class="math display">\[
+\begin{split}
+|pq_n - qp_n| &amp;\leq |q||\alpha q_n - p_n|+|q_n||q\alpha - p|\\
+&amp;\leq q||q_n \alpha||+q_n||q\alpha||
+\end{split}
+\]</span> 又由<strong>定理二</strong>可知，<span class="math inline">\(||q \alpha||\geq ||q_{n-1} \alpha||\)</span></p>
+<p>所以 <span class="math display">\[
+|pq_n - qp_n| \leq 2q||q\alpha|| = 2q^2 \left|\alpha-\frac{p}{q} \right| &lt; 1
+\]</span> 而<span class="math inline">\(p,q_n, q,p_n \in \mathbb{N}\)</span></p>
+<p>于是，<span class="math inline">\(pq_n - qp_n = 0\)</span>，即<span class="math inline">\(\dfrac{p}{q} = \dfrac{p_n}{q_n}\)</span></p>
+<p>又因为<span class="math inline">\((p_n, q_n) = (p,q) = 1\)</span></p>
+<p>所以有<span class="math inline">\(p = p_n\)</span></p>
+<p>证毕</p>
+<p>关于此定理的范围，事实上可以进一步拓展，本文不再拓展，感兴趣的可以自行查阅</p>
+<h2 id="参考文献">参考文献</h2>
+<p>[1] D001UM3. CTF中RSA题型解题思路及技巧 [DB/OL]. Reebuf; 2018 Feb 20, 15:00:31.Available from:https://www.freebuf.com/articles/others-articles/161475.html</p>
+<p>[2] Wikipedia contributors. Wiener's attack [DB/OL]. Wikipedia, The Free Encyclopedia; 2021 Apr 30, 15:51 UTC [cited 2021 Aug 17]. Available from: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/w/index.php?title=Wiener&#39;s_attack&amp;oldid=1020703748">https://en.wikipedia.org/w/index.php?title=Wiener%27s_attack&amp;oldid=1020703748</a>.</p>
+<p>[3] Andrej Dujella. Continud Fractions And RSA With Small Secret Exponent[DB/OL]. Arxiv; 2004 Feb. Available from:https://arxiv.org/pdf/cs/0402052.pdf</p>
+<p>[4] 维基百科编者. 连分数[G/OL]. 维基百科, 2021(20210502)[2021-05-02]. <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=连分数&amp;oldid=65444935">https://zh.wikipedia.org/w/index.php?title=%E8%BF%9E%E5%88%86%E6%95%B0&amp;oldid=65444935</a>.</p>
+<p>[5] Unknown. Continud Fractions[DB/OL]. Unkown. Available from:http://personal.psu.edu/rcv4/677C02.pdf</p>
+<h2 id="结语">结语</h2>
+<p>终于肝完了 <img data-src="https://img-blog.csdnimg.cn/82d17bc06f05439587c1c2c4b4331570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Σ2333!
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD%E5%8D%B3%E8%AF%81%E6%98%8E)/" title="Wiener&#39;s Attack Ride(维纳攻击法驾驭)">https://luozj1020.github.io/uncategorized/2021/08/17/Wiener-Attack-Rider(维纳攻击法驾驭即证明)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+      
+      <div> <div> <div style="text-align:center;color:#bfbfbf;font-size:16px;"> <span>-------- 本文结束 </span> <i class="fa fa-paw"></i> <span> 感谢阅读 --------</span> </div> </div>
+ </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Crypto/" rel="tag"><i class="fa fa-tags"></i> Crypto</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/uncategorized/2021/08/13/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-13/" rel="prev" title="BUUCTF 每日打卡 2021-8-13">
+      <i class="fa fa-chevron-left"></i> BUUCTF 每日打卡 2021-8-13
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/uncategorized/2021/08/18/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-18/" rel="next" title="BUUCTF 每日打卡 2021-8-18">
+      BUUCTF 每日打卡 2021-8-18 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-attack-ride%E7%BB%B4%E7%BA%B3%E6%94%BB%E5%87%BB%E6%B3%95%E9%A9%BE%E9%A9%AD"><span class="nav-number">1.</span> <span class="nav-text">Wiener&#39;s Attack Ride(维纳攻击法驾驭)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Ersa%E4%BD%93%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">关于RSA体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-attack%E7%AE%80%E4%BB%8Bwieners-theorem2"><span class="nav-number">4.</span> <span class="nav-text">Wiener&#39;s Attack简介（Wiener&#39;s theorem）\(^{[2]}\)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-attack%E5%8E%9F%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">Wiener&#39;s Attack原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wieners-theorem%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-number">6.</span> <span class="nav-text">Wiener&#39;s theorem的证明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%BF%9E%E5%88%86%E6%95%B0%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">7.</span> <span class="nav-text">关于连分数的解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E8%BF%9E%E5%88%86%E6%95%B04"><span class="nav-number">7.1.</span> <span class="nav-text">定义一（连分数）\(^{[4]}\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%B8%80"><span class="nav-number">7.2.</span> <span class="nav-text">定理一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BA%8C%E6%94%B6%E6%95%9B%E5%88%86%E6%95%B0"><span class="nav-number">7.3.</span> <span class="nav-text">定义二（收敛分数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E4%B8%80"><span class="nav-number">7.4.</span> <span class="nav-text">引理一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E4%BA%8C"><span class="nav-number">7.5.</span> <span class="nav-text">引理二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E4%B8%89"><span class="nav-number">7.6.</span> <span class="nav-text">引理三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%BA%8C"><span class="nav-number">7.7.</span> <span class="nav-text">定理二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%B8%89legendres-theorem"><span class="nav-number">7.8.</span> <span class="nav-text">定理三（Legendre’s theorem）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">8.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">9.</span> <span class="nav-text">结语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Σ2333!</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Σ2333!</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,250,250' opacity='0.7' zIndex='-1' count='80' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+  
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+  <script src="/js/wobblewindow.js"></script>
+  <script>
+    //只在桌面版网页启用特效
+    if( window.innerWidth > 768  ){
+      $(document).ready(function () {
+        
+          $('#header').wobbleWindow({
+            radius: 50,
+            movementTop: false,
+            movementLeft: false,
+            movementRight: false,
+            debug: false,
+          });
+        
+
+        
+          $('#sidebar').wobbleWindow({
+            radius: 50,
+            movementLeft: false,
+            movementTop: false,
+            movementBottom: false,
+            position: 'fixed',
+            debug: false,
+          });
+        
+
+        
+          $('#footer').wobbleWindow({
+            radius: 50,
+            movementBottom: false,
+            movementLeft: false,
+            movementRight: false,
+            offsetX: ,
+            position: 'absolute',
+            debug: false,
+          });
+        
+      });
+    }
+  </script>
+
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+<script src="/live2d-widget/autoload.js"></script>
+
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
