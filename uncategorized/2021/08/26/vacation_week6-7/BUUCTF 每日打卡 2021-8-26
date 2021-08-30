@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"luozj1020.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livers","storage":false,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="mathjax: true ﻿## 引言 无 [AFCTF2018]一道有趣的题目 加密代码如下： 1234567891011121314151617#加密代码def encrypt(plainText):    space &#x3D; 10    cipherText &#x3D; &quot;&quot;    for i in range(len(plainText)):        if i +">
+  <meta name="description" content="## 引言 无 [AFCTF2018]一道有趣的题目 加密代码如下： 1234567891011121314151617#加密代码def encrypt(plainText):    space &#x3D; 10    cipherText &#x3D; &quot;&quot;    for i in range(len(plainText)):        if i + space &lt; len">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BUUCTF 每日打卡 2021-8-26">
 <meta property="og:url" content="https://luozj1020.github.io/uncategorized/2021/08/26/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-26">
 <meta property="og:site_name" content="Σ2333! の 博客">
-<meta property="og:description" content="mathjax: true ﻿## 引言 无 [AFCTF2018]一道有趣的题目 加密代码如下： 1234567891011121314151617#加密代码def encrypt(plainText):    space &#x3D; 10    cipherText &#x3D; &quot;&quot;    for i in range(len(plainText)):        if i +">
+<meta property="og:description" content="## 引言 无 [AFCTF2018]一道有趣的题目 加密代码如下： 1234567891011121314151617#加密代码def encrypt(plainText):    space &#x3D; 10    cipherText &#x3D; &quot;&quot;    for i in range(len(plainText)):        if i + space &lt; len">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/0037ef213ade46788b74dc32195b6539.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/2ab4f4eec6a04a089c0342c83c4370be.png">
 <meta property="article:published_time" content="2021-08-25T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-08-30T13:58:00.493Z">
+<meta property="article:modified_time" content="2021-08-30T14:04:00.244Z">
 <meta property="article:author" content="Σ2333!">
 <meta property="article:tag" content="Crypto">
 <meta name="twitter:card" content="summary">
@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-30 21:58:00" itemprop="dateModified" datetime="2021-08-30T21:58:00+08:00">2021-08-30</time>
+                <time title="修改时间：2021-08-30 22:04:00" itemprop="dateModified" datetime="2021-08-30T22:04:00+08:00">2021-08-30</time>
               </span>
 
           
@@ -252,8 +252,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>mathjax: true</p>
-<p>﻿## 引言</p>
+        <p>﻿## 引言</p>
 <p>无</p>
 <h2 id="afctf2018一道有趣的题目">[AFCTF2018]一道有趣的题目</h2>
 <p>加密代码如下：</p>
@@ -519,6 +518,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
