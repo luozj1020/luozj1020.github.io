@@ -192,6 +192,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/05/18/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-18">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/uncategorized/2021/05/18/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-18" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-5-18</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-18 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-18T00:00:00+08:00">2021-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="buuctf-每日打卡-2021-5-18">BUUCTF 每日打卡 2021-5-18</h1>
+<h2 id="引言">引言</h2>
+<p>果然当鸽子会上瘾。。。 上周五打的国赛24小时不间断就离谱 原本打算通宵打，结果发现到半夜能写的都写了（指就写了一道 200 分的 rsa） 槽点太多，一时不知道从哪开始吐了 总之鸽了三天，今天就肝（水）一期国赛的那道 rsa 吧（咕咕咕）</p>
+<h2 id="ciscnrsa">[CISCN]rsa</h2>
+<p>加密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flag <span class="keyword">import</span> text,flag</span><br><span class="line"><span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes,bytes_to_long,getPrime</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> md5.new(text).hexdigest() == flag[<span class="number">6</span>:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">msg1 = text[:xx]</span><br><span class="line">msg2 = text[xx:yy]</span><br><span class="line">msg3 = text[yy:]</span><br><span class="line"></span><br><span class="line">msg1 = bytes_to_long(msg1)</span><br><span class="line">msg2 = bytes_to_long(msg2)</span><br><span class="line">msg3 = bytes_to_long(msg3)</span><br><span class="line"></span><br><span class="line">p1 = getPrime(<span class="number">512</span>)</span><br><span class="line">q1 = getPrime(<span class="number">512</span>)</span><br><span class="line">N1 = p1*q1</span><br><span class="line">e1 = <span class="number">3</span></span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(msg1,e1,N1)</span><br><span class="line"><span class="built_in">print</span> (e1,N1)</span><br><span class="line"></span><br><span class="line">p2 = getPrime(<span class="number">512</span>)</span><br><span class="line">q2 = getPrime(<span class="number">512</span>)</span><br><span class="line">N2 = p2*q2</span><br><span class="line">e2 = <span class="number">17</span></span><br><span class="line">e3 = <span class="number">65537</span></span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(msg2,e2,N2)</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(msg2,e3,N2)</span><br><span class="line"><span class="built_in">print</span> (e2,N2)</span><br><span class="line"><span class="built_in">print</span> (e3,N2)</span><br><span class="line"></span><br><span class="line">p3 = getPrime(<span class="number">512</span>)</span><br><span class="line">q3 = getPrime(<span class="number">512</span>)</span><br><span class="line">N3 = p3*q3</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(msg3,e3,N3)</span><br><span class="line"><span class="built_in">print</span> (e3,N3)</span><br><span class="line"><span class="built_in">print</span> p3&gt;&gt;<span class="number">200</span></span><br></pre></td></tr></table></figure>
+<p>从下往上观察加密代码，发现p3向右移位200位，所以是p高位泄露，采用coppersmith攻击得到p,q</p>
+<p>进行解密，得到msg第三部分 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p3 = <span class="number">11437038763581010263116493983733546014403343859218003707512796706928880848035239990740428334091106443982769386517753703890002478698418549777553268906496423</span></span><br><span class="line">q3 = <span class="number">9918033198963879798362329507637256706010562962487329742400933192721549307087332482107381554368538995776396557446746866861247191248938339640876368268930589</span></span><br><span class="line">n3 = p3*q3</span><br><span class="line">e3 = <span class="number">65537</span></span><br><span class="line">d3 = inverse(e3, (p3-<span class="number">1</span>)*(q3-<span class="number">1</span>))</span><br><span class="line">c4 = <span class="number">59213696442373765895948702611659756779813897653022080905635545636905434038306468935283962686059037461940227618715695875589055593696352594630107082714757036815875497138523738695066811985036315624927897081153190329636864005133757096991035607918106529151451834369442313673849563635248465014289409374291381429646</span></span><br><span class="line">m3 = <span class="built_in">pow</span>(c4, d3, n3)</span><br><span class="line">m3_ = long_to_bytes(m3)</span><br><span class="line"><span class="built_in">print</span>(m3_)</span><br></pre></td></tr></table></figure>
+<p>结果为：b'nd black, and pale, and hectic red,-stricken multitudes: O thou,chariotest to their dark wintry bed'</p>
+<p>观察第三部分加密代码，发现使用了相同的模数N2，所以采用共模攻击 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n2 = <span class="number">111381961169589927896512557754289420474877632607334685306667977794938824018345795836303161492076539375959731633270626091498843936401996648820451019811592594528673182109109991384472979198906744569181673282663323892346854520052840694924830064546269187849702880332522636682366270177489467478933966884097824069977</span></span><br><span class="line">e2 = <span class="number">17</span></span><br><span class="line">e3 = <span class="number">65537</span></span><br><span class="line">c2 = <span class="number">54995751387258798791895413216172284653407054079765769704170763023830130981480272943338445245689293729308200574217959018462512790523622252479258419498858307898118907076773470253533344877959508766285730509067829684427375759345623701605997067135659404296663877453758701010726561824951602615501078818914410959610</span></span><br><span class="line">c3 = <span class="number">91290935267458356541959327381220067466104890455391103989639822855753797805354139741959957951983943146108552762756444475545250343766798220348240377590112854890482375744876016191773471853704014735936608436210153669829454288199838827646402742554134017280213707222338496271289894681312606239512924842845268366950</span></span><br><span class="line"><span class="comment"># s &amp; t</span></span><br><span class="line">gcd, s, t = gmpy2.gcdext(e2, e3)</span><br><span class="line"><span class="keyword">if</span> s &lt; <span class="number">0</span>:</span><br><span class="line">    s = -s</span><br><span class="line">    c2 = gmpy2.invert(c2, n2)</span><br><span class="line"><span class="keyword">if</span> t &lt; <span class="number">0</span>:</span><br><span class="line">    t = -t</span><br><span class="line">    c3 = gmpy2.invert(c3, n2)</span><br><span class="line">plain = gmpy2.powmod(c2, s, n2) * gmpy2.powmod(c3, t, n2) % n2</span><br><span class="line">m2_ = long_to_bytes(plain)</span><br><span class="line"><span class="built_in">print</span>(m2_)</span><br></pre></td></tr></table></figure>
+<p>结果为：b"n's being,, from whose unseen presence the leaves deaddriven, like ghosts from an enchanter fleeing,, a"</p>
+<p>观察第一部分代码，由于e=3，所以采用小公钥指数攻击 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n1 = <span class="number">123814470394550598363280518848914546938137731026777975885846733672494493975703069760053867471836249473290828799962586855892685902902050630018312939010564945676699712246249820341712155938398068732866646422826619477180434858148938235662092482058999079105450136181685141895955574548671667320167741641072330259009</span></span><br><span class="line">e1 = <span class="number">3</span></span><br><span class="line">c1 = <span class="number">19105765285510667553313898813498220212421177527647187802549913914263968945493144633390670605116251064550364704789358830072133349108808799075021540479815182657667763617178044110939458834654922540704196330451979349353031578518479199454480458137984734402248011464467312753683234543319955893</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">100</span>):</span><br><span class="line">    a, b = gmpy2.iroot(c1+k*n1, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">if</span> b == <span class="number">1</span>:</span><br><span class="line">        m = a</span><br><span class="line">        m1_ = long_to_bytes(m)</span><br><span class="line">        <span class="built_in">print</span>(m1_)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>结果为：b' wild West Wind, thou breath of Autum'</p>
+<p>合并之后，结果为： O wild West Wind, thou breath of Autumn's being, Thou, from whose unseen presence the leaves dead Are driven, like ghosts from an enchanter fleeing, Yellow, and black, and pale, and hectic red, Pestilence-stricken multitudes: O thou, Who chariotest to their dark wintry bed 这不是雪莱的西风颂吗</p>
+<p>最后进行md5加密 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line">m = (m1_+m2_+m3_).decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br><span class="line">hl = hashlib.md5()</span><br><span class="line">hl.update(m.encode(encoding=<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(hl.hexdigest())</span><br></pre></td></tr></table></figure>
+<p>结果为：3943e8843a19149497956901e5d98639</p>
+<h2 id="结语">结语</h2>
+<p>之前画的饼就鸽了 最近没有什么学习动力 希望继续坚持</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/05/13/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-13">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -909,81 +995,6 @@ y_{q}*p \equiv 1\space (mod \space q)
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/29/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-29">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Σ2333!">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Σ2333! の 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/uncategorized/2021/04/29/week5-6/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-29" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-29</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-29 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-29T00:00:00+08:00">2021-04-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="buuctf-每日打卡-2021-4-29">BUUCTF 每日打卡 2021-4-29</h2>
-<h2 id="引言">引言</h2>
-<p>蓝帽杯就一道 crypto 又是斐波那契数列，又是 AES 网上查到什么斐波那契数列双混沌加密 反正就是没做出来。。。 等什么时候 wp 出来再说吧。。。</p>
-<h2 id="boom">boom</h2>
-<p>附件是一个 .exe 文件 不会是个 re 题吧。。。 在命令行打开（如果不在命令行打开，最后输出会直接关闭窗口） <img data-src="https://img-blog.csdnimg.cn/20210429185222439.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> Do you like van♂ you see?（大雾） 下一步 <img data-src="https://img-blog.csdnimg.cn/20210429185246243.png" alt="在这里插入图片描述" /> 提交 md5 可以直接<a target="_blank" rel="noopener" href="https://www.cmd5.com/">查询</a>得到 <img data-src="https://img-blog.csdnimg.cn/20210429184816708.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 输入结果 <img data-src="https://img-blog.csdnimg.cn/20210429185334753.png" alt="在这里插入图片描述" /> 下一步 <img data-src="https://img-blog.csdnimg.cn/20210429185357601.png" alt="在这里插入图片描述" /> 解三元一次方程组 当然你可以手算 这里我们直接用 sagemath 计算（躺） 结果如下： <img data-src="https://img-blog.csdnimg.cn/20210429185524985.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 最后一步： <img data-src="https://img-blog.csdnimg.cn/20210429185617123.png" alt="在这里插入图片描述" /> 还是用 sagemath 求解 <img data-src="https://img-blog.csdnimg.cn/20210429185656219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 输入其中一个解即可 <img data-src="https://img-blog.csdnimg.cn/2021042918572871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 当然你可以 re [doge] 把它丢尽 IDA 里面，可以得到程序的框架 这里用的的软件是 IDA Freeware 7.0 先看输出 flag 的部分： <img data-src="https://img-blog.csdnimg.cn/20210429190130563.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 发现 flag 是由三部分组成 第一部分： <img data-src="https://img-blog.csdnimg.cn/20210429185912455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第二部分： <img data-src="https://img-blog.csdnimg.cn/20210429190033880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第三部分： <img data-src="https://img-blog.csdnimg.cn/20210429190054324.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 容易知道 flag 即为上面三部分答案拼接而成</p>
-<h2 id="bse">B@se</h2>
-<p>附件内容如下： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">密文：MyLkTaP3FaA7KOWjTmKkVjWjVzKjdeNvTnAjoH9iZOIvTeHbvD==</span><br><span class="line">JASGBWcQPRXEFLbCDIlmnHUVKTYZdMovwipatNOefghq56rs****kxyz012789+/</span><br><span class="line"></span><br><span class="line">oh holy shit, something is missing...</span><br></pre></td></tr></table></figure> 第一行是密文 第二行容易猜到是重新排列的 Base64 编码对照表 只是其中几个字符缺失了 编写代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">judge</span>(<span class="params">key, start, end</span>):</span></span><br><span class="line">    s = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(start, end+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">chr</span>(i) <span class="keyword">in</span> key:</span><br><span class="line">            s += <span class="built_in">chr</span>(i)</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line">unknown = judge(key, <span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;Z&#x27;</span>)) + judge(key, <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;z&#x27;</span>)) + judge(key, <span class="built_in">ord</span>(<span class="string">&#x27;0&#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;9&#x27;</span>))</span><br><span class="line">unknown_list = <span class="built_in">list</span>(unknown)</span><br><span class="line"><span class="built_in">print</span>(unknown_list)</span><br></pre></td></tr></table></figure> 可以得出缺失的字符为 ['j', 'u', '3', '4'] 对其进行排列组合，替换对照表中缺失的字符 然后按照 Base64 的编码规则编写程序 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">c = <span class="string">&#x27;MyLkTaP3FaA7KOWjTmKkVjWjVzKjdeNvTnAjoH9iZOIvTeHbvD==&#x27;</span></span><br><span class="line">key = <span class="string">&#x27;JASGBWcQPRXEFLbCDIlmnHUVKTYZdMovwipatNOefghq56rs****kxyz012789+/&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decrypt</span>(<span class="params">c, key</span>):</span></span><br><span class="line">    b = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    s = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">        <span class="keyword">if</span> c[i] == <span class="string">&#x27;=&#x27;</span>:</span><br><span class="line">            b += <span class="string">&#x27;0&#x27;</span>*<span class="number">6</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            b += <span class="built_in">bin</span>(<span class="built_in">list</span>(key).index(c[i]))[<span class="number">2</span>:].zfill(<span class="number">6</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(b), <span class="number">8</span>):</span><br><span class="line">        s += <span class="built_in">chr</span>(<span class="built_in">int</span>(b[i:i+<span class="number">8</span>], <span class="number">2</span>))</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">judge</span>(<span class="params">key, start, end</span>):</span></span><br><span class="line">    s = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(start, end+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">chr</span>(i) <span class="keyword">in</span> key:</span><br><span class="line">            s += <span class="built_in">chr</span>(i)</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line">unknown = judge(key, <span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;Z&#x27;</span>)) + judge(key, <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;z&#x27;</span>)) + judge(key, <span class="built_in">ord</span>(<span class="string">&#x27;0&#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;9&#x27;</span>))</span><br><span class="line">unknown_list = <span class="built_in">list</span>(unknown)</span><br><span class="line"><span class="built_in">print</span>(unknown_list)</span><br><span class="line">combination = <span class="built_in">list</span>(itertools.permutations(unknown_list,<span class="number">4</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(combination)):</span><br><span class="line">    key_new = key.replace(<span class="string">&#x27;****&#x27;</span>, <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">list</span>(combination[i])))</span><br><span class="line">    <span class="built_in">print</span>(key_new)</span><br><span class="line">    decrypt(c, key_new)</span><br></pre></td></tr></table></figure>
-<p>输出结果为： <img data-src="https://img-blog.csdnimg.cn/20210429205713681.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 可以看到会有很多重复的内容 应该是由于有些字符在编码表中没有对应的字符，或者对应的字符在不同排列组合的编码表中的位置相同 结果为：wctf2120{base64_1s_v3ry_e@sy_and_fuN}</p>
-<h2 id="结语">结语</h2>
-<p>希望继续坚持</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1053,7 +1064,7 @@ y_{q}*p \equiv 1\space (mod \space q)
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

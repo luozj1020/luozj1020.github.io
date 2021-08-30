@@ -192,6 +192,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/19/week4/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-19">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/uncategorized/2021/04/19/week4/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-19" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-19</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-19T00:00:00+08:00">2021-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="buuctf-每日打卡-2021-4-19">BUUCTF 每日打卡 2021-4-19</h2>
+<h2 id="引言">引言</h2>
+<p>无</p>
+<h2 id="signin">signin</h2>
+<p>一看题目，签到题 附件内容： welcome to crypto world！！ 密文：424a447b57653163306d655f74345f424a444354467d 密文十六进制转码就行 代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">s = <span class="string">&#x27;424a447b57653163306d655f74345f424a444354467d&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(s, <span class="number">16</span>)))</span><br></pre></td></tr></table></figure></p>
+<h2 id="crypto-rsa0">crypto-rsa0</h2>
+<p>拿到一个压缩包附件 解压的时候发现： <img data-src="https://img-blog.csdnimg.cn/20210419220625214.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 嗯？不对劲 再把里面的压缩包解压 <img data-src="https://img-blog.csdnimg.cn/20210419220717290.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 嗯？ 给了一个提示：怎么办呢，出题人也太坏了，竟然把压缩包给伪加密了！ 额。。。 什么是伪加密？ 参考博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/0yst3r-2046/p/11890498.html">https://www.cnblogs.com/0yst3r-2046/p/11890498.html</a></p>
+<p>阿巴阿巴阿巴 绿色框住的 50 4B 是压缩源文件目录区 ，它对应的绿色框柱的 09 00 影响加密属性，当数字为奇数是为加密，为偶数时不加密。 阿巴阿巴阿巴</p>
+<p>好家伙，只要把 50 4B 后面的 09 00 改成偶数就行</p>
+<p>然后就缺工具了 网上下 winhex 各种出问题 经过大佬指点，搞了 010 editor 的破解版（欸嘿嘿~） 然后搜索 50 4B 把后面的 09 00 修改即可 一个小插曲： <img data-src="https://img-blog.csdnimg.cn/20210419221504127.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 解压之后得到 RSA 加密代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Cryptodome.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">FLAG=<span class="comment">#hidden, please solve it</span></span><br><span class="line">flag=<span class="built_in">int</span>.from_bytes(FLAG,byteorder = <span class="string">&#x27;big&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p=getPrime(<span class="number">512</span>)</span><br><span class="line">q=getPrime(<span class="number">512</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(p)</span><br><span class="line"><span class="built_in">print</span>(q)</span><br><span class="line">N=p*q</span><br><span class="line">e=<span class="number">65537</span></span><br><span class="line">enc = <span class="built_in">pow</span>(flag,e,N)</span><br><span class="line"><span class="built_in">print</span> (enc)</span><br></pre></td></tr></table></figure>
+<p>啊这，p,q 都告诉了吗 直接解密就行 解密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = <span class="number">9018588066434206377240277162476739271386240173088676526295315163990968347022922841299128274551482926490908399237153883494964743436193853978459947060210411</span></span><br><span class="line">q = <span class="number">7547005673877738257835729760037765213340036696350766324229143613179932145122130685778504062410137043635958208805698698169847293520149572605026492751740223</span></span><br><span class="line">c = <span class="number">50996206925961019415256003394743594106061473865032792073035954925875056079762626648452348856255575840166640519334862690063949316515750256545937498213476286637455803452890781264446030732369871044870359838568618176586206041055000297981733272816089806014400846392307742065559331874972274844992047849472203390350</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line">phi = (p-<span class="number">1</span>) * (q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
+<p>结果为：actf{n0w_y0u_see_RSA}</p>
+<h2 id="结语">结语</h2>
+<p>希望继续坚持</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/18/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-18">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -888,83 +968,6 @@ P(x_{1},x_{2},\cdots,x_{k})=\sum _{ {0\leq i_{j}\leq n_{j} } }a_{ {i_{1}i_{2}\cd
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/09/week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-9">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Σ2333!">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Σ2333! の 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/uncategorized/2021/04/09/week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-9" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-9</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-09 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-09T00:00:00+08:00">2021-04-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="buuctf-每日打卡-2021-4-9">BUUCTF 每日打卡 2021-4-9</h2>
-<h2 id="引言">引言</h2>
-<p>疲惫的周五 塞满的周末 难受</p>
-<h2 id="cipher">Cipher</h2>
-<p><img data-src="https://img-blog.csdnimg.cn/20210409231522338.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 除了“公平的玩吧（密钥自己找）”比较可疑外似乎没什么线索了 让人摸不着头脑 原本以为是普通的替换密码，尝试<a target="_blank" rel="noopener" href="https://quipqiup.com/">爆破</a> <img data-src="https://img-blog.csdnimg.cn/20210409232101709.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 没有结果</p>
-<p>只能找 <a target="_blank" rel="noopener" href="https://blog.csdn.net/MikeCoke/article/details/106105451">wp</a></p>
-<p>“公平的玩吧”翻译成英文为 playfair 这是Playfair密码（又是没见过的密码） <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/playfair%E5%AF%86%E7%A0%81/8999814?fr=aladdin">普莱费尔密码百度百科</a> <a target="_blank" rel="noopener" href="http://rumkin.com/tools/cipher/playfair.php">Playfair Cipher解密工具</a></p>
-<h2 id="basic-rsa">basic rsa</h2>
-<p>这题非常简单，就是最基础的 RSA 甚至给了你 p, q 直接上解密代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = <span class="number">262248800182277040650192055439906580479</span></span><br><span class="line">q = <span class="number">262854994239322828547925595487519915551</span></span><br><span class="line">e = <span class="number">65533</span></span><br><span class="line">c = <span class="number">27565231154623519221597938803435789010285480123476977081867877272451638645710</span></span><br><span class="line">n = p*q</span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line"></span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure> 得到 flag{B4by_Rs4}</p>
-<h2 id="达芬奇密码">达芬奇密码</h2>
-<p>附件内容： 达芬奇隐藏在蒙娜丽莎中的数字列:1 233 3 2584 1346269 144 5 196418 21 1597 610 377 10946 89 514229 987 8 55 6765 2178309 121393 317811 46368 4181 1 832040 2 28657 75025 34 13 17711 记录在达芬奇窗台口的神秘数字串:36968853882116725547342176952286 一脸懵逼 怀疑可能和《达芬奇密码》这部小说有关（出题人经常干这事），可惜我没有读过 只好求助 wp，据说提到了斐波那契数列 一看还这是，只不过是乱序的 于是容易猜到数字串也是乱序的，并且和数字列的乱序一样 解密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&#x27;1 233 3 2584 1346269 144 5 196418 21 1597 610 377 10946 89 514229 987 8 55 6765 2178309 121393 317811 46368 4181 1 832040 2 28657 75025 34 13 17711&#x27;</span></span><br><span class="line">list_a = a.split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">m = <span class="string">&#x27;36968853882116725547342176952286&#x27;</span></span><br><span class="line"></span><br><span class="line">list_f = [<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(list_a)-<span class="number">2</span>):</span><br><span class="line">    list_f.append(list_f[i] + list_f[i+<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;3&#x27;</span></span><br><span class="line">list_a[<span class="number">0</span>] = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(list_f)):</span><br><span class="line">    flag += m[list_a.index(<span class="built_in">str</span>(list_f[i]))]</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure> 因为 index() 是从前往后找的，而 list_a 中有两个 '1'，所以第一位第二位会重复 而易知 flag 第一位为 '3' ，所以这里选择用把 list_a 的第 0 位直接换成 '' 这种简单粗暴的办法来防止出错</p>
-<h2 id="结语">结语</h2>
-<p>写完其实已经第二天了 希望继续坚持</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1034,7 +1037,7 @@ P(x_{1},x_{2},\cdots,x_{k})=\sum _{ {0\leq i_{j}\leq n_{j} } }a_{ {i_{1}i_{2}\cd
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

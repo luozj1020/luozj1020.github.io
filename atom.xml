@@ -6,7 +6,7 @@
   <link href="https://luozj1020.github.io/atom.xml" rel="self"/>
   
   <link href="https://luozj1020.github.io/"/>
-  <updated>2021-08-26T14:36:20.044Z</updated>
+  <updated>2021-08-30T13:51:49.529Z</updated>
   <id>https://luozj1020.github.io/</id>
   
   <author>
@@ -17,27 +17,53 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>BUUCTF 每日打卡 2021-8-30</title>
+    <link href="https://luozj1020.github.io/uncategorized/2021/08/30/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-30"/>
+    <id>https://luozj1020.github.io/uncategorized/2021/08/30/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-30</id>
+    <published>2021-08-29T16:00:00.000Z</published>
+    <updated>2021-08-30T13:51:49.529Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;﻿## 引言&lt;/p&gt;
+&lt;p&gt;马上开学了，摸了 打了DASCTF八月赛，比赛结束前1小时参赛，结果解题最多的题没做出来（啊这） &lt;img</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Crypto" scheme="https://luozj1020.github.io/tags/Crypto/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>BUUCTF 每日打卡 2021-8-26</title>
     <link href="https://luozj1020.github.io/uncategorized/2021/08/26/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-26"/>
     <id>https://luozj1020.github.io/uncategorized/2021/08/26/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-26</id>
-    <published>2021-08-26T14:35:46.899Z</published>
-    <updated>2021-08-26T14:36:20.044Z</updated>
+    <published>2021-08-25T16:00:00.000Z</published>
+    <updated>2021-08-30T13:51:30.563Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+    <summary type="html">&lt;p&gt;﻿## 引言&lt;/p&gt;
 &lt;p&gt;无&lt;/p&gt;
 &lt;h2 id=&quot;afctf2018一道有趣的题目&quot;&gt;[AFCTF2018]一道有趣的题目&lt;/h2&gt;
 &lt;p&gt;加密代码如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
         
       
     
     
     
+    
+    <category term="Crypto" scheme="https://luozj1020.github.io/tags/Crypto/"/>
     
   </entry>
   
@@ -603,33 +629,6 @@ r_{n-1}=a_nr_n
 &lt;p&gt;病了，还要练车，鸽了一天，抱歉&lt;/p&gt;
 &lt;h2 id=&quot;nctf2019sore&quot;&gt;[NCTF2019]Sore&lt;/h2&gt;
 &lt;p&gt;加密代码如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Crypto" scheme="https://luozj1020.github.io/tags/Crypto/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BUUCTF 每日打卡 2021-7-20</title>
-    <link href="https://luozj1020.github.io/uncategorized/2021/07/20/vacation_week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-20"/>
-    <id>https://luozj1020.github.io/uncategorized/2021/07/20/vacation_week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-20</id>
-    <published>2021-07-19T16:00:00.000Z</published>
-    <updated>2021-08-12T08:46:08.099Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;引言&quot;&gt;引言&lt;/h1&gt;
-&lt;p&gt;无&lt;/p&gt;
-&lt;h2 id=&quot;npuctf2020共-模-攻-击&quot;&gt;[NPUCTF2020]共 模 攻 击&lt;/h2&gt;
-&lt;p&gt;题目给了两个加密程序 一个是加密hint：&lt;/p&gt;
 &lt;figure class=&quot;highlight</summary>
         
       

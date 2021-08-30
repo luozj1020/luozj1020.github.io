@@ -192,6 +192,109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/07/20/vacation_week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-20">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/uncategorized/2021/07/20/vacation_week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-20" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-7-20</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-20T00:00:00+08:00">2021-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="引言">引言</h1>
+<p>无</p>
+<h2 id="npuctf2020共-模-攻-击">[NPUCTF2020]共 模 攻 击</h2>
+<p>题目给了两个加密程序 一个是加密hint：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> hint</span><br><span class="line"></span><br><span class="line">m = bytes_to_long(hint)</span><br><span class="line">p = getPrime(<span class="number">256</span>)</span><br><span class="line">c = <span class="built_in">pow</span>(m, <span class="number">256</span>, p)</span><br><span class="line"><span class="built_in">print</span>(p)</span><br><span class="line"></span><br><span class="line">p, q = getPrime(<span class="number">256</span>), getPrime(<span class="number">256</span>)</span><br><span class="line">n = p * q</span><br><span class="line">e1, e2 = getPrime(<span class="number">32</span>), getPrime(<span class="number">32</span>)</span><br><span class="line">c1, c2 = <span class="built_in">pow</span>(c, e1, n), <span class="built_in">pow</span>(c, e2, n)</span><br><span class="line"><span class="built_in">print</span>(n)</span><br><span class="line"><span class="built_in">print</span>(e1, c1)</span><br><span class="line"><span class="built_in">print</span>(e2, c2)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">107316975771284342108362954945096489708900302633734520943905283655283318535709</span></span><br><span class="line"><span class="string">6807492006219935335233722232024809784434293293172317282814978688931711423939629682224374870233587969960713638310068784415474535033780772766171320461281579</span></span><br><span class="line"><span class="string">2303413961 1754421169036191391717309256938035960912941109206872374826444526733030696056821731708193270151759843780894750696642659795452787547355043345348714129217723</span></span><br><span class="line"><span class="string">2622163991 1613454015951555289711148366977297613624544025937559371784736059448454437652633847111272619248126613500028992813732842041018588707201458398726700828844249</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>另一个是加密flag：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">flag = flag.strip(<span class="string">b&quot;npuctf&#123;&quot;</span>).strip(<span class="string">b&quot;&#125;&quot;</span>)</span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line"></span><br><span class="line">p, q = getPrime(<span class="number">512</span>), getPrime(<span class="number">512</span>)</span><br><span class="line">n = p * q</span><br><span class="line">e1, e2 = p, q</span><br><span class="line">c1, c2 = <span class="built_in">pow</span>(m, e1, n), <span class="built_in">pow</span>(m, e2, n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(n)</span><br><span class="line"><span class="built_in">print</span>(c1)</span><br><span class="line"><span class="built_in">print</span>(c2)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">128205304743751985889679351195836799434324346996129753896234917982647254577214018524580290192396070591032007818847697193260130051396080104704981594190602854241936777324431673564677900773992273463534717009587530152480725448774018550562603894883079711995434332008363470321069097619786793617099517770260029108149</span></span><br><span class="line"><span class="string">96860654235275202217368130195089839608037558388884522737500611121271571335123981588807994043800468529002147570655597610639680977780779494880330669466389788497046710319213376228391138021976388925171307760030058456934898771589435836261317283743951614505136840364638706914424433566782044926111639955612412134198</span></span><br><span class="line"><span class="string">9566853166416448316408476072940703716510748416699965603380497338943730666656667456274146023583837768495637484138572090891246105018219222267465595710692705776272469703739932909158740030049375350999465338363044226512016686534246611049299981674236577960786526527933966681954486377462298197949323271904405241585</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>乍一看，确实很像共模攻击，但是一看这个加密指数是p和q并且未知，就知道没那么简单 首先来解密hint 第一步容易想到用共模攻击解密被加密的hint 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># hint</span></span><br><span class="line">e1 = <span class="number">2303413961</span></span><br><span class="line">e2 = <span class="number">2622163991</span></span><br><span class="line">c1 = <span class="number">1754421169036191391717309256938035960912941109206872374826444526733030696056821731708193270151759843780894750696642659795452787547355043345348714129217723</span></span><br><span class="line">c2 = <span class="number">1613454015951555289711148366977297613624544025937559371784736059448454437652633847111272619248126613500028992813732842041018588707201458398726700828844249</span></span><br><span class="line">p1 = <span class="number">107316975771284342108362954945096489708900302633734520943905283655283318535709</span></span><br><span class="line">n = <span class="number">6807492006219935335233722232024809784434293293172317282814978688931711423939629682224374870233587969960713638310068784415474535033780772766171320461281579</span></span><br><span class="line"></span><br><span class="line">gcd, s, t = gmpy2.gcdext(e1, e2)</span><br><span class="line"><span class="keyword">if</span> s &lt; <span class="number">0</span>:</span><br><span class="line">    s = -s</span><br><span class="line">    c1 = gmpy2.invert(c1, n)</span><br><span class="line"><span class="keyword">if</span> t &lt; <span class="number">0</span>:</span><br><span class="line">    t = -t</span><br><span class="line">    c2 = gmpy2.invert(c2, n)</span><br><span class="line">c = gmpy2.powmod(c1, s, n) * gmpy2.powmod(c2, t, n) % n</span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
+<p>但下一步发现，加密hint的过程为<code>c = pow(m, 256, p)</code> 原本是想类似于经典的RSA解密 p的欧拉函数为p-1，然后参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/118733418?spm=1001.2014.3001.5501">[De1CTF2019]babyrsa</a>或者<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/117136443?spm=1001.2014.3001.5501">EzRSA</a>，利用<span class="math inline">\(gcd(256,p-1)\)</span>解出d然后求解 但是发现<span class="math inline">\(gcd(256,p-1)=4\)</span>，无法用这种方法 只好找<a target="_blank" rel="noopener" href="https://www.cnblogs.com/vict0r/p/13292511.html">wp</a> 原来直接用sympy库的nthroot_mod方法就行，该方法可以用来求解<span class="math inline">\(x^n \equiv a\space mod\space p\)</span>，其中<span class="math inline">\(n,a,p\)</span>为已知数 那么，有这么好的方法，能不能直接用来求解RSA问题呢？当然是不行的 因为求解本题的<span class="math inline">\(m^{256} \equiv c\space mod\space p\)</span>都要花上好几秒，求解RSA问题基本上不可能 这里附上<a target="_blank" rel="noopener" href="https://github.com/sympy/sympy/blob/46e00feeef5204d896a2fbec65390bd4145c3902/sympy/ntheory/residue_ntheory.py#L810-L874">nthroot_mod的源代码</a>，感兴趣的师傅可以研究研究 完整解密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># hint</span></span><br><span class="line">e1 = <span class="number">2303413961</span></span><br><span class="line">e2 = <span class="number">2622163991</span></span><br><span class="line">c1 = <span class="number">1754421169036191391717309256938035960912941109206872374826444526733030696056821731708193270151759843780894750696642659795452787547355043345348714129217723</span></span><br><span class="line">c2 = <span class="number">1613454015951555289711148366977297613624544025937559371784736059448454437652633847111272619248126613500028992813732842041018588707201458398726700828844249</span></span><br><span class="line">p1 = <span class="number">107316975771284342108362954945096489708900302633734520943905283655283318535709</span></span><br><span class="line">n = <span class="number">6807492006219935335233722232024809784434293293172317282814978688931711423939629682224374870233587969960713638310068784415474535033780772766171320461281579</span></span><br><span class="line"></span><br><span class="line">gcd, s, t = gmpy2.gcdext(e1, e2)</span><br><span class="line"><span class="keyword">if</span> s &lt; <span class="number">0</span>:</span><br><span class="line">    s = -s</span><br><span class="line">    c1 = gmpy2.invert(c1, n)</span><br><span class="line"><span class="keyword">if</span> t &lt; <span class="number">0</span>:</span><br><span class="line">    t = -t</span><br><span class="line">    c2 = gmpy2.invert(c2, n)</span><br><span class="line">c = gmpy2.powmod(c1, s, n) * gmpy2.powmod(c2, t, n) % n</span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line">m = sympy.nthroot_mod(c, <span class="number">256</span>, p1)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure> 结果为： <img data-src="https://img-blog.csdnimg.cn/20210720114243481.png" alt="在这里插入图片描述" /> 提示m的位数小于400，有什么用吗？ wp中说可以由此联想到Coppersmith 确实，在一些高位或低位泄露的题目中，Coppersmith是常用的手段，但是只知道位数小于400怎么用呢？ wp一下的解题过程也确实没有用到Coppersmith 不过，wp给了Coppersmith定理一个比较通俗的解释：在一个<span class="math inline">\(e\)</span>阶的以<span class="math inline">\(n\)</span>为模的多项式<span class="math inline">\(f(x)\)</span>中，如果有一个根小于<span class="math inline">\(n^{1/e}\)</span>，就可以运用一个O(log n)的算法求出这些根。其中的“阶”大概就是指（循环）群的阶 在这里重新推导一遍解题思路 由加密程序可得： <span class="math display">\[
+\begin{cases}
+c_1 \equiv m^{p}\space mod\space n \equiv m^{p}\space mod\space pq \\
+c_2 \equiv m^{q}\space mod\space n \equiv m^{q}\space mod\space pq
+\end{cases}
+\]</span> 故<span class="math inline">\(\exists t_1\in \mathbb{Z}\)</span>，<span class="math inline">\(s.t. c_1 = m^p + t_1pq\)</span> 于是有 <span class="math display">\[
+c_1 \equiv m^{p}\space mod\space p
+\]</span> 由<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86">费马小定理</a>有 <span class="math display">\[
+m^{p}\equiv m\space mod\space p
+\]</span> 故 <span class="math display">\[
+c_1 \equiv m\space mod\space p
+\]</span> 同理，有 <span class="math display">\[
+c_2 \equiv m\space mod\space q
+\]</span> 故<span class="math inline">\(\exists k_1,k_2\in \mathbb{Z}\)</span>，<span class="math inline">\(s.t.\)</span> <span class="math display">\[
+\begin{cases}
+c_1=m+k_1p\\
+c_2=m+k_2q
+\end{cases}
+\]</span> 则 <span class="math display">\[
+\begin{cases}
+(c_1+c_2)m=2m^2+(k_1p+k_2q)m \cdots (1)\\
+c_1c_2=m^2+(k_1p+k_2q)m+k_1k_2pq \cdots (2)
+\end{cases}
+\]</span> <span class="math inline">\((1)-(2)\)</span>​得： <span class="math display">\[
+(c_1+c_2)m-c_1c_2=m^2-k_1k_2pq=m^2-k_1k_2n
+\]</span> 移项，等式两边模<span class="math inline">\(n\)</span>，得： <span class="math display">\[
+m^2-(c_1+c_2)m+c_1c_2=k_1k_2n \equiv 0\space mod \space n
+\]</span> 所以只要在模<span class="math inline">\(n\)</span>的情况下（或者说是在整数模<span class="math inline">\(n\)</span>加法群中），求方程的根 参照wp，sage代码如下： <img data-src="https://img-blog.csdnimg.cn/20210720165644392.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 得到m直接long_to_bytes即可 结果为： <img data-src="https://img-blog.csdnimg.cn/20210720165002573.png" alt="在这里插入图片描述" /></p>
+<h2 id="结语">结语</h2>
+<p>摸了一天鱼，好累哦[doge] 关于sagemath的学习，官方文档看得挺累人的，推荐一个翻译的比较好的<a target="_blank" rel="noopener" href="https://www.lainme.com/doku.php/topic/sage/start">中文教程</a> 油管上还找到一个<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Cb2E0bznd-w">入门教程</a>，今年一月份的，用的是9.2版本，还比较新 希望继续坚持</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/07/19/vacation_week2/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-19">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -956,92 +1059,6 @@ gcd(p-1,q-1)\approx \frac{n}{lcm(p-1,q-1)} = \frac{n}{gift}
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/05/18/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-18">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Σ2333!">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Σ2333! の 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/uncategorized/2021/05/18/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-18" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-5-18</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-18 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-18T00:00:00+08:00">2021-05-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="buuctf-每日打卡-2021-5-18">BUUCTF 每日打卡 2021-5-18</h1>
-<h2 id="引言">引言</h2>
-<p>果然当鸽子会上瘾。。。 上周五打的国赛24小时不间断就离谱 原本打算通宵打，结果发现到半夜能写的都写了（指就写了一道 200 分的 rsa） 槽点太多，一时不知道从哪开始吐了 总之鸽了三天，今天就肝（水）一期国赛的那道 rsa 吧（咕咕咕）</p>
-<h2 id="ciscnrsa">[CISCN]rsa</h2>
-<p>加密代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flag <span class="keyword">import</span> text,flag</span><br><span class="line"><span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes,bytes_to_long,getPrime</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> md5.new(text).hexdigest() == flag[<span class="number">6</span>:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">msg1 = text[:xx]</span><br><span class="line">msg2 = text[xx:yy]</span><br><span class="line">msg3 = text[yy:]</span><br><span class="line"></span><br><span class="line">msg1 = bytes_to_long(msg1)</span><br><span class="line">msg2 = bytes_to_long(msg2)</span><br><span class="line">msg3 = bytes_to_long(msg3)</span><br><span class="line"></span><br><span class="line">p1 = getPrime(<span class="number">512</span>)</span><br><span class="line">q1 = getPrime(<span class="number">512</span>)</span><br><span class="line">N1 = p1*q1</span><br><span class="line">e1 = <span class="number">3</span></span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(msg1,e1,N1)</span><br><span class="line"><span class="built_in">print</span> (e1,N1)</span><br><span class="line"></span><br><span class="line">p2 = getPrime(<span class="number">512</span>)</span><br><span class="line">q2 = getPrime(<span class="number">512</span>)</span><br><span class="line">N2 = p2*q2</span><br><span class="line">e2 = <span class="number">17</span></span><br><span class="line">e3 = <span class="number">65537</span></span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(msg2,e2,N2)</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(msg2,e3,N2)</span><br><span class="line"><span class="built_in">print</span> (e2,N2)</span><br><span class="line"><span class="built_in">print</span> (e3,N2)</span><br><span class="line"></span><br><span class="line">p3 = getPrime(<span class="number">512</span>)</span><br><span class="line">q3 = getPrime(<span class="number">512</span>)</span><br><span class="line">N3 = p3*q3</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(msg3,e3,N3)</span><br><span class="line"><span class="built_in">print</span> (e3,N3)</span><br><span class="line"><span class="built_in">print</span> p3&gt;&gt;<span class="number">200</span></span><br></pre></td></tr></table></figure>
-<p>从下往上观察加密代码，发现p3向右移位200位，所以是p高位泄露，采用coppersmith攻击得到p,q</p>
-<p>进行解密，得到msg第三部分 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p3 = <span class="number">11437038763581010263116493983733546014403343859218003707512796706928880848035239990740428334091106443982769386517753703890002478698418549777553268906496423</span></span><br><span class="line">q3 = <span class="number">9918033198963879798362329507637256706010562962487329742400933192721549307087332482107381554368538995776396557446746866861247191248938339640876368268930589</span></span><br><span class="line">n3 = p3*q3</span><br><span class="line">e3 = <span class="number">65537</span></span><br><span class="line">d3 = inverse(e3, (p3-<span class="number">1</span>)*(q3-<span class="number">1</span>))</span><br><span class="line">c4 = <span class="number">59213696442373765895948702611659756779813897653022080905635545636905434038306468935283962686059037461940227618715695875589055593696352594630107082714757036815875497138523738695066811985036315624927897081153190329636864005133757096991035607918106529151451834369442313673849563635248465014289409374291381429646</span></span><br><span class="line">m3 = <span class="built_in">pow</span>(c4, d3, n3)</span><br><span class="line">m3_ = long_to_bytes(m3)</span><br><span class="line"><span class="built_in">print</span>(m3_)</span><br></pre></td></tr></table></figure>
-<p>结果为：b'nd black, and pale, and hectic red,-stricken multitudes: O thou,chariotest to their dark wintry bed'</p>
-<p>观察第三部分加密代码，发现使用了相同的模数N2，所以采用共模攻击 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n2 = <span class="number">111381961169589927896512557754289420474877632607334685306667977794938824018345795836303161492076539375959731633270626091498843936401996648820451019811592594528673182109109991384472979198906744569181673282663323892346854520052840694924830064546269187849702880332522636682366270177489467478933966884097824069977</span></span><br><span class="line">e2 = <span class="number">17</span></span><br><span class="line">e3 = <span class="number">65537</span></span><br><span class="line">c2 = <span class="number">54995751387258798791895413216172284653407054079765769704170763023830130981480272943338445245689293729308200574217959018462512790523622252479258419498858307898118907076773470253533344877959508766285730509067829684427375759345623701605997067135659404296663877453758701010726561824951602615501078818914410959610</span></span><br><span class="line">c3 = <span class="number">91290935267458356541959327381220067466104890455391103989639822855753797805354139741959957951983943146108552762756444475545250343766798220348240377590112854890482375744876016191773471853704014735936608436210153669829454288199838827646402742554134017280213707222338496271289894681312606239512924842845268366950</span></span><br><span class="line"><span class="comment"># s &amp; t</span></span><br><span class="line">gcd, s, t = gmpy2.gcdext(e2, e3)</span><br><span class="line"><span class="keyword">if</span> s &lt; <span class="number">0</span>:</span><br><span class="line">    s = -s</span><br><span class="line">    c2 = gmpy2.invert(c2, n2)</span><br><span class="line"><span class="keyword">if</span> t &lt; <span class="number">0</span>:</span><br><span class="line">    t = -t</span><br><span class="line">    c3 = gmpy2.invert(c3, n2)</span><br><span class="line">plain = gmpy2.powmod(c2, s, n2) * gmpy2.powmod(c3, t, n2) % n2</span><br><span class="line">m2_ = long_to_bytes(plain)</span><br><span class="line"><span class="built_in">print</span>(m2_)</span><br></pre></td></tr></table></figure>
-<p>结果为：b"n's being,, from whose unseen presence the leaves deaddriven, like ghosts from an enchanter fleeing,, a"</p>
-<p>观察第一部分代码，由于e=3，所以采用小公钥指数攻击 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n1 = <span class="number">123814470394550598363280518848914546938137731026777975885846733672494493975703069760053867471836249473290828799962586855892685902902050630018312939010564945676699712246249820341712155938398068732866646422826619477180434858148938235662092482058999079105450136181685141895955574548671667320167741641072330259009</span></span><br><span class="line">e1 = <span class="number">3</span></span><br><span class="line">c1 = <span class="number">19105765285510667553313898813498220212421177527647187802549913914263968945493144633390670605116251064550364704789358830072133349108808799075021540479815182657667763617178044110939458834654922540704196330451979349353031578518479199454480458137984734402248011464467312753683234543319955893</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">100</span>):</span><br><span class="line">    a, b = gmpy2.iroot(c1+k*n1, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">if</span> b == <span class="number">1</span>:</span><br><span class="line">        m = a</span><br><span class="line">        m1_ = long_to_bytes(m)</span><br><span class="line">        <span class="built_in">print</span>(m1_)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-<p>结果为：b' wild West Wind, thou breath of Autum'</p>
-<p>合并之后，结果为： O wild West Wind, thou breath of Autumn's being, Thou, from whose unseen presence the leaves dead Are driven, like ghosts from an enchanter fleeing, Yellow, and black, and pale, and hectic red, Pestilence-stricken multitudes: O thou, Who chariotest to their dark wintry bed 这不是雪莱的西风颂吗</p>
-<p>最后进行md5加密 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line">m = (m1_+m2_+m3_).decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br><span class="line">hl = hashlib.md5()</span><br><span class="line">hl.update(m.encode(encoding=<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(hl.hexdigest())</span><br></pre></td></tr></table></figure>
-<p>结果为：3943e8843a19149497956901e5d98639</p>
-<h2 id="结语">结语</h2>
-<p>之前画的饼就鸽了 最近没有什么学习动力 希望继续坚持</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1111,7 +1128,7 @@ gcd(p-1,q-1)\approx \frac{n}{lcm(p-1,q-1)} = \frac{n}{gift}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

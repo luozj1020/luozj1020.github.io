@@ -192,6 +192,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/08/30/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-30">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Σ2333!">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Σ2333! の 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/uncategorized/2021/08/30/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-30" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-8-30</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-30 00:00:00 / 修改时间：21:51:49" itemprop="dateCreated datePublished" datetime="2021-08-30T00:00:00+08:00">2021-08-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>﻿## 引言</p>
+<p>马上开学了，摸了 打了DASCTF八月赛，比赛结束前1小时参赛，结果解题最多的题没做出来（啊这） <img data-src="https://img-blog.csdnimg.cn/3a34f057dddf4ca39d3f15245f87f5de.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAzqMyMzMzIQ==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述" /></p>
+<h2 id="dasctf八月赛-2021easymath">[DASCTF八月赛 2021]easymath</h2>
+<p>比赛的时候没做出来，后来Pheonix大佬告诉了我解法 给的代码很短：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span>(<span class="built_in">len</span>(<span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>).read()) &lt; <span class="number">50</span>)</span><br><span class="line"><span class="keyword">assert</span>(<span class="built_in">str</span>(<span class="built_in">int</span>.from_bytes(<span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>).read(), byteorder=<span class="string">&#x27;big&#x27;</span>) &lt;&lt; <span class="number">10000</span>).endswith(</span><br><span class="line">    <span class="string">&#x27;1862790884563160582365888530869690397667546628710795031544304378154769559410473276482265448754388655981091313419549689169381115573539422545933044902527020209259938095466283008&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<p>做到时候很疑惑，把给的数字转换成二进制也就五百多位，哪来左移10000位呢 也可以有这样的关系式：<span class="math inline">\(end = flag * 2^{10000}\space mod \space 10^{175}\)</span> 其中175是给的结尾部分的十进制位数，模<span class="math inline">\(10^{175}\)</span>的目的是为了求<span class="math inline">\(2^{10000}\)</span>的逆元，得到flag 解密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">end = <span class="number">1862790884563160582365888530869690397667546628710795031544304378154769559410473276482265448754388655981091313419549689169381115573539422545933044902527020209259938095466283008</span></span><br><span class="line"><span class="comment"># end = flag*2**&#123;10000&#125; mod 10^&#123;175&#125;</span></span><br><span class="line">t = inverse(<span class="number">2</span>**<span class="number">10000</span>, <span class="number">10</span>**<span class="number">175</span>)</span><br><span class="line">m = long_to_bytes(((end * t) % <span class="number">10</span>**<span class="number">175</span>) // GCD(<span class="number">2</span>**<span class="number">10000</span>, <span class="number">10</span>**<span class="number">175</span>))</span><br><span class="line"><span class="built_in">print</span>(m)</span><br></pre></td></tr></table></figure>
+<p>结果为： <img data-src="https://img-blog.csdnimg.cn/449e8b07ce2d42869a263cde43856971.png" alt="在这里插入图片描述" /> 这里值得注意的是，如果用<code>t = gmpy2.invert(2**10000, 10**175)</code>，则会报错： <img data-src="https://img-blog.csdnimg.cn/b93f7bde0d614ae29096122331b64ae4.png" alt="在这里插入图片描述" /> 那为什么用<code>Crypto.Util.number</code>库的<code>inverse</code>就行呢？还有，为什么要除<code>GCD(2**10000, 10**175)</code>呢？ 模逆元的定义中有这样一段话： 整数 a 对模数 n 之模逆元存在的充分必要条件是 a 和 n <strong>互素</strong>，若此模逆元存在，在模数 n 下的除法可以用和对应模逆元的乘法来达成，此概念和实数除法的概念相同 本题中<span class="math inline">\(10^{175}\)</span>和<span class="math inline">\(2^{10000}\)</span>显然不互素，<code>inverse</code>先分离出了<code>GCD(2**10000, 10**175)</code>，才可以进行模逆元计算，因此最后要除<code>GCD(2**10000, 10**175)</code></p>
+<h2 id="dasctf八月赛-2021lets-play-with-rsa">[DASCTF八月赛 2021]let's play with rsa~</h2>
+<p>加密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sympy <span class="keyword">import</span> isprime,nextprime</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime <span class="keyword">as</span> getprime ,long_to_bytes,bytes_to_long,inverse</span><br><span class="line">flag=<span class="string">&#x27;flag&#123;***************&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">play</span>():</span></span><br><span class="line">    p=getprime(<span class="number">1024</span>)</span><br><span class="line">    q=getprime(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">    n=p*q</span><br><span class="line">    e=<span class="number">65537</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Hello,let&#x27;s play rsa~\n&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;Now,I make some numbers,wait a second\n&#x27;</span></span><br><span class="line">    n1=getprime(<span class="number">200</span>)</span><br><span class="line">    n2=getprime(<span class="number">200</span>)</span><br><span class="line">    number=n1*n2</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Ok,i will send two numbers to you,one of them was encoded.\n&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Encode n1:%d,\n&quot;</span>%(<span class="built_in">pow</span>(n1,e,n))</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;And n2:%d.\n&quot;</span>%n2</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Information that can now be made public:the public key (n,e):(%d,%d)\n&quot;</span>%(n,e)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            c=<span class="built_in">int</span>(raw_input(<span class="string">&quot;ok,now,tell me the value of the number (encode it for safe):&quot;</span>))</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&quot;Sorry,the input is illeagal, and the integer is accept~&quot;</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    d=inverse(e,(p-<span class="number">1</span>)*(q-<span class="number">1</span>))</span><br><span class="line">    m=<span class="built_in">pow</span>(c,d,n)</span><br><span class="line">    <span class="keyword">if</span> m==number:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;It&#x27;s easy and interesting,didn&#x27;t it?\n&quot;</span></span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;This is the gift for you :&quot;</span>+flag</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;Emmmmm,there is something wrong, bye~\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    play()</span><br></pre></td></tr></table></figure>
+<p>先随机生成了两个数<code>n1,n2</code>，然后给了我们<code>pow(n1,e,n)</code>和<code>n2</code>，让我们传进去一个<code>c</code>使得<code>c</code>最后RSA解密后与<code>n1*n2</code>相等 那直接把<code>n2</code>加密之后和<code>pow(n1,e,n)</code>相乘，传进去不就行了吗（啊这） 生成<code>c</code>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">c1 = </span><br><span class="line">n2 = </span><br><span class="line">n = </span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">c2 = <span class="built_in">pow</span>(n2, e, n)</span><br><span class="line"><span class="built_in">print</span>(c1*c2 % n)</span><br></pre></td></tr></table></figure>
+<p>把结果传入即可</p>
+<h2 id="dasctf八月赛-2021ezrsa">[DASCTF八月赛 2021]ezRSA</h2>
+<p>加密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> getrandbits</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EzRsa</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.E = <span class="number">0x10001</span></span><br><span class="line">        self.P = getPrime(<span class="number">1024</span>)</span><br><span class="line">        self.Q = getPrime(<span class="number">1024</span>)</span><br><span class="line">        <span class="keyword">while</span> GCD((self.P-<span class="number">1</span>)*(self.Q-<span class="number">1</span>), self.E) != <span class="number">1</span>:</span><br><span class="line">            self.Q = getPrime(<span class="number">1024</span>)</span><br><span class="line">        self.N = self.P*self.Q</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">encrypt</span>(<span class="params">self</span>):</span></span><br><span class="line">        f = getrandbits(<span class="number">32</span>)</span><br><span class="line">        c = <span class="built_in">pow</span>(f, self.E, self.N)</span><br><span class="line">        <span class="keyword">return</span> (f, c)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">encrypt_flag</span>(<span class="params">self, flag</span>):</span></span><br><span class="line">        f = bytes_to_long(flag)</span><br><span class="line">        c = <span class="built_in">pow</span>(f, self.E, self.N)</span><br><span class="line">        <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">proof</span>():</span></span><br><span class="line">    seed = getrandbits(<span class="number">32</span>)</span><br><span class="line">    <span class="built_in">print</span>(seed)</span><br><span class="line">    sha = sha256(<span class="built_in">str</span>(seed).encode()).hexdigest()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;sha256(<span class="subst">&#123;seed&gt;&gt;<span class="number">18</span>&#125;</span>...).hexdigest() = <span class="subst">&#123;sha&#125;</span>&quot;</span>)</span><br><span class="line">    sha_i = <span class="built_in">input</span>(<span class="string">&quot;plz enter seed: &quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> sha256(sha_i.encode()).hexdigest() != sha:</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    proof()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;welcome to EzRsa&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    1. Get flag</span></span><br><span class="line"><span class="string">    2. Encrypt</span></span><br><span class="line"><span class="string">    3. Insert</span></span><br><span class="line"><span class="string">    4. Exit</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>)</span><br><span class="line">    A = EzRsa()</span><br><span class="line">    coin = <span class="number">5</span></span><br><span class="line">    <span class="keyword">while</span> coin &gt; <span class="number">0</span>:</span><br><span class="line">        choose = <span class="built_in">input</span>(<span class="string">&quot;&gt; &quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> choose == <span class="string">&quot;1&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(</span><br><span class="line">                <span class="string">f&quot;pow(flag,e,n) = <span class="subst">&#123;A.encrypt_flag(flag)&#125;</span>\ne = 0x10001&quot;</span>)</span><br><span class="line">            exit(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">elif</span> choose == <span class="string">&quot;2&quot;</span>:</span><br><span class="line">            f, c = A.encrypt()</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;plain = <span class="subst">&#123;f&#125;</span>\ncipher = <span class="subst">&#123;c&#125;</span>&quot;</span>)</span><br><span class="line">            coin -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> choose == <span class="string">&quot;3&quot;</span>:</span><br><span class="line">            q = getrandbits(<span class="number">1024</span>)</span><br><span class="line">            n = A.P*q</span><br><span class="line">            f = getrandbits(<span class="number">32</span>)</span><br><span class="line">            c = <span class="built_in">pow</span>(f, <span class="number">0x10001</span>, n)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;plain = <span class="subst">&#123;f&#125;</span>\ncipher = <span class="subst">&#123;c&#125;</span>&quot;</span>)</span><br><span class="line">            coin -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> choose == <span class="string">&quot;4&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;bye~&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;wrong input&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Now you get the flag right?&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>输入1，能得到加密后的flag和e 输入2，用<code>EzRsa</code>中的公钥记为<code>nt</code>，随机加密一个数，得到明文和密文 输入3，用<code>EzRsa</code>中的p和一个随机生成的q生成新的公钥记为<code>nk</code>，随机加密一个数，得到明文和密文 我们可以利用明文，e和密文得到公钥 由于有四次机会，可以得到一对<code>nt</code>和一对<code>nk</code>，由此得到输入2中的<span class="math inline">\(n1 = gcd(nt1, nt2)\)</span>和输入3中的<span class="math inline">\(n2 = gcd(nk1, nk2)\)</span>，由于<code>n1</code>和<code>n2</code>有公因子p，得到<span class="math inline">\(p = gcd(n1,n2)\)</span>，所以可以分解<code>EzRsa</code>中的n，得到flag 至于<code>proof()</code>部分，不知道为什么，他把<code>seed</code>都print出来了，直接复制就行了 解密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line">ck1 = <span class="number">10802736552802052334675431350693279487373514975583856720432908395157316583920875453552436496142443616668241018608905018877443641691597372943993746940796864088947110039691619330329829547914610310034042851600736815309651502714085552791205969637596625163884286216655679274373500381744546328590741571307166491219684988090657352142159038206188374695832891006030375956054657085966865212601720744964287594027579678929262839778089899170206998082556473498244863021611505400743727905185153354589976465321853027253539821633361185313034408565005594026376244077003811333923401071515437065293484027335646730805732706266190998912717</span></span><br><span class="line">mk1 = <span class="number">3467298486</span></span><br><span class="line">ck2 = <span class="number">7952426014817800345542743164212370465256522007694059040467262294139883798321376411423890059270181570060140439911489431487610048706425767050670076985945266595950167706634614499687295626618973683170430839755441335740665931270096392149318526814329218978695464692209823256428215580327499120933284877331428541567646264394511614834203230064225146095541013932153997347325545390454756521012184772766523934716861371813919366599810016530328522084402639154774851578047016291472426451432937369700785642186037817214135023341172743718729742706979406927034574357730393647164709577350234290575266246455335325036550238459460266826777</span></span><br><span class="line">mk2 = <span class="number">2637805758</span></span><br><span class="line">ct1 = <span class="number">5258297249437233269252734235581546483712740587856019368263741383010451771667214261941296958987255470129584667269164992391194597613632284942804492915958705615338348819026219002542835081068188830987745841778711674448286841103336689060336238552664704124260432965541782948103450178133013110447584887798935485919036836447185053522888046907188507552263118079180956315895262605349789171527309529542909346214121425645357866293754412692643751802750793196774012389022291591637648327944593680206557486483425679654293733112064106916782478544290625173885362276421903124336254498078544284381979906370583318057836106074195007704645</span></span><br><span class="line">mt1 = <span class="number">4018514725</span></span><br><span class="line">ct2 = <span class="number">2216710613849759291749271001172813296813995296942937937269459242162726262423838768504690540899513401365048563136110961705376280976325200801225641366994647978361247640072336671999168903599506081309580038964520354319361272932687736277969229054373565318758544270975463383927123441762751596885765477383664317818484566431143004646542531904764815747154445292706021915390615940095755639417784345435399786628193680479805174721200711052159068548732143161630778867220968156180570439298242013424813121308759181410582014316563549742660719169563010989100847264028027523510004333399915674385321042096844588069039993247180371045195</span></span><br><span class="line">mt2 = <span class="number">3768336235</span></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line">c = <span class="number">2409589959567577978959459059612176821685774169484662256361511224239193757207995235364470043362762616376254680228672727010474530311597231338182077689977346876997505890770280261284937438407769714519654847286916170373152881118623219276049395838329185415833388821874689670453791866822667341256546099953050403653918769534241514590069310425374668208283548693974017032984604264320169879760335946006653980827443567622501985484127746767154218399238266814865552396320059488020365523603371608242845046716068485196590482585388538864834136370002751749734914128047230447149334621639953462809629563555690666798206156581413136941807</span></span><br><span class="line"></span><br><span class="line">nk1 = <span class="built_in">pow</span>(mk1, e) - ck1</span><br><span class="line">nk2 = <span class="built_in">pow</span>(mk2, e) - ck2</span><br><span class="line">n1 = gmpy2.gcd(nk1, nk2)</span><br><span class="line"><span class="built_in">print</span>(n1)</span><br><span class="line">nt1 = <span class="built_in">pow</span>(mt1, e) - ct1</span><br><span class="line">nt2 = <span class="built_in">pow</span>(mt2, e) - ct2</span><br><span class="line">n2 = gmpy2.gcd(nt1, nt2)</span><br><span class="line"><span class="built_in">print</span>(n2)</span><br><span class="line">p = gmpy2.gcd(n1, n2)</span><br><span class="line"><span class="built_in">print</span>(p)</span><br><span class="line"><span class="built_in">print</span>(gmpy2.is_prime(p))</span><br><span class="line">q = n1 // p</span><br><span class="line"><span class="built_in">print</span>(q)</span><br><span class="line"><span class="built_in">print</span>(gmpy2.is_prime(q))</span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, p*q)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://img-blog.csdnimg.cn/23667e5b6cae488ba99f163ae13167d8.png" alt="在这里插入图片描述" /> 另外，发现<code>Crypto.Util.number</code>中的<code>GCD()</code>函数比<code>gmpy2</code>的<code>gcd()</code>计算较大数时慢很多</p>
+<h2 id="结语">结语</h2>
+<p>希望继续坚持</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/08/26/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-26">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,7 +286,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/uncategorized/2021/08/26/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-26" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/uncategorized/2021/08/26/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-26" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-8-26</a>
         </h2>
 
         <div class="post-meta">
@@ -215,10 +295,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-08-26 22:35:46 / 修改时间：22:36:20" itemprop="dateCreated datePublished" datetime="2021-08-26T22:35:46+08:00">2021-08-26</time>
+              <time title="创建时间：2021-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2021-08-26T00:00:00+08:00">2021-08-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-30 21:51:30" itemprop="dateModified" datetime="2021-08-30T21:51:30+08:00">2021-08-30</time>
+              </span>
 
           
 
@@ -231,7 +317,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="引言">引言</h2>
+          <p>﻿## 引言</p>
 <p>无</p>
 <h2 id="afctf2018一道有趣的题目">[AFCTF2018]一道有趣的题目</h2>
 <p>加密代码如下：</p>
@@ -1049,104 +1135,6 @@ n = pq
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/08/03/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-3">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Σ2333!">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Σ2333! の 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/uncategorized/2021/08/03/vacation_week4-5/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-3" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-8-3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-03 00:00:00" itemprop="dateCreated datePublished" datetime="2021-08-03T00:00:00+08:00">2021-08-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="引言">引言</h1>
-<p>摸鱼中。。。</p>
-<h2 id="i春秋云上巅峰赛2021crtrsa">[i春秋云上巅峰赛2021]crtrsa</h2>
-<p>题面： <img data-src="https://img-blog.csdnimg.cn/50d113a42f5a4300aef3f11551daaace.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 加密的sage代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flagn,p,q</span><br><span class="line"><span class="comment">#p and q are two primes generated by getPrime</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">key_gen</span>():</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		dp = random.randint(<span class="number">1</span>,<span class="number">1</span>&lt;&lt;<span class="number">20</span>)</span><br><span class="line">		dq = random.randint(<span class="number">1</span>,q-<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">if</span> gcd(dp, p - <span class="number">1</span>) == <span class="number">1</span> <span class="keyword">and</span> gcd(dq, q - <span class="number">1</span>) == <span class="number">1</span>:</span><br><span class="line">			d = crt([dp,dq],[p-<span class="number">1</span>,q-<span class="number">1</span>])</span><br><span class="line">			phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">			R = Integers(phi)</span><br><span class="line">			e = R(d)^-<span class="number">1</span></span><br><span class="line">			<span class="keyword">return</span> p*q,e</span><br><span class="line">n,e = key_gen()</span><br><span class="line"><span class="built_in">print</span> e</span><br><span class="line"><span class="built_in">print</span> n</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(flagn,<span class="built_in">int</span>(e),n)</span><br></pre></td></tr></table></figure>
-<p>看代码的时候，数学关系很容易找，而且很多，感觉好像能行 最核心的是<code>d = crt([dp,dq],[p-1,q-1])</code>，翻译成数学语言就是： <span class="math display">\[
-\begin{cases}
-d \equiv dp \space mod \space dq\\
-d \equiv (p-1) \space mod \space (q-1)
-\end{cases}
-\]</span> 还有一条隐藏的或者说是约定俗成的数学关系就是： <span class="math display">\[
-\begin{cases}
-dp \equiv d\space mod\space (p-1)\\
-dq \equiv d\space mod\space (q-1)
-\end{cases}
-\]</span> （虽然当时不确定，鬼知道出题人会出什么幺蛾子，后来发现是我想多了） 其他的都是常规的RSA 看起来线索很多，但又无从下手 后来badm0nkey前辈提醒我，从dp下手爆破 因为<code>dp = random.randint(1,1&lt;&lt;20)</code>，也就是说<span class="math inline">\(1\leq dp \leq 1048576\)</span>，是容易遍历的 但是即使容易遍历，但是出了dp，其他相关的未知量也是未知的，遍历过程中怎么判断这个dp就是我们想要的呢？ 比赛结束后，前辈给了我答案，推导过程如下： 首先，根据RSA加密算法，有 <span class="math display">\[
-e\cdot d \equiv 1 \space mod \space (p-1)(q-1)
-\]</span> 那么有<span class="math inline">\(e\cdot d \equiv 1 \space mod \space (p-1)\)</span> 又<span class="math inline">\(dq \equiv d\space mod\space (q-1)\)</span> 故 <span class="math display">\[
-e\cdot dq \equiv ed\space mod\space (q-1) \equiv 1\space mod\space (q-1)
-\]</span> 故<span class="math inline">\(\exists k\in \mathbb{Z}\)</span>​，<span class="math inline">\(s.t.\)</span>​ <span class="math display">\[
-e\cdot dp=1+k(p-1)
-\]</span> 移项得<span class="math inline">\(e\cdot dp-1=k(p-1)\)</span> 由<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86">费马小定理</a>，假如<span class="math inline">\(a\)</span>是一个整数，<span class="math inline">\(p\)</span>是一个质数，那么<span class="math inline">\(a^{p} - a\)</span>是p的倍数，可以表示为 <span class="math display">\[
-a^p \equiv a \space mod\space p
-\]</span> 如果<span class="math inline">\(a\)</span>不是<span class="math inline">\(p\)</span>的倍数，这个定理也可以写成 <span class="math display">\[
-a^{p-1} \equiv 1 \space mod\space p
-\]</span> 可以推出 <span class="math display">\[
-a^{k(p-1)} \equiv 1 \space mod\space p
-\]</span> 那么又<span class="math inline">\(\exists t\in \mathbb{Z}\)</span>​，<span class="math inline">\(s.t.\)</span>​ <span class="math display">\[
-a^{k(p-1)} = 1+tp
-\]</span> 移项得<span class="math inline">\(a^{k(p-1)} - 1=tp\)</span> 在模N的情况下也成立，也就是有<span class="math inline">\(e\cdot dp-1\equiv k(p-1) \space mod \space N\)</span>，则<span class="math inline">\(a^{e\cdot dp-1} - 1\equiv a^{k(p-1)} - 1 \space mod \space N \equiv tp \space mod \space N\)</span> 所以，只要<span class="math inline">\(gcd(a^{e\cdot dp-1}, N) \neq 1\)</span>，则这个dp就是我们想要的，并且<span class="math inline">\(gcd(a^{e\cdot dp-1}, N) =p\)</span> 解密代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line">e = <span class="number">2953544268002866703872076551930953722572317122777861299293407053391808199220655289235983088986372630141821049118015752017412642148934113723174855236142887</span></span><br><span class="line">N = <span class="number">6006128121276172470274143101473619963750725942458450119252491144009018469845917986523007748831362674341219814935241703026024431390531323127620970750816983</span></span><br><span class="line">c = <span class="number">4082777468662493175049853412968913980472986215497247773911290709560282223053863513029985115855416847643274608394467813391117463817805000754191093158289399</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> dp <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">3</span>, <span class="number">1</span>&lt;&lt;<span class="number">20</span>, <span class="number">2</span>)):</span><br><span class="line">    tmp = e*dp-<span class="number">1</span></span><br><span class="line">    t = <span class="built_in">pow</span>(<span class="number">3</span>, tmp, N)</span><br><span class="line">    p = GCD(N, t-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> p != <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;find p!&quot;</span>)</span><br><span class="line">        q = N//p</span><br><span class="line">        phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">        d = inverse(e, phi)</span><br><span class="line">        m = <span class="built_in">pow</span>(c, d, N)</span><br><span class="line">        <span class="built_in">print</span>(long_to_bytes(m))</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-<p>结果为： <img data-src="https://img-blog.csdnimg.cn/730b3da53e584630a945ce5666675e7f.png" alt="在这里插入图片描述" /></p>
-<h2 id="结语">结语</h2>
-<p>以后可能要两日一更了，太多事情没干 希望继续坚持</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1216,7 +1204,7 @@ a^{k(p-1)} = 1+tp
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
