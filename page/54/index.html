@@ -192,10 +192,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/16/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-16/">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/17/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-17/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="Σ2333!">
       <meta itemprop="description" content="">
     </span>
@@ -206,7 +206,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/uncategorized/2021/04/16/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-16/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-16</a>
+            <a href="/uncategorized/2021/04/17/week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-17/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-17</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-04-16 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-16T00:00:00+08:00">2021-04-16</time>
+              <time title="创建时间：2021-04-17 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-17T00:00:00+08:00">2021-04-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -237,16 +237,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="buuctf-每日打卡-2021-4-16">BUUCTF 每日打卡 2021-4-16</h2>
+          <h1 id="buuctf-每日打卡-2021-4-17">BUUCTF 每日打卡 2021-4-17</h1>
 <h2 id="引言">引言</h2>
-<p>今天是个值得纪念的日子 12-4 出货了 瞬间感觉心情舒畅</p>
-<h2 id="古典密码知多少">古典密码知多少</h2>
-<p>附件如下： <img data-src="https://img-blog.csdnimg.cn/2021041621560778.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 其中，蓝色部分为猪圈密码： <img data-src="https://img-blog.csdnimg.cn/20210416215729259.png" alt="在这里插入图片描述" /></p>
-<p>橙色部分为圣堂武士密码： <img data-src="https://img-blog.csdnimg.cn/20210416215646348.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 黑色部分为<a target="_blank" rel="noopener" href="https://blog.csdn.net/MikeCoke/article/details/105533829">银河密码</a>： <img data-src="https://img-blog.csdnimg.cn/20210416215825165.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 解密结果如下： <img data-src="https://img-blog.csdnimg.cn/2021041621584675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 下方还有一段话，提示我们要进行栅栏解密，而且结果均为大写字母 代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&#x27;FGCPFLIRTUASYON&#x27;</span></span><br><span class="line">factors = [fac <span class="keyword">for</span> fac <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(s)) <span class="keyword">if</span> <span class="built_in">len</span>(s)%fac == <span class="number">0</span>] <span class="comment">#取得密文长度的所有因数</span></span><br><span class="line"><span class="keyword">for</span> fac <span class="keyword">in</span> factors:</span><br><span class="line">    flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(fac): <span class="comment">#按一定的步长取几组字符，并连接起来，这里组数就等于步长数</span></span><br><span class="line">        flag += s[i::fac]</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(fac)+<span class="string">&#x27;栏：&#x27;</span>+flag)</span><br></pre></td></tr></table></figure> 参考博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lnjoy/p/railfence.html">https://www.cnblogs.com/lnjoy/p/railfence.html</a> 结果为：FLAGISCRYPTOFUN 最后应该提交 flag{CRYPTOFUN}</p>
-<h2 id="rsa">RSA</h2>
-<p>加密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime,bytes_to_long</span><br><span class="line"></span><br><span class="line">flag=<span class="built_in">open</span>(<span class="string">&quot;flag&quot;</span>,<span class="string">&quot;rb&quot;</span>).read()</span><br><span class="line"></span><br><span class="line">p=getPrime(<span class="number">1024</span>)</span><br><span class="line">q=getPrime(<span class="number">1024</span>)</span><br><span class="line"><span class="keyword">assert</span>(e&lt;<span class="number">100000</span>)</span><br><span class="line">n=p*q</span><br><span class="line">m=bytes_to_long(flag)</span><br><span class="line">c=<span class="built_in">pow</span>(m,e,n)</span><br><span class="line"><span class="built_in">print</span> c,n</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">pow</span>(<span class="number">294</span>,e,n)</span><br><span class="line"></span><br><span class="line">p=getPrime(<span class="number">1024</span>)</span><br><span class="line">n=p*q</span><br><span class="line">m=bytes_to_long(<span class="string">&quot;BJD&quot;</span>*<span class="number">32</span>)</span><br><span class="line">c=<span class="built_in">pow</span>(m,e,n)</span><br><span class="line"><span class="built_in">print</span> c,n</span><br></pre></td></tr></table></figure> 将上半部分的输出记为 n1, c1，pow(294,e,n) 记为 k；将下半部分的输出记为 n2, c2 容易看出 <span class="math inline">\((n1, n2) = q\)</span> ，据此可以求出 p,q 由于 e&lt;100000 并且知道 pow(294,e,n) 和 pow(bytes_to_long("BJD"*32),e,n2)，所以可以遍历 e 来求出 e 剩下就是 RSA 的常规操作了 解密代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line">c1 = <span class="number">12641635617803746150332232646354596292707861480200207537199141183624438303757120570096741248020236666965755798009656547738616399025300123043766255518596149348930444599820675230046423373053051631932557230849083426859490183732303751744004874183062594856870318614289991675980063548316499486908923209627563871554875612702079100567018698992935818206109087568166097392314105717555482926141030505639571708876213167112187962584484065321545727594135175369233925922507794999607323536976824183162923385005669930403448853465141405846835919842908469787547341752365471892495204307644586161393228776042015534147913888338316244169120</span></span><br><span class="line">n1 = <span class="number">13508774104460209743306714034546704137247627344981133461801953479736017021401725818808462898375994767375627749494839671944543822403059978073813122441407612530658168942987820256786583006947001711749230193542370570950705530167921702835627122401475251039000775017381633900222474727396823708695063136246115652622259769634591309421761269548260984426148824641285010730983215377509255011298737827621611158032976420011662547854515610597955628898073569684158225678333474543920326532893446849808112837476684390030976472053905069855522297850688026960701186543428139843783907624317274796926248829543413464754127208843070331063037</span></span><br><span class="line">c2 = <span class="number">979153370552535153498477459720877329811204688208387543826122582132404214848454954722487086658061408795223805022202997613522014736983452121073860054851302343517756732701026667062765906277626879215457936330799698812755973057557620930172778859116538571207100424990838508255127616637334499680058645411786925302368790414768248611809358160197554369255458675450109457987698749584630551177577492043403656419968285163536823819817573531356497236154342689914525321673807925458651854768512396355389740863270148775362744448115581639629326362342160548500035000156097215446881251055505465713854173913142040976382500435185442521721</span></span><br><span class="line">n2 = <span class="number">12806210903061368369054309575159360374022344774547459345216907128193957592938071815865954073287532545947370671838372144806539753829484356064919357285623305209600680570975224639214396805124350862772159272362778768036844634760917612708721787320159318432456050806227784435091161119982613987303255995543165395426658059462110056431392517548717447898084915167661172362984251201688639469652283452307712821398857016487590794996544468826705600332208535201443322267298747117528882985955375246424812616478327182399461709978893464093245135530135430007842223389360212803439850867615121148050034887767584693608776323252233254261047</span></span><br><span class="line">k = <span class="number">381631268825806469518166370387352035475775677163615730759454343913563615970881967332407709901235637718936184198930226303761876517101208677107311006065728014220477966000620964056616058676999878976943319063836649085085377577273214792371548775204594097887078898598463892440141577974544939268247818937936607013100808169758675042264568547764031628431414727922168580998494695800403043312406643527637667466318473669542326169218665366423043579003388486634167642663495896607282155808331902351188500197960905672207046579647052764579411814305689137519860880916467272056778641442758940135016400808740387144508156358067955215018</span></span><br><span class="line"></span><br><span class="line">m = <span class="built_in">bytes</span>((<span class="string">&quot;BJD&quot;</span>*<span class="number">32</span>).encode())</span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">100000</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">pow</span>(<span class="number">294</span>, e, n1) == k <span class="keyword">and</span> <span class="built_in">pow</span>(bytes_to_long(m), e, n2) == c2:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line">q = math.gcd(n1, n2)</span><br><span class="line">p1 = n1 // q</span><br><span class="line">phi = (p1-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c1, d, n1)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure> 结果为：BJD{p_is_common_divisor}</p>
+<p>今日无事</p>
+<h2 id="佛说只能四天">佛说：只能四天</h2>
+<p>附件给了一串。。。乱码？ 难不成是乱码题？ 尊即寂修我劫修如婆愍闍嚤婆莊愍耨羅嚴是喼婆斯吶眾喼修迦慧迦嚩喼斯願嚤摩隸所迦摩吽即塞願修咒莊波斯訶喃壽祗僧若即亦嘇蜜迦須色喼羅囉咒諦若陀喃慧愍夷羅波若劫蜜斯哆咒塞隸蜜波哆咤慧聞亦吽念彌諸嘚嚴諦咒陀叻咤叻諦缽隸祗婆諦嚩阿兜宣囉吽色缽吶諸劫婆咤咤喼愍尊寂色缽嘚闍兜阿婆若叻般壽聞彌即念若降宣空陀壽愍嚤亦喼寂僧迦色莊壽吽哆尊僧喼喃壽嘚兜我空所吶般所即諸吽薩咤諸莊囉隸般咤色空咤亦喃亦色兜哆嘇亦隸空闍修眾哆咒婆菩迦壽薩塞宣嚩缽寂夷摩所修囉菩阿伏嘚宣嚩薩塞菩波吶波菩哆若慧愍蜜訶壽色咒兜摩缽摩諦劫諸陀即壽所波咤聞如訶摩壽宣咤彌即嚩蜜叻劫嘇缽所摩闍壽波壽劫修訶如嚩嘇囉薩色嚤薩壽修闍夷闍是壽僧劫祗蜜嚴嚩我若空伏諦念降若心吽咤隸嘚耨缽伏吽色寂喃喼吽壽夷若心眾祗喃慧嚴即聞空僧須夷嚴叻心願哆波隸塞吶心須嘇摩咤壽嘚吶夷亦心亦喃若咒壽亦壽囑囑 一脸懵逼 只能找 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45883223/article/details/105193948">wp</a> 题目有一条提示：圣经分为《旧约全书》和《新约全书》 原来是叫<a target="_blank" rel="noopener" href="http://hi.pcmoe.net/buddha.html">新约佛论禅加密</a>： <img data-src="https://img-blog.csdnimg.cn/20210417222025611.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 解密结果是一串社会主义核心价值观 又懵逼了。。。 原来是叫<a target="_blank" rel="noopener" href="http://ctf.ssleye.com/cvencode.html">核心价值观编码</a>。。。 解密结果： <img data-src="https://img-blog.csdnimg.cn/20210417222137380.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 解码结果结尾是 “doyouknowfence” 还要<a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/zhalanmima.php">栅栏解密</a>。。。 解密结果： <img data-src="https://img-blog.csdnimg.cn/20210417222335279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 结尾出现了 “doyouknowCaesar” 结合提示：凯撒不是最后一步，by the way，凯撒为什么叫做凯撒？ 还要<a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/kaisamima.php">凯撒解密</a>。。。 而凯撒密码最初位移是 3 位。。。（凯撒为什么叫做凯撒） 解密结果： <img data-src="https://img-blog.csdnimg.cn/20210417222554786.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 最后得到的结果还要 <a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/base.php">base32 解码</a>。。。 结果如下： <img data-src="https://img-blog.csdnimg.cn/20210417222706775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 老千层饼了。。。 如果不是有 wp，我想破脑袋也不可能想出来。。。</p>
+<h2 id="天干地支甲子">天干地支+甲子</h2>
+<p>不禁想起了那题 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/115384023?spm=1001.2014.3001">传统知识+古典密码</a> 不过这题简单得多，只要找到对应的数字再 +60 用 ascii 码 转成字符就行</p>
+<p>得到得字符串用MRCTF{}包裹 一天Eki收到了一封来自Sndav的信，但是他有点迷希望您来解决一下 甲戌 11 甲寅 51 甲寅 51 癸卯 40 己酉 46 甲寅 51 辛丑 38</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">11</span>, <span class="number">51</span>, <span class="number">51</span>, <span class="number">40</span>, <span class="number">46</span>, <span class="number">51</span>, <span class="number">38</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>.join(<span class="built_in">chr</span>(i + <span class="number">60</span>) <span class="keyword">for</span> i <span class="keyword">in</span> a))</span><br></pre></td></tr></table></figure>
+<p>结果为：Goodjob</p>
 <h2 id="结语">结语</h2>
-<p>希望继续坚持</p>
+<p>明天没有训练 希望继续坚持</p>
 
       
     </div>
@@ -265,7 +267,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/53/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><span class="page-number current">54</span><a class="page-number" href="/page/55/">55</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/55/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/53/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><span class="page-number current">54</span><a class="page-number" href="/page/55/">55</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/55/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -323,6 +325,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Σ2333!"
+      src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Σ2333!</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -331,20 +335,40 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">标签</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luozj1020" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luozj1020" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
       </div>
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/" rel="tag">Crypto</a><span class="tag-list-count">73</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag">数学分析</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
 
     </div>
   </aside>

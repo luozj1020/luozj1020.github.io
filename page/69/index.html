@@ -192,10 +192,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/01/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-1/">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/02/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="Σ2333!">
       <meta itemprop="description" content="">
     </span>
@@ -206,7 +206,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/uncategorized/2021/04/01/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-1/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-1</a>
+            <a href="/uncategorized/2021/04/02/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-2/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-2</a>
         </h2>
 
         <div class="post-meta">
@@ -216,14 +216,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-04-01 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-01T00:00:00+08:00">2021-04-01</time>
+              <time title="创建时间：2021-04-02 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-02T00:00:00+08:00">2021-04-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
+                <time title="修改时间：2021-08-31 06:35:40" itemprop="dateModified" datetime="2021-08-31T06:35:40+08:00">2021-08-31</time>
               </span>
 
           
@@ -237,21 +237,71 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="buuctf-每日打卡-2021-4-1">BUUCTF 每日打卡 2021-4-1</h1>
+          <h1 id="buuctf-每日打卡-2021-4-2">BUUCTF 每日打卡 2021-4-2</h1>
 <h2 id="引言">引言</h2>
-<p>四月的第一天，今天就鸽了 当然，是骗人的 周四课虽然不多，但数分高代在同一天属实难顶</p>
-<h2 id="传统知识古典密码">传统知识+古典密码</h2>
-<p>题干如下： 小明某一天收到一封密信，信中写了几个不同的年份 辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳。 信的背面还写有“+甲子”，请解出这段密文。</p>
-<p>key值：CTF{XXX}</p>
-<p>一看是干支纪年法，一查表 <img data-src="https://img-blog.csdnimg.cn/20210331211043907.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 得到列表：[28, 30, 23, 8, 29, 10, 16, 30] 看着应该是 ascii 码 +甲子 即每个数加60（每个数加1就没有什么意义了）</p>
-<p>上面这部分是传统知识，题目还提到古典密码，常见的加密内容为字符串，加密后还是字符串的古典密码不外乎栅栏密码、凯撒密码 而且题目信息很少，也不大可能是 维吉尼亚密码 或者 base 加密之类需要字母表的密码 <img data-src="https://img-blog.csdnimg.cn/20210331220339234.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 结果为 SHUANGYU</p>
-<p>其实我是搜了题解的 由于题目给的信息很少，而且输出不是题目给的格式 CTF{XXX} 即使想到了用栅栏密码和凯撒密码，也无法判断那个是正确结果，只能一个个试过去 而且很可能做了一次栅栏（或根本没想到用栅栏），没有正确结果就放弃了 结果应该是和比赛的名字有关联（“SHUANGYU”看起来像"双语"？），比如是 XX杯，这也是 BUUOJ 一个缺失的地方吧</p>
-<h2 id="传感器">传感器</h2>
-<p>“传统知识+古典密码”的问题暂且不提，但是附件里有另一个题是什么鬼？？？（您搁这儿套娃呢） <img data-src="https://img-blog.csdnimg.cn/20210401210401497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> “传感器”解压之后题目如下： 5555555595555A65556AA696AA6666666955 这是某压力传感器无线数据包解调后但未解码的报文(hex) 已知其ID为0xFED31F，请继续将报文完整解码，提交hex。 提示1：曼联</p>
-<p>当时我就想，这个题的结果可能是“传统知识+古典密码”的提示，然后就想先解这题，但是毫无思路 这个“提示1”给了一个足球俱乐部是什么鬼？提示是球队的比分或者创立年份之类的数字吗？可是有什么用呢？ 而“压力传感器无线数据包”的线索也没有头绪（大概给的是高低电频给的二进制编码然后转成了题干（猜的）） 只好去搜题解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/MikeCoke/article/details/106146391">https://blog.csdn.net/MikeCoke/article/details/106146391</a> 好家伙，曼联原来指的是<strong>曼彻斯特编码</strong>，我人傻了，没见过 当然，就有必要学习一下曼彻斯特编码 <strong>曼彻斯特码</strong>（Manchester code），又称数字双向码、分相码或相位编码(PE)，是 一种常用的的二元码线路编码方式之一，被物理层使用来编码一个同步位流的时钟和数据。在通信技术中，用来表示所要发送比特 流中的数据与定时信号所结合起来的代码。常用在以太网通信，列车总线控制，工业总线等领域 参考文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/83958412">CTF中常见的加解密集合</a> 曼彻斯特码编解码原理：<a target="_blank" rel="noopener" href="https://blog.csdn.net/i13919135998/article/details/52276029">https://blog.csdn.net/i13919135998/article/details/52276029</a> 曼彻斯特解码电路设计的关键是如何准确地从曼彻斯特码的数据流中提取出“10”和“01”信号，并且把它们转换成普通二进制编码中的“0”和“1”。例如对于曼彻斯特码“01010101”，如果从第一位开始解码，得到的二进制编码就是“1111”，而若从第二位开始解码，得到的二进制编码就是“000”和头尾两个曼彻斯特码。由此可见，如果曼彻斯特码数据流中只有“1”或“0”是不能得到正确的译码结果的，如果曼彻斯特编码数据流中出现“00”，则“00”前后的码元必定是“1”；如果曼彻斯特编码数据流中出现“11”，则“00”前后的码元必定是“0”，因此，我们可以将“00”与“11”作为曼彻斯特码译码的标志位。（阿巴阿巴阿巴） 编码的步骤，是用01表示0，用10表示1。正是因为用跳变沿表示电平，使得它的频率是信号的两倍。 将5555555595555A65556AA696AA6666666955转化为二进制，根据01-&gt;1,10-&gt;0.可以得到 0101-&gt;11 0110-&gt;10 1010-&gt;00 1001-&gt;01 将得到的二进制按照上述转换后，对比ID并不重合，根据八位倒序传输协议将二进制每八位reverse，然后转换十六进制就可以得到flag。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cipher=<span class="string">&#x27;5555555595555A65556AA696AA6666666955&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iee</span>(<span class="params">cipher</span>):</span></span><br><span class="line">    tmp=<span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(cipher)):</span><br><span class="line">        a=<span class="built_in">bin</span>(<span class="built_in">eval</span>(<span class="string">&#x27;0x&#x27;</span>+cipher[i]))[<span class="number">2</span>:].zfill(<span class="number">4</span>)</span><br><span class="line">        tmp=tmp+a[<span class="number">1</span>]+a[<span class="number">3</span>]</span><br><span class="line">        <span class="built_in">print</span>(tmp)</span><br><span class="line">    plain=[<span class="built_in">hex</span>(<span class="built_in">int</span>(tmp[i:i+<span class="number">8</span>][::-<span class="number">1</span>],<span class="number">2</span>))[<span class="number">2</span>:] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(tmp),<span class="number">8</span>)]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>.join(plain).upper())</span><br><span class="line"></span><br><span class="line">iee(cipher)</span><br></pre></td></tr></table></figure> 原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45784859/article/details/105602386">https://blog.csdn.net/qq_45784859/article/details/105602386</a></p>
-<p>结果其实与 flag 没有什么影响，就不再赘述了</p>
+<p>啊，假期就要开始了，好耶！ 明天还有虎符CTF要打（TTK，一直摸TTK）</p>
+<h2 id="信息化时代的步伐">信息化时代的步伐</h2>
+<p>打开附件，只见一串数字：”606046152623600817831216121621196386“ 我直接“？？？” 再看题目描述： <img data-src="https://img-blog.csdnimg.cn/20210402215456169.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 还是摸不着头脑 只好搜题解 说是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%96%87%E7%94%B5%E7%A0%81">中文电码</a>，又是没见过的密码[捂脸] “也许中国可以早早进入信息化时代，但是被清政府拒绝了”： 自摩尔斯电码在1835年发明后，一直只能用来传送英语或以拉丁字母拼写的文字。1873年，法国驻华人员威基杰（S·A·Viguer）参照《康熙字典》的部首排列方法，挑选了常用汉字6800多个，编成了第一部汉字电码本《电报新书》。后由任上海电报局首任总办的郑观应将其改编成为《中国电报新编》。（摘自wiki） flag 为：flag{计算机要从娃娃抓起} 这句话是1984年邓小平同志说的：<a target="_blank" rel="noopener" href="http://cpc.people.com.cn/n1/2019/1030/c69113-31428714.html">数十年后一位伟人说的话</a> 中文电码加密解密：<a target="_blank" rel="noopener" href="http://code.mcdvisa.com/">http://code.mcdvisa.com/</a></p>
+<h2 id="rsa1">RSA1</h2>
+<p>dp dq 泄露的题没做过（别问，问就是看wp） <img data-src="https://img-blog.csdnimg.cn/20210402220615920.jpg" alt="在这里插入图片描述" /> 当然，剽窃别人的答案是可耻的，我们还要“剽窃”别人的知识（嘿嘿嘿） 参考博客：<a target="_blank" rel="noopener" href="https://skysec.top/2018/08/25/RSA%E4%B9%8B%E6%8B%92%E7%BB%9D%E5%A5%97%E8%B7%AF-2/">RSA之拒绝套路(2)</a> 这篇博客讲得很详细，但仍有地方可以细化和纠错 作为一个数理基础不扎实的数院学生，花了老半天才看明白 下面，让我来逐步推导（也当练习 <span class="math inline">\(Latex\)</span>了）： 首先，什么是 <span class="math inline">\(dp\)</span> 和 <span class="math inline">\(dq\)</span>： <span class="math display">\[
+\begin{cases}
+dp \equiv d\space mod\space (p-1)\\dq \equiv d\space mod\space (q-1)
+\end{cases}
+\]</span> 然后，由 RSA 加密算法可得： <span class="math display">\[
+\begin{cases}
+n = p*q\\c \equiv m^{e}\space mod\space n\\m \equiv c^{d}\space mod\space n
+\end{cases}
+\]</span> 因此，要求出密文 <span class="math inline">\(m\)</span> ，我们必须求出 <span class="math inline">\(c^{d}\)</span> 由 <span class="math inline">\(m \equiv c^{d}\space mod\space n\)</span> 可得 <span class="math inline">\(\exists\space k_{1} \in\mathbb{Z}, \space s.t.\)</span> <span class="math display">\[
+m=c^{d}+k_{1}*n=c^{d}+k_{1}*p*q
+\]</span> 再对等式两边分别模 <span class="math inline">\(p, q\)</span> ，含 <span class="math inline">\(p, q\)</span> 的项在模 <span class="math inline">\(p, q\)</span> 时为 <span class="math inline">\(0\)</span> 得 <span class="math display">\[
+\begin{cases} m_{1} \equiv c^{d}\space mod\space p\cdots\cdots (1)\\m_{2} \equiv c^{d}\space mod\space q \cdots\cdots (2)\end{cases}
+\]</span> (原文此处标注错误) 由 <span class="math inline">\((1)\)</span> 式可得 <span class="math inline">\(\exists\space k_{2} \in\mathbb{Z}, \space s.t.\)</span> <span class="math display">\[
+c^{d}=k_{2}*p+m_1
+\]</span> 代入 <span class="math inline">\((2)\)</span> 式可得 <span class="math display">\[
+m_{2} \equiv (m_{1}+k_{2}*p)\space mod\space q
+\]</span> 可得 <span class="math inline">\(\exists\space k_{3} \in\mathbb{Z}, \space s.t.\)</span> <span class="math display">\[
+m_{2}=m_{1}+k_{2}*p+k_{3}*q
+\]</span> 移项，两边模 <span class="math inline">\(q\)</span> 可得 <span class="math display">\[
+(m_{2}-m{1})\equiv k_{2}*p\space mod\space q
+\]</span> 由于 <span class="math display">\[
+gcd(p, q)=1
+\]</span> 由裴蜀定理，<span class="math inline">\(\exists\space u,v \in\mathbb{Z}, \space s.t.\)</span> <span class="math display">\[
+u*p+v*q=1
+\]</span> 两边模 <span class="math inline">\(q\)</span> 得 <span class="math display">\[
+u*p\equiv 1\space mod \space q
+\]</span> 故可以求p的逆元，且上式中的 <span class="math inline">\(u\)</span> 即为 <span class="math inline">\(p\)</span> 的逆元，即 <span class="math inline">\(p^{-1}(mod\space q)\)</span> ，得到 <span class="math display">\[
+(m_{2}-m_{1})*p^{-1}\equiv k_{2}\space mod\space q
+\]</span> 将以下三式 <span class="math display">\[
+\begin{cases}
+k_{2}\equiv (m_{2}-m_{1})*p^{-1}\space mod\space q\\c^{d}=k_{2}*p+m_1\\m \equiv c^{d}\space mod\space n
+\end{cases}
+\]</span> 合并可得 <span class="math display">\[
+m \equiv (((m_{2}-m_{1})*p^{-1}\space mod\space q)*p+m_1)\space mod\space n
+\]</span> 最后求 <span class="math inline">\(m_{1},m_{2}\)</span> 因为有 <span class="math display">\[
+\begin{cases} d \equiv dp\space mod\space (p-1)\\d \equiv dq\space mod\space (q-1) \end{cases}
+\]</span> 又 <span class="math display">\[
+\begin{cases} m_{1} \equiv c^{d}\space mod\space p\\m_{2} \equiv c^{d}\space mod\space q \end{cases}
+\]</span> 代入得 <span class="math display">\[
+\begin{cases} m_{1} \equiv c^{dp\space mod\space (p-1)}\space mod\space p\\m_{2} \equiv c^{dq\space mod\space (q-1) }\space mod\space q \end{cases}
+\]</span> 以 <span class="math inline">\(dp\)</span> 为例，由 <span class="math inline">\(d \equiv dp\space mod\space (p-1)\)</span> 可得 <span class="math inline">\(\exists\space k \in\mathbb{Z}, \space s.t.\)</span> <span class="math display">\[
+d = dp+k*(p-1)
+\]</span> 代入得 <span class="math display">\[
+m_{1} \equiv c^{dp+k*(p-1)} \space mod \space p\equiv c^{dp}*c^{k*(p-1)} \space mod \space p
+\]</span> 由费马小定理，因为 <span class="math inline">\(p\)</span> 是素数，且 <span class="math inline">\(gce(p, c) = 1\)</span>（由于 <span class="math inline">\(p\)</span> 是大素数，而 <span class="math inline">\(c\)</span> 是偶数），则 <span class="math display">\[
+c^{(p-1)} \equiv 1\space mod\space p
+\]</span> 故 <span class="math inline">\(\exists\space k_{4} \in\mathbb{Z}, \space s.t.\)</span> <span class="math display">\[
+c^{k*(p-1)} = (c^{p-1})^{k} = (1+k_{4}*p)^{k}
+\]</span> 对右式二项式展开再模 <span class="math inline">\(p\)</span> 可得 <span class="math display">\[
+c^{k*(p-1)}  \equiv 1 \space mod \space p
+\]</span> 故 <span class="math display">\[
+m_{1} \equiv c^{dp} \space mod \space p
+\]</span> 同理可得 <span class="math display">\[
+m_{2} \equiv c^{dq} \space mod \space q
+\]</span> 最终得方程组 <span class="math display">\[
+\begin{cases} m_{1} \equiv c^{dp} \space mod \space p\\m_{2} \equiv c^{dq} \space mod \space q\\m \equiv (((m_{2}-m_{1})*p^{-1}\space mod\space q)*p+m_1)\space mod\space n \end{cases}
+\]</span> 代码实现如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"></span><br><span class="line">p = <span class="number">8637633767257008567099653486541091171320491509433615447539162437911244175885667806398411790524083553445158113502227745206205327690939504032994699902053229</span></span><br><span class="line">q = <span class="number">12640674973996472769176047937170883420927050821480010581593137135372473880595613737337630629752577346147039284030082593490776630572584959954205336880228469</span></span><br><span class="line">dp = <span class="number">6500795702216834621109042351193261530650043841056252930930949663358625016881832840728066026150264693076109354874099841380454881716097778307268116910582929</span></span><br><span class="line">dq = <span class="number">783472263673553449019532580386470672380574033551303889137911760438881683674556098098256795673512201963002175438762767516968043599582527539160811120550041</span></span><br><span class="line">c = <span class="number">24722305403887382073567316467649080662631552905960229399079107995602154418176056335800638887527614164073530437657085079676157350205351945222989351316076486573599576041978339872265925062764318536089007310270278526159678937431903862892400747915525118983959970607934142974736675784325993445942031372107342103852</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decrypt</span>(<span class="params">dp, dq, p, q, c</span>):</span></span><br><span class="line">    n = p*q</span><br><span class="line">    InvQ = inverse(p, q)</span><br><span class="line">    m1 = <span class="built_in">pow</span>(c, dp, p)</span><br><span class="line">    m2 = <span class="built_in">pow</span>(c, dq, q)</span><br><span class="line">    m = ((((m2 - m1)*InvQ) % p) * p + m1) % n</span><br><span class="line">    <span class="built_in">print</span>(libnum.n2s(m))</span><br><span class="line"></span><br><span class="line">decrypt(dp, dq, p, q, c)</span><br></pre></td></tr></table></figure></p>
 <h2 id="结语">结语</h2>
-<p>今天也坚持水完了（？ 希望能坚持</p>
+<p>终于肝完了，已经燃尽了（躺） 明天还要打比赛 希望能继续坚持</p>
 
       
     </div>
@@ -270,7 +320,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/68/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><span class="page-number current">69</span><a class="page-number" href="/page/70/">70</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/70/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/68/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><span class="page-number current">69</span><a class="page-number" href="/page/70/">70</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/70/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -328,6 +378,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Σ2333!"
+      src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Σ2333!</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -336,20 +388,40 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">标签</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luozj1020" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luozj1020" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
       </div>
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/" rel="tag">Crypto</a><span class="tag-list-count">73</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag">数学分析</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
 
     </div>
   </aside>

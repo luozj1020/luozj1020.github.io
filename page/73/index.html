@@ -192,10 +192,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/03/28/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-3-28/">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/03/29/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-3-29/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="Σ2333!">
       <meta itemprop="description" content="">
     </span>
@@ -206,7 +206,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/uncategorized/2021/03/28/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-3-28/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-3-28</a>
+            <a href="/uncategorized/2021/03/29/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-3-29/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-3-29</a>
         </h2>
 
         <div class="post-meta">
@@ -216,14 +216,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-03-28 00:00:00" itemprop="dateCreated datePublished" datetime="2021-03-28T00:00:00+08:00">2021-03-28</time>
+              <time title="创建时间：2021-03-29 00:00:00" itemprop="dateCreated datePublished" datetime="2021-03-29T00:00:00+08:00">2021-03-29</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-31 06:34:57" itemprop="dateModified" datetime="2021-08-31T06:34:57+08:00">2021-08-31</time>
+                <time title="修改时间：2021-08-12 16:46:08" itemprop="dateModified" datetime="2021-08-12T16:46:08+08:00">2021-08-12</time>
               </span>
 
           
@@ -237,18 +237,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="buuctf-每日打卡-2021-3-28">BUUCTF 每日打卡 2021-3-28</h1>
+          <h1 id="buuctf-每日打卡-2021-3-29">BUUCTF 每日打卡 2021-3-29</h1>
 <h2 id="引言">引言</h2>
-<p>开学半个月了，原本定的每日一题计划至今还没有实施（咕咕咕） 新学期首次CTF社团培训，让我们按方向分组每周做题发到博客上 （然而搞crypto的好像只有我一个😂） 想起寒假的cryptohack任务还有一大部分没搞，就突然感觉很无力很挫败 然后决定转战BUUOJ 希望这个系列能一直做下去 也当是写日记了</p>
-<h2 id="rabbit">Rabbit</h2>
-<p>Rabbit, Tank, Best Match 不好意思，搞错了😂 题目就是一串加密字符：U2FsdGVkX1/+ydnDPowGbjjJXhZxm2MP2AgI 然后搜一下Rabbit加密 <img data-src="https://img-blog.csdnimg.cn/2021032810274494.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="解密网站：http://www.jsons.cn/rabbitencrypt/" />解密网站：<a target="_blank" rel="noopener" href="http://www.jsons.cn/rabbitencrypt/">http://www.jsons.cn/rabbitencrypt/</a> 当然，解出了题目是不够的 一个关于Rabbit加密的文档：<a target="_blank" rel="noopener" href="https://www.ietf.org/rfc/rfc4503.txt">https://www.ietf.org/rfc/rfc4503.txt</a> Rabbit流密码（Rabbit Stream Cipher）简介： Rabbit流密码是由Cryptico公司（http://www.cryptico.com）设计的， Rabbit输入128bit的密钥和64bit的<em>IV初始向量</em>，每次迭代后从513bit内部状态中生成128bit的伪随机序列。最大加密消息长度为 <span class="math inline">\(2^{64}\)</span>​ bytes，即16TB，若消息超过该长度，则需要更换密钥对剩下的消息进行处理。 那么，什么是IV初始向量呢？ 在密码学的领域里，初始向量（英语：initialization vector，缩写为IV），或译初向量，又称初始变量（starting variable，缩写为SV），是一个固定长度的输入值。一般的使用上会要求它是随机数或拟随机数（pseudorandom）。使用随机数产生的初始向量才能达到语义安全（消息验证码也可能用到初始向量），并让攻击者难以对原文一致且使用同一把密钥生成的密文进行破解。（摘自wiki)</p>
-<h2 id="篱笆墙的影子">篱笆墙的影子</h2>
-<p><img data-src="https://img-blog.csdnimg.cn/20210328105527218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 老谜语人了 一看题目就知道这是个<strong>栅栏密码</strong> 密文：felhaagv{ewtehtehfilnakgw} <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="string">&#x27;felhaagv&#123;ewtehtehfilnakgw&#125;&#x27;</span></span><br><span class="line">c = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(m), <span class="number">2</span>):</span><br><span class="line">    c += m[i]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(m), <span class="number">2</span>):</span><br><span class="line">    c += m[i]</span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure></p>
-<h2 id="rsa">RSA</h2>
-<p>题目：在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17 求解出d作为flag提交</p>
-<p>RSA加密原理： 选择两个大素数p和q，计算出模数N = p * q 计算φ = (p−1) * (q−1) 即N的欧拉函数，然后选择一个e (1&lt;e&lt;φ)，且e和φ互质 取e的模反数为d，计算方法: e * d ≡ 1 (mod φ) 对明文m进行加密：c = pow(m, e, N)，得到的c即为密文 对密文c进行解密，m = pow(c, d, N)，得到的m即为明文 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line">p = <span class="number">473398607161</span></span><br><span class="line">q = <span class="number">4511491</span></span><br><span class="line">e = <span class="number">17</span></span><br><span class="line"></span><br><span class="line">phi = (p-<span class="number">1</span>) * (q-<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;d = &#x27;</span> + <span class="built_in">str</span>(gmpy2.invert(e, phi)))</span><br></pre></td></tr></table></figure></p>
+<p>新的一周，计划执行的第二天 又萌生出了一个新的计划：600多页的 <em>C Primer Plus</em> 只要我每天看20页就能一个月看完😂 不过下个月决定学GO语言，不知道能不能执行计划（咕咕咕）</p>
+<h2 id="丢失的md5">丢失的MD5</h2>
+<p>原题代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib   </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">            m=hashlib.md5()</span><br><span class="line">            m.update(<span class="string">&#x27;TASC&#x27;</span>+<span class="built_in">chr</span>(i)+<span class="string">&#x27;O3RJMV&#x27;</span>+<span class="built_in">chr</span>(j)+<span class="string">&#x27;WDJKX&#x27;</span>+<span class="built_in">chr</span>(k)+<span class="string">&#x27;ZM&#x27;</span>)</span><br><span class="line">            des=m.hexdigest()</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;e9032&#x27;</span> <span class="keyword">in</span> des <span class="keyword">and</span> <span class="string">&#x27;da&#x27;</span> <span class="keyword">in</span> des <span class="keyword">and</span> <span class="string">&#x27;911513&#x27;</span> <span class="keyword">in</span> des:</span><br><span class="line">                <span class="built_in">print</span> des</span><br></pre></td></tr></table></figure> 是用python2写的，仅仅修改了print，还是会报错 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;D:/BUUCTF/Crypto/丢失的MD5/丢失的MD5/md5 (2).py&quot;</span>, line <span class="number">6</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    m.update(<span class="string">&#x27;TASC&#x27;</span>+<span class="built_in">chr</span>(i)+<span class="string">&#x27;O3RJMV&#x27;</span>+<span class="built_in">chr</span>(j)+<span class="string">&#x27;WDJKX&#x27;</span>+<span class="built_in">chr</span>(k)+<span class="string">&#x27;ZM&#x27;</span>)</span><br><span class="line">TypeError: Unicode-objects must be encoded before hashing</span><br></pre></td></tr></table></figure> 要对 m.update() 部分进行 utf-8 编码 修改完后代码如下： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib   </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">            m=hashlib.md5()</span><br><span class="line">            m.update((<span class="string">&#x27;TASC&#x27;</span>+<span class="built_in">chr</span>(i)+<span class="string">&#x27;O3RJMV&#x27;</span>+<span class="built_in">chr</span>(j)+<span class="string">&#x27;WDJKX&#x27;</span>+<span class="built_in">chr</span>(k)+<span class="string">&#x27;ZM&#x27;</span>).encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">            des=m.hexdigest()</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;e9032&#x27;</span> <span class="keyword">in</span> des <span class="keyword">and</span> <span class="string">&#x27;da&#x27;</span> <span class="keyword">in</span> des <span class="keyword">and</span> <span class="string">&#x27;911513&#x27;</span> <span class="keyword">in</span> des:</span><br><span class="line">                <span class="built_in">print</span>(des)</span><br></pre></td></tr></table></figure> 然后运行结果为： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e9032994dabac08080091151380478a2</span><br></pre></td></tr></table></figure> 之后就不知道要干什么了 搜了搜题解[捂脸]，结果说flag就是输出部分（wtm人傻了）</p>
+<p>当然，搜题解之前搜了搜关于 MD5 的资料（对于哈希函数这块一直是云里雾里的） MD5加密算法：<a target="_blank" rel="noopener" href="https://www.tomorrow.wiki/archives/503">https://www.tomorrow.wiki/archives/503</a>来源TOMORROW星辰：www.tomorrow.wik 简单概括起来，MD5 算法的过程分为四步：处理原文，设置初始值，循环加工，拼接结果。（底层实现非常复杂） 破解MD5加密算法：<a target="_blank" rel="noopener" href="https://www.tomorrow.wiki/archives/562">https://www.tomorrow.wiki/archives/562</a>来源TOMORROW星辰：www.tomorrow.wik 破解算法都是利用 MD5 碰撞原理：被加密的数据与 MD5 加密算法所生成的哈希值并不是一一对应的关系，而是多对一，也就是说不同的数据经过 MD5 加密算法处理后，可能生成同样的 MD5 哈希值。通过碰撞寻找可以生成相同的哈希值的数据来实现破解。 其中暴力破解法的时间成本太高了，字典法则是空间成本太高，彩虹表法的时间成本和空间成本都较为均衡，相对较低，实用性更强。但是，计算机技术发展现在，利用分布式技术仍是可以有效利用以上方法进行破解 MD5 加密的。因此，这些方法都是有广泛应用的。 2004 年，中国数学家王小云等提出了一种新的 MD5 碰撞方法，使得 MD5 加密算法破解的效率大大提高。 2009 年，冯登国、谢涛提出了利用差分攻击的，使得 MD5 加密算法的破解复杂度进一步降低。 百度上搜的差分攻击（看不懂）：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%B7%AE%E5%88%86%E6%94%BB%E5%87%BB">https://baike.baidu.com/item/%E5%B7%AE%E5%88%86%E6%94%BB%E5%87%BB</a></p>
+<p>一个小插曲： <img data-src="https://img-blog.csdnimg.cn/20210329215331168.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 我还特地搜了一下，我是不会告诉你们俗称“拉面女神”的[滑稽]</p>
 <h2 id="结语">结语</h2>
-<p>炸鱼一时爽，一直炸鱼一直爽（doge） 希望能坚持</p>
+<p>第二天，希望能坚持</p>
 
       
     </div>
@@ -267,7 +264,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/72/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><span class="page-number current">73</span>
+    <a class="extend prev" rel="prev" href="/page/72/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><span class="page-number current">73</span><a class="page-number" href="/page/74/">74</a><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/74/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -325,6 +322,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Σ2333!"
+      src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Σ2333!</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -333,20 +332,40 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">标签</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luozj1020" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luozj1020" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
       </div>
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/" rel="tag">Crypto</a><span class="tag-list-count">73</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag">数学分析</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
 
     </div>
   </aside>

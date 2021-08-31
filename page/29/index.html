@@ -192,10 +192,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/05/20/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-20/">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/05/21/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-21/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="Σ2333!">
       <meta itemprop="description" content="">
     </span>
@@ -206,7 +206,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/uncategorized/2021/05/20/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-20/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-5-20</a>
+            <a href="/uncategorized/2021/05/21/week7-8/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-5-21/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-5-21</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-20T00:00:00+08:00">2021-05-20</time>
+              <time title="创建时间：2021-05-21 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-21T00:00:00+08:00">2021-05-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -237,23 +237,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="buuctf-每日打卡-2021-5-20">BUUCTF 每日打卡 2021-5-20</h1>
+          <h1 id="buuctf-每日打卡-2021-5-21">BUUCTF 每日打卡 2021-5-21</h1>
 <h2 id="引言">引言</h2>
-<p>无</p>
-<h2 id="easyprogram">EasyProgram</h2>
-<p>题目给了一堆加密伪代码： get buf unsign s[256] get buf t[256] we have key:whoami we have flag:????????????????????????????????</p>
-<p>for i:0 to 256 set s[i]:i</p>
-<p>for i:0 to 256 set t[i]:key[(i)mod(key.lenth)]</p>
-<p>for i:0 to 256 set j:(j+s[i]+t[i])mod(256) swap:s[i],s[j]</p>
-<p>for m:0 to 38 set i:(i + 1)mod(256) set j:(j + S[i])mod(256) swap:s[i],s[j] set x:(s[i] + (s[j]mod(256))mod(256)) set flag[m]:flag[m]^s[x]</p>
-<p>fprint flagx to file 可以发现，程序的前三个 for 循环都没有涉及到 flag，知识构造了两个数组 s, t，并且进行了一系列操作 在最后一个 for 循环中将 flag 与数组 s 做异或运算得到密文 所以只要按代码所述构造 s，然后与密文做异或运算即可得出密文 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;file.txt&quot;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = f.read().<span class="built_in">hex</span>()</span><br><span class="line"></span><br><span class="line">flagx = [<span class="built_in">int</span>(<span class="built_in">str</span>(c)[i:i+<span class="number">2</span>], <span class="number">16</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(c), <span class="number">2</span>)]</span><br><span class="line"><span class="built_in">print</span>(flagx)</span><br><span class="line"></span><br><span class="line">s = []</span><br><span class="line">t = []</span><br><span class="line">key = <span class="string">&#x27;whoami&#x27;</span></span><br><span class="line">j = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">256</span>):</span><br><span class="line">    s.append(i)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">256</span>):</span><br><span class="line">    t.append(key[i % <span class="built_in">len</span>(key)])</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">256</span>):</span><br><span class="line">     j = (j+<span class="built_in">int</span>(s[i]) + <span class="built_in">int</span>(<span class="built_in">ord</span>(t[i]))) % <span class="number">256</span></span><br><span class="line">     s[i], s[j] = s[j], s[i]</span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span>; j = <span class="number">0</span>; x = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> m <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">38</span>):</span><br><span class="line">    i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">    j = (j + s[i]) % <span class="number">256</span></span><br><span class="line">    s[i], s[j] = s[j], s[i]</span><br><span class="line">    x = (s[i] + (s[j] % <span class="number">256</span>)) % <span class="number">256</span></span><br><span class="line">    flagx[m] = flagx[m] ^ s[x]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>.join(<span class="built_in">chr</span>(flagx[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">38</span>)))</span><br></pre></td></tr></table></figure>
-<p>结果为：flag{f238yu28323uf28u2yef2ud8uf289euf} 参考代码：<a target="_blank" rel="noopener" href="https://www.codenong.com/cs106478950/">https://www.codenong.com/cs106478950/</a></p>
-<h2 id="classical-cipher">Classical Cipher</h2>
-<p>附件内容是一个 key.txt 和一个包含了一张图片的加密压缩包 key.txt 内容为： 解密后的flag请用flag{}包裹 压缩包密码：gsv_pvb_rh_zgyzhs 对应明文： ***_key_**_******</p>
-<p>看到题目，猜想是凯撒密码 <img data-src="https://img-blog.csdnimg.cn/20210520233321182.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 但是不对 然后尝试用词频分析爆破： <img data-src="https://img-blog.csdnimg.cn/20210520233402725.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> <img data-src="https://img-blog.csdnimg.cn/20210520233416278.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 试了几个，不行 只能用传统艺能：找 <a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/217151">wp</a> 原来是 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/classical/monoalphabetic/#atbash-cipher">Atbash Cipher</a>（没碰到过） 解压加密压缩包，得到图片： <img data-src="https://img-blog.csdnimg.cn/20210520233730791.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 容易发现其中一种密码是变种的猪圈密码： <img data-src="https://img-blog.csdnimg.cn/20210520233901761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 另一种是啥？ 原来是埃及象形文字（啊这） <img data-src="https://img-blog.csdnimg.cn/20210520234033839.png" alt="在这里插入图片描述" /> 得到结果： <img data-src="https://img-blog.csdnimg.cn/20210520234049138.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> flag 均为小写，即为结果</p>
+<p>还有一个月就要期末考了，摸了摸了（ 周末还要组织校赛，考四级口语，事情老多了</p>
+<h2 id="base">BASE</h2>
+<p>题目给了一个 22.8MB 的 txt 文件，里面都是数字和大写字母 看着好像就是普通的十六进制啊 结果尝试直接转十进制看看有没有头绪， 结果程序半天不出结果。。。 看着也不像 base64 啊 找 <a target="_blank" rel="noopener" href="https://shawroot.hatenablog.com/entry/2019/12/30/AFCTF2018/BUUCTF-BASE">wp</a>（ 直接暴力尝试 base16，base32，base64。。。 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">&quot;flag_encode.txt&quot;</span>,<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">file2 = <span class="built_in">open</span>(<span class="string">&quot;flag&quot;</span>,<span class="string">&#x27;w&#x27;</span>) </span><br><span class="line">base = file.read()</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        base = base64.b32decode(base).decode()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            base = base64.b64decode(base).decode()</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                base = base64.b16decode(base).decode()</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;解码完毕qwq！&quot;</span>)</span><br><span class="line">                file2.write(base)</span><br><span class="line">                <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>结果为：afctf{U_5h0u1d_Us3_T00l5}</p>
+<h2 id="ezrsa">EzRSA</h2>
+<p>加密代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> lcm , powmod</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime</span><br><span class="line"></span><br><span class="line">p = getPrime(<span class="number">1024</span>)</span><br><span class="line">q = getPrime(<span class="number">1024</span>)</span><br><span class="line">n = p * q</span><br><span class="line">gift = lcm(p - <span class="number">1</span> , q - <span class="number">1</span>)</span><br><span class="line">e = <span class="number">54722</span></span><br><span class="line">flag = <span class="string">b&#x27;NPUCTF&#123;******************&#125;&#x27;</span></span><br><span class="line">m = <span class="built_in">int</span>.from_bytes(flag , <span class="string">&#x27;big&#x27;</span>)</span><br><span class="line">c = powmod(m , e , n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;n: &#x27;</span> , n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;gift: &#x27;</span> , gift)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c: &#x27;</span> , c)</span><br><span class="line"></span><br><span class="line"><span class="comment">#n:  17083941230213489700426636484487738282426471494607098847295335339638177583685457921198569105417734668692072727759139358207667248703952436680183153327606147421932365889983347282046439156176685765143620637107347870401946946501620531665573668068349080410807996582297505889946205052879002028936125315312256470583622913646319779125559691270916064588684997382451412747432722966919513413709987353038375477178385125453567111965259721484997156799355617642131569095810304077131053588483057244340742751804935494087687363416921314041547093118565767609667033859583125275322077617576783247853718516166743858265291135353895239981121</span></span><br><span class="line"><span class="comment">#gift:  2135492653776686212553329560560967285303308936825887355911916917454772197960682240149821138177216833586509090969892419775958406087994054585022894165950768427741545736247918410255804894522085720642952579638418483800243368312702566458196708508543635051350999572787188236243275631609875253617015664414032058822919469443284453403064076232765024248435543326597418851751586308514540124571309152787559712950209357825576896132278045112177910266019741013995106579484868768251084453338417115483515132869594712162052362083414163954681306259137057581036657441897428432575924018950961141822554251369262248368899977337886190114104</span></span><br><span class="line"><span class="comment">#c:  3738960639194737957667684143565005503596276451617922474669745529299929395507971435311181578387223323429323286927370576955078618335757508161263585164126047545413028829873269342924092339298957635079736446851837414357757312525158356579607212496060244403765822636515347192211817658170822313646743520831977673861869637519843133863288550058359429455052676323196728280408508614527953057214779165450356577820378810467527006377296194102671360302059901897977339728292345132827184227155061326328585640019916328847372295754472832318258636054663091475801235050657401857262960415898483713074139212596685365780269667500271108538319</span></span><br></pre></td></tr></table></figure>
+<p>题目给了 <code>lcm(p - 1 , q - 1)</code>（<span class="math inline">\(p-1\)</span> 和 <span class="math inline">\(q-1\)</span> 的最小公倍数），又因为 <span class="math display">\[
+lcm(p-1,q-1) = \frac{(p-1)*(q-1)}{gcd(p-1,q-1)}
+\]</span> 所以 <span class="math display">\[
+\varphi = (p-1)*(q-1) = gcd(p-1,q-1) * lcm(p-1,q-1)
+\]</span> 又因为 <span class="math inline">\(n=p*q\)</span> , <span class="math inline">\(p, q\)</span> 均为大质数，所以有 <span class="math inline">\(n\approx \varphi\)</span> 故 <span class="math display">\[
+gcd(p-1,q-1)\approx \frac{n}{lcm(p-1,q-1)} = \frac{n}{gift}
+\]</span> 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">17083941230213489700426636484487738282426471494607098847295335339638177583685457921198569105417734668692072727759139358207667248703952436680183153327606147421932365889983347282046439156176685765143620637107347870401946946501620531665573668068349080410807996582297505889946205052879002028936125315312256470583622913646319779125559691270916064588684997382451412747432722966919513413709987353038375477178385125453567111965259721484997156799355617642131569095810304077131053588483057244340742751804935494087687363416921314041547093118565767609667033859583125275322077617576783247853718516166743858265291135353895239981121</span></span><br><span class="line">gift = <span class="number">2135492653776686212553329560560967285303308936825887355911916917454772197960682240149821138177216833586509090969892419775958406087994054585022894165950768427741545736247918410255804894522085720642952579638418483800243368312702566458196708508543635051350999572787188236243275631609875253617015664414032058822919469443284453403064076232765024248435543326597418851751586308514540124571309152787559712950209357825576896132278045112177910266019741013995106579484868768251084453338417115483515132869594712162052362083414163954681306259137057581036657441897428432575924018950961141822554251369262248368899977337886190114104</span></span><br><span class="line">c = <span class="number">3738960639194737957667684143565005503596276451617922474669745529299929395507971435311181578387223323429323286927370576955078618335757508161263585164126047545413028829873269342924092339298957635079736446851837414357757312525158356579607212496060244403765822636515347192211817658170822313646743520831977673861869637519843133863288550058359429455052676323196728280408508614527953057214779165450356577820378810467527006377296194102671360302059901897977339728292345132827184227155061326328585640019916328847372295754472832318258636054663091475801235050657401857262960415898483713074139212596685365780269667500271108538319</span></span><br><span class="line">e = <span class="number">54722</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(n//gift)</span><br></pre></td></tr></table></figure>
+<p>得到结果 <span class="math inline">\(gcd(p-1,q-1)\approx 8\)</span>​​ 另一个奇怪的地方就是 <span class="math inline">\(e = 54722\)</span>​​ 与 <span class="math inline">\(\varphi\)</span>​​ 不互质，与原来的 RSA 加密算法不同 我们令 <span class="math inline">\(e&#39;=e//2\)</span>​​ 因为<span class="math inline">\(e&#39;\)</span>​​与<span class="math inline">\(\varphi\)</span>​​互质 所以有 <span class="math inline">\(ed \equiv 1 \space mod \space \varphi\)</span>​​ 故有 <span class="math inline">\(d&#39;=2*d\space s.t.\space e&#39;d&#39; = ed \equiv 1 \space mod \space n\)</span>​​ 而 <span class="math inline">\(m&#39; \equiv c^{d&#39;} \space mod \space n = c^{2d} \space mod \space n\)</span>​​ 所以 <span class="math inline">\(m \equiv \sqrt{m&#39;} \space mod \space n\)</span>​​ 完整代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> gcd, iroot</span><br><span class="line"></span><br><span class="line">n = <span class="number">17083941230213489700426636484487738282426471494607098847295335339638177583685457921198569105417734668692072727759139358207667248703952436680183153327606147421932365889983347282046439156176685765143620637107347870401946946501620531665573668068349080410807996582297505889946205052879002028936125315312256470583622913646319779125559691270916064588684997382451412747432722966919513413709987353038375477178385125453567111965259721484997156799355617642131569095810304077131053588483057244340742751804935494087687363416921314041547093118565767609667033859583125275322077617576783247853718516166743858265291135353895239981121</span></span><br><span class="line">gift = <span class="number">2135492653776686212553329560560967285303308936825887355911916917454772197960682240149821138177216833586509090969892419775958406087994054585022894165950768427741545736247918410255804894522085720642952579638418483800243368312702566458196708508543635051350999572787188236243275631609875253617015664414032058822919469443284453403064076232765024248435543326597418851751586308514540124571309152787559712950209357825576896132278045112177910266019741013995106579484868768251084453338417115483515132869594712162052362083414163954681306259137057581036657441897428432575924018950961141822554251369262248368899977337886190114104</span></span><br><span class="line">c = <span class="number">3738960639194737957667684143565005503596276451617922474669745529299929395507971435311181578387223323429323286927370576955078618335757508161263585164126047545413028829873269342924092339298957635079736446851837414357757312525158356579607212496060244403765822636515347192211817658170822313646743520831977673861869637519843133863288550058359429455052676323196728280408508614527953057214779165450356577820378810467527006377296194102671360302059901897977339728292345132827184227155061326328585640019916328847372295754472832318258636054663091475801235050657401857262960415898483713074139212596685365780269667500271108538319</span></span><br><span class="line">e = <span class="number">54722</span></span><br><span class="line"></span><br><span class="line">phi = gift * (n//gift)</span><br><span class="line">e = e//<span class="number">2</span></span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line">m = iroot(m, <span class="number">2</span>)[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
+<p>结果为：NPUCTF{diff1cult_rsa_1s_e@sy}</p>
 <h2 id="结语">结语</h2>
-<p>希望继续坚持</p>
+<p>不知不觉这个学期算上今天已经更了 47 篇了 总算把前三面刷完了，快要把 1 分题刷穿了 这学期就到这了 希望继续坚持吧</p>
 
       
     </div>
@@ -272,7 +278,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -330,6 +336,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Σ2333!"
+      src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Σ2333!</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -338,20 +346,40 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">标签</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/luozj1020" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luozj1020" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
       </div>
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/" rel="tag">Crypto</a><span class="tag-list-count">73</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag">数学分析</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
 
     </div>
   </aside>
