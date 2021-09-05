@@ -192,7 +192,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/03/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-3/">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/04/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -206,7 +206,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/uncategorized/2021/04/03/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-3/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-3</a>
+            <a href="/uncategorized/2021/04/04/week1/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-4/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-4</a>
         </h2>
 
         <div class="post-meta">
@@ -216,14 +216,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-04-03 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-03T00:00:00+08:00">2021-04-03</time>
+              <time title="创建时间：2021-04-04 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-04T00:00:00+08:00">2021-04-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-31 06:45:30" itemprop="dateModified" datetime="2021-08-31T06:45:30+08:00">2021-08-31</time>
+                <time title="修改时间：2021-08-31 06:45:36" itemprop="dateModified" datetime="2021-08-31T06:45:36+08:00">2021-08-31</time>
               </span>
 
           
@@ -237,21 +237,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="buuctf-每日打卡-2021-4-3">BUUCTF 每日打卡 2021-4-3</h1>
+          <h1 id="buuctf-每日打卡-2021-4-4">BUUCTF 每日打卡 2021-4-4</h1>
 <h2 id="引言">引言</h2>
-<p>今天的虎符CTF全队四个人只有我没有做出题来，感觉很对不起队友[叹气] 总共两道 crypto ，第一道 cubic 本质上是一道椭圆曲线加密问题，然而这是我的知识盲区 第二题看到 .sage 文件，点开挺长的代码，还涉及位运算，我直接懒得看了 最后第一题68人解出来，第二题仅有13题解出来 楞看了一下午的椭圆曲线加密，把加密原理大致看懂了（怎么破解还没看） 等 wp 出来之后我分两天写一下吧</p>
-<h2 id="凯撒替换呵呵">凯撒？替换？呵呵</h2>
-<p>密文：MTHJ{CUBCGXGUGXWREXIPOYAOEYFIGXWRXCHTKHFCOHCFDUCGTXZOHIXOEOWMEHZO} 尝试用凯撒解密： <img data-src="https://img-blog.csdnimg.cn/2021040322124019.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" /> 不知道什么玩意儿 再用<a target="_blank" rel="noopener" href="https://quipqiup.com/">替换密码爆破网站</a>： <img data-src="https://img-blog.csdnimg.cn/20210403221320667.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第一条有意义的语句删除空格，加大括号即为 flag</p>
-<h2 id="old-fashion">old-fashion</h2>
-<p>看题目就能猜到是古典密码 然后看到题目的一串字符：Os drnuzearyuwn, y jtkjzoztzoes douwlr oj y ilzwex eq lsdexosa kn pwodw tsozj eq ufyoszlbz yrl rlufydlx pozw douwlrzlbz, ydderxosa ze y rlatfyr jnjzli; mjy gfbmw vla xy wbfnsy symmyew (mjy vrwm qrvvrf), hlbew rd symmyew, mebhsymw rd symmyew, vbomgeyw rd mjy lxrzy, lfk wr dremj. Mjy eyqybzye kyqbhjyew mjy myom xa hyedrevbfn lf bfzyewy wgxwmbmgmbrf. Wr mjy dsln bw f1_2jyf-k3_jg1-vb-vl_l 猜想是替换密码 只不过没有 flag 前缀提示了<img data-src="https://img-blog.csdnimg.cn/2021040322135021.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 尝试爆破，结尾显示的就是 flag</p>
-<h2 id="权限获得第一步">权限获得第一步</h2>
-<p>题目内容位Administrator:500:806EDC27AA52E314AAD3B435B51404EE:F4AD50F57683D4260DFD48AA351A17A8::: 联系题目 <img data-src="https://img-blog.csdnimg.cn/20210403221418319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 联想到之前的《Windows系统密码》，易知用 MD5 解密 不出所料，前面一段仍然是“付费内容” <img data-src="https://img-blog.csdnimg.cn/20210403221438264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 第二段解密后为 flag <img data-src="https://img-blog.csdnimg.cn/20210403221447813.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> “答案为非常规形式”大概是指结果为纯数字</p>
-<h2 id="萌萌哒的八戒">萌萌哒的八戒</h2>
-<p>一看跟猪有关就知道是猪圈密码了 <img data-src="https://img-blog.csdnimg.cn/20210403221503108.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" />题目给了一张图片：</p>
-<p>题目给了一张图片：</p>
-<p><img data-src="https://img-blog.csdnimg.cn/20210403221518318.jpg" alt="在这里插入图片描述" /> 对照猪圈密码表： <img data-src="https://img-blog.csdnimg.cn/20210403221749629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 可得明文：WHENTHEPIGWANTTOEAT</p>
+<p>今天把数分作业肝完了，明天肝完高代，假期就过去了 MG正义到了（堆积+1）</p>
+<h2 id="rsa3">RSA3</h2>
+<p>看到 c1, c2, e1, e2, n 就猜到是共模攻击 见 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/">CTF Wiki Crypto 部分 非对称加密 RSA 模数相关攻击</a> <img data-src="https://img-blog.csdnimg.cn/20210404191609511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line">c1 = <span class="number">22322035275663237041646893770451933509324701913484303338076210603542612758956262869640822486470121149424485571361007421293675516338822195280313794991136048140918842471219840263536338886250492682739436410013436651161720725855484866690084788721349555662019879081501113222996123305533009325964377798892703161521852805956811219563883312896330156298621674684353919547558127920925706842808914762199011054955816534977675267395009575347820387073483928425066536361482774892370969520740304287456555508933372782327506569010772537497541764311429052216291198932092617792645253901478910801592878203564861118912045464959832566051361</span></span><br><span class="line">n = <span class="number">22708078815885011462462049064339185898712439277226831073457888403129378547350292420267016551819052430779004755846649044001024141485283286483130702616057274698473611149508798869706347501931583117632710700787228016480127677393649929530416598686027354216422565934459015161927613607902831542857977859612596282353679327773303727004407262197231586324599181983572622404590354084541788062262164510140605868122410388090174420147752408554129789760902300898046273909007852818474030770699647647363015102118956737673941354217692696044969695308506436573142565573487583507037356944848039864382339216266670673567488871508925311154801</span></span><br><span class="line">e1 = <span class="number">11187289</span></span><br><span class="line">c2 = <span class="number">18702010045187015556548691642394982835669262147230212731309938675226458555210425972429418449273410535387985931036711854265623905066805665751803269106880746769003478900791099590239513925449748814075904017471585572848473556490565450062664706449128415834787961947266259789785962922238701134079720414228414066193071495304612341052987455615930023536823801499269773357186087452747500840640419365011554421183037505653461286732740983702740822671148045619497667184586123657285604061875653909567822328914065337797733444640351518775487649819978262363617265797982843179630888729407238496650987720428708217115257989007867331698397</span></span><br><span class="line">e2 = <span class="number">9647291</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(GCD(e1, e2)) <span class="comment"># 1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exgcd</span>(<span class="params">a, b</span>):</span> <span class="comment"># 扩展欧几里得算法，求ua+vb=gcd(a,b)中的u,v</span></span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span>:</span><br><span class="line">		u, v = <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">		<span class="keyword">return</span> (u, v)</span><br><span class="line">	<span class="keyword">if</span> a &lt; b:</span><br><span class="line">		a, b = b, a</span><br><span class="line">	u, v = exgcd(b, a%b)</span><br><span class="line">	u, v = v, u - a // b * v</span><br><span class="line">	<span class="keyword">return</span> (u, v)</span><br><span class="line"></span><br><span class="line">u, v = exgcd(e1, e2)</span><br><span class="line"><span class="built_in">print</span>(u, v)</span><br><span class="line">m = gmpy2.powmod(c1, u, n) * gmpy2.powmod(c2, v, n) % n</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
+<p>得到 flag : flag{49d91077a1abcb14f1a9d546c80be9ef}</p>
+<h2 id="世上无难事">世上无难事</h2>
+<p>题目给了一串字符： VIZZB IFIUOJBWO NVXAP OBC XZZ UKHVN IFIUOJBWO HB XVIXW XAW VXFI X QIXN VBD KQ IFIUOJBWO WBKAH NBWXO VBD XJBCN NKG QLKEIU DI XUI VIUI DKNV QNCWIANQ XN DXPIMKIZW VKHV QEVBBZ KA XUZKAHNBA FKUHKAKX XAW DI VXFI HBN QNCWIANQ NCAKAH KA MUBG XZZ XEUBQQ XGIUKEX MUBG PKAWIUHXUNIA NVUBCHV 12NV HUXWI XAW DI XUI SCQN QB HZXW NVXN XZZ EBCZW SBKA CQ NBWXO XAW DI DXAN NB NVXAP DXPIMKIZW MBU JIKAH QCEV XA BCNQNXAWKAH VBQN HKFI OBCUQIZFIQ X JKH UBCAW BM XLLZXCQI XAW NVI PIO KQ 640I11012805M211J0XJ24MM02X1IW09 不知道是什么，猜想为替换密码，尝试爆破：<a target="_blank" rel="noopener" href="https://quipqiup.com/">https://quipqiup.com/</a> 得到结果： <img data-src="https://img-blog.csdnimg.cn/2021040419230693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> flag 为 640E11012805F211B0AB24FF02A1ED09 再将大写字母替换成小写字母： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">key = <span class="string">&#x27;640E11012805F211B0AB24FF02A1ED09&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(key)):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>) &lt;= <span class="built_in">ord</span>(key[i]) &lt;= <span class="built_in">ord</span>(<span class="string">&#x27;Z&#x27;</span>):</span><br><span class="line">        flag += <span class="built_in">chr</span>(<span class="built_in">ord</span>(key[i]) - <span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>) + <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += key[i]</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure></p>
 <h2 id="结语">结语</h2>
-<p>总算水完了（？） 比赛打完了，这两天天写写作业，摆弄摆弄博客，玩玩胶就把清明假期过去了 <img data-src="https://img-blog.csdnimg.cn/20210403221649822.png" alt="在这里插入图片描述" /> 希望能坚持</p>
+<p>已经4号了，GO语言还没开始学（咕咕咕） 希望继续坚持</p>
 
       
     </div>
@@ -270,7 +266,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/67/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><span class="page-number current">68</span><a class="page-number" href="/page/69/">69</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/69/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/67/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><span class="page-number current">68</span><a class="page-number" href="/page/69/">69</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/69/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -338,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -367,7 +363,7 @@
     <h3 class="widget-title">标签云</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/" rel="tag">Crypto</a><span class="tag-list-count">73</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag">数学分析</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/" rel="tag">Crypto</a><span class="tag-list-count">74</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag">数学分析</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>

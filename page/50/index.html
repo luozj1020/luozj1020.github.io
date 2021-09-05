@@ -192,7 +192,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/21/week4/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-21/">
+    <link itemprop="mainEntityOfPage" href="https://luozj1020.github.io/uncategorized/2021/04/22/week4/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -206,7 +206,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/uncategorized/2021/04/21/week4/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-21/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-21</a>
+            <a href="/uncategorized/2021/04/22/week4/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-4-22/" class="post-title-link" itemprop="url">BUUCTF 每日打卡 2021-4-22</a>
         </h2>
 
         <div class="post-meta">
@@ -216,14 +216,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-04-21 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-21T00:00:00+08:00">2021-04-21</time>
+              <time title="创建时间：2021-04-22 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-22T00:00:00+08:00">2021-04-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-31 06:46:08" itemprop="dateModified" datetime="2021-08-31T06:46:08+08:00">2021-08-31</time>
+                <time title="修改时间：2021-08-31 06:46:18" itemprop="dateModified" datetime="2021-08-31T06:46:18+08:00">2021-08-31</time>
               </span>
 
           
@@ -237,21 +237,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="buuctf-每日打卡">2021-4-21 BUUCTF 每日打卡</h1>
+          <h1 id="buuctf-每日打卡-2021-4-22">BUUCTF 每日打卡 2021-4-22</h1>
 <h2 id="引言">引言</h2>
 <p>无</p>
-<h2 id="yxx">yxx</h2>
-<p>题目给了一个密文、一个明文 密文一堆乱码 明文：lovelovelovelovelovelovelovelove 联想到之前做过的一道题：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52446095/article/details/115464659?spm=1001.2014.3001.5501">异性相吸</a> 大概又是要做异或操作 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">key = <span class="string">&#x27;lovelovelovelovelovelovelovelove&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&#x27;密文.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    m = f.read()</span><br><span class="line"></span><br><span class="line">c = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(m)):</span><br><span class="line">    c += <span class="built_in">chr</span>(<span class="built_in">ord</span>(m[i]) ^ <span class="built_in">ord</span>(key[i]))</span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
-<p>结果为：flag:nctf{xor_xor_xor_biueiubiu} 但是怎么都不对 找到大佬的 <a target="_blank" rel="noopener" href="https://www.codeleading.com/article/51553078742/">wp</a> 结果为：flag:nctf{xor_xor_xor_biubiubiu} 啊这 感觉也没什么不对的啊</p>
-<h2 id="babyrsa">babyrsa</h2>
-<p>一道非常基础的 RSA 题 n 不长，可以爆破 <img data-src="https://img-blog.csdnimg.cn/20210421214054795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">c = <span class="number">28767758880940662779934612526152562406674613203406706867456395986985664083182</span></span><br><span class="line">n = <span class="number">73069886771625642807435783661014062604264768481735145873508846925735521695159</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">p = <span class="number">189239861511125143212536989589123569301</span></span><br><span class="line">q = <span class="number">386123125371923651191219869811293586459</span></span><br><span class="line"></span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
-<p>结果为：wctf2020{just_<span class="citation" data-cites="_piece_0f_cak3">@_piece_0f_cak3</span>}</p>
-<h2 id="rsa4">RSA4</h2>
-<p>附件给了三对 N 和 c 猜测是广播攻击 但是，怎么没有 e 果断找 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44017838/article/details/105058745">wp</a>（擦汗） 啊这 原来给的是五进制数吗 猜想 e=3 是什么操作？ 不过每对 N 和 c 都相差一位，e 也不会达到哪去就是了。。。 至于 CRT 算法，懒得写了，直接用 sagemath 封装好的 <img data-src="https://img-blog.csdnimg.cn/20210421220158328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 求出了 m <img data-src="https://img-blog.csdnimg.cn/20210421220221500.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 得到结果</p>
+<h2 id="浪里淘沙">浪里淘沙</h2>
+<p>题目描述： <img data-src="https://img-blog.csdnimg.cn/20210422202220495.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 附件内容： <img data-src="https://img-blog.csdnimg.cn/20210422202243579.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 一脸懵逼 答案见 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44017838/article/details/104888540">wp</a>[doge]</p>
+<h2 id="vigenère">Vigenère</h2>
+<p>维吉尼亚密码 不管，直接<a target="_blank" rel="noopener" href="https://www.guballa.de/vigenere-solver">爆破</a> 答案： <img data-src="https://img-blog.csdnimg.cn/20210422202410305.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+<h2 id="这是什么觅">这是什么觅🐎</h2>
+<p><img data-src="https://img-blog.csdnimg.cn/20210422204405934.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 扫了二维码，什么都没发现 附件没有后缀 用 010editor 打开 <img data-src="https://img-blog.csdnimg.cn/20210422204956382.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 发现是 zip 文件 后缀名改为 .zip <img data-src="https://img-blog.csdnimg.cn/20210422205124431.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /> 内容是一张图片 右下角的数字和字母容易猜测代表 分别代表日历中的列和行 得到的日期，对应字母表中的字母 结果为 calendar</p>
 <h2 id="结语">结语</h2>
-<p>总算把第二页刷完了 希望继续坚持</p>
+<p>希望继续坚持</p>
 
       
     </div>
@@ -270,7 +266,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/49/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><span class="page-number current">50</span><a class="page-number" href="/page/51/">51</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/51/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/49/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><span class="page-number current">50</span><a class="page-number" href="/page/51/">51</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/51/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -338,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -367,7 +363,7 @@
     <h3 class="widget-title">标签云</h3>
     <div id="myCanvasContainer" class="widget tagcloud">
         <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/" rel="tag">Crypto</a><span class="tag-list-count">73</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag">数学分析</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/" rel="tag">Crypto</a><span class="tag-list-count">74</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag">数学分析</a><span class="tag-list-count">1</span></li></ul>
         </canvas>
     </div>
 </div>
