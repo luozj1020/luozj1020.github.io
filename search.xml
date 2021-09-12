@@ -488,7 +488,8 @@ m^e &amp;\equiv c \quad (mod\ q)
   <entry>
     <title>BUUCTF 每日打卡 2021-7-27</title>
     <url>/uncategorized/2021/07/27/vacation_week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-27/</url>
-    <content><![CDATA[<h1 id="引言">引言</h1>
+    <content><![CDATA[<h1 id="buuctf-每日打卡-2021-7-27">BUUCTF 每日打卡 2021-7-27</h1>
+<h2 id="引言">引言</h2>
 <p>无</p>
 <h2 id="actf新生赛2020crypto-des">[ACTF新生赛2020]crypto-des</h2>
 <p>题目给了一串浮点数： <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">72143238992041641000000.000000</span>,</span><br><span class="line"><span class="number">77135357178006504000000000000000.000000</span>,</span><br><span class="line"><span class="number">1125868345616435400000000.000000</span>,</span><br><span class="line"><span class="number">67378029765916820000000.000000</span>,</span><br><span class="line"><span class="number">75553486092184703000000000000.000000</span>,</span><br><span class="line"><span class="number">4397611913739958700000.000000</span>,</span><br><span class="line"><span class="number">76209378028621039000000000000000.000000</span></span><br></pre></td></tr></table></figure> 还有一个提示： To solve the key, Maybe you know some interesting data format about C language? 数据类型？double？有什么用啊？ 还有一个加密的压缩包，试了试爆破，没成功 直接找<a href="https://blog.csdn.net/MikeCoke/article/details/113796480">wp</a>，原来考的是关于数据在内存中的存储（完全不会呢） 对wp中的解题代码做了一些修改：</p>
@@ -507,7 +508,8 @@ m^e &amp;\equiv c \quad (mod\ q)
   <entry>
     <title>BUUCTF 每日打卡 2021-7-29</title>
     <url>/uncategorized/2021/07/29/vacation_week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-29/</url>
-    <content><![CDATA[<h1 id="引言">引言</h1>
+    <content><![CDATA[<h1 id="buuctf-每日打卡-2021-7-29">BUUCTF 每日打卡 2021-7-29</h1>
+<h2 id="引言">引言</h2>
 <p>原本以为今天能把1分题刷完的，结果又多了几个，淦</p>
 <h2 id="afctf2018one-secret-two-encryption">[AFCTF2018]One Secret, Two encryption</h2>
 <p>题面： 一份秘密发送给两个人不太好吧，那我各自加密一次好啦~~~ 素数生成好慢呀 偷个懒也……不会有问题的吧？</p>
@@ -535,7 +537,8 @@ m^e &amp;\equiv c \quad (mod\ q)
   <entry>
     <title>BUUCTF 每日打卡 2021-7-31</title>
     <url>/uncategorized/2021/07/31/vacation_week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-31/</url>
-    <content><![CDATA[<h1 id="引言">引言</h1>
+    <content><![CDATA[<h1 id="buuctf-每日打卡-2021-7-31">BUUCTF 每日打卡 2021-7-31</h1>
+<h2 id="引言">引言</h2>
 <p>打了一天i春秋云上巅峰赛，没爆零，还行</p>
 <h2 id="afctf2018tiny-lfsr">[AFCTF2018]Tiny LFSR</h2>
 <p>加密代码如下：</p>
@@ -560,7 +563,8 @@ m^e &amp;\equiv c \quad (mod\ q)
   <entry>
     <title>BUUCTF 每日打卡 2021-8-1</title>
     <url>/uncategorized/2021/08/01/vacation_week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-8-1/</url>
-    <content><![CDATA[<h1 id="引言">引言</h1>
+    <content><![CDATA[<h1 id="buuctf-每日打卡-2021-8-1">BUUCTF 每日打卡 2021-8-1</h1>
+<h2 id="引言">引言</h2>
 <p>无</p>
 <h2 id="i春秋云上巅峰赛mediclimage">[2021i春秋云上巅峰赛]MediclImage</h2>
 <p>题面： <img data-src="https://img-blog.csdnimg.cn/c2d9b802cecf42bcbf2337c75596ffd7.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MjQ0NjA5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /> 加密代码如下：</p>
@@ -1189,7 +1193,7 @@ m_{2} \equiv c^{dq} \space mod \space q
       </tags>
   </entry>
   <entry>
-    <title>BUUCTF 每日打卡 2021-9-5</title>
+    <title></title>
     <url>/uncategorized/2021/09/05/vacation_week6-7/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-9-5/</url>
     <content><![CDATA[<h1 id="buuctf-每日打卡-2021-9-5">BUUCTF 每日打卡 2021-9-5</h1>
 <p>﻿## 引言</p>
@@ -2091,7 +2095,8 @@ m^{14} \equiv c_{2}^{d_2}  \space mod \space q_2 \cdots(4)
   <entry>
     <title>BUUCTF 每日打卡 2021-7-26</title>
     <url>/uncategorized/2021/07/26/vacation_week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-26/</url>
-    <content><![CDATA[<h1 id="引言">引言</h1>
+    <content><![CDATA[<h1 id="buuctf-每日打卡-2021-7-26">BUUCTF 每日打卡 2021-7-26</h1>
+<h2 id="引言">引言</h2>
 <p>填坑</p>
 <h2 id="watevrctf-2019swedish-rsa">[watevrCTF 2019]Swedish RSA</h2>
 <p>加密代码如下： <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">flag = <span class="built_in">bytearray</span>(raw_input())</span><br><span class="line">flag = <span class="built_in">list</span>(flag)</span><br><span class="line">length = <span class="built_in">len</span>(flag)</span><br><span class="line">bits = <span class="number">16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Prime for Finite Field.</span></span><br><span class="line">p = random_prime(<span class="number">2</span>^bits-<span class="number">1</span>, <span class="literal">False</span>, <span class="number">2</span>^(bits-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">file_out = <span class="built_in">open</span>(<span class="string">&quot;downloads/polynomial_rsa.txt&quot;</span>, <span class="string">&quot;w&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;Prime: &quot;</span> + <span class="built_in">str</span>(p) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## Univariate Polynomial Ring in y over Finite Field of size p</span></span><br><span class="line">R.&lt;y&gt; = PolynomialRing(GF(p))</span><br><span class="line"></span><br><span class="line"><span class="comment">## Analogous to the primes in Z</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_irreducable_poly</span>(<span class="params">deg</span>):</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        out = R.random_element(degree=deg)</span><br><span class="line">        <span class="keyword">if</span> out.is_irreducible():</span><br><span class="line">            <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="comment">## Polynomial &quot;primes&quot;</span></span><br><span class="line">P = gen_irreducable_poly(ZZ.random_element(length, <span class="number">2</span>*length))</span><br><span class="line">Q = gen_irreducable_poly(ZZ.random_element(length, <span class="number">2</span>*length))</span><br><span class="line"></span><br><span class="line"><span class="comment">## Public exponent key</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Modulus</span></span><br><span class="line">N = P*Q</span><br><span class="line">file_out.write(<span class="string">&quot;Modulus: &quot;</span> + <span class="built_in">str</span>(N) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## Univariate Quotient Polynomial Ring in x over Finite Field of size 659 with modulus N(x)</span></span><br><span class="line">S.&lt;x&gt; = R.quotient(N)</span><br><span class="line"></span><br><span class="line"><span class="comment">## Encrypt</span></span><br><span class="line">m = S(flag)</span><br><span class="line">c = m^e</span><br><span class="line"></span><br><span class="line">file_out.write(<span class="string">&quot;Ciphertext: &quot;</span> + <span class="built_in">str</span>(c))</span><br><span class="line">file_out.close()</span><br></pre></td></tr></table></figure> 给了密文和公钥：</p>
@@ -2108,7 +2113,8 @@ m^{14} \equiv c_{2}^{d_2}  \space mod \space q_2 \cdots(4)
   <entry>
     <title>BUUCTF 每日打卡 2021-7-28</title>
     <url>/uncategorized/2021/07/28/vacation_week3/BUUCTF%20%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%202021-7-28/</url>
-    <content><![CDATA[<h1 id="引言">引言</h1>
+    <content><![CDATA[<h1 id="buuctf-每日打卡-2021-7-28">BUUCTF 每日打卡 2021-7-28</h1>
+<h2 id="引言">引言</h2>
 <p>无</p>
 <h2 id="de1ctf2019xorz">[De1CTF2019]xorz</h2>
 <p>加密代码如下：</p>
